@@ -7,9 +7,12 @@ import { applyTranslations } from './i18n.js';
 import { initStream } from './stream.js';
 
 const TEAM_LABELS = {
-  lol:  { label: 'League of Legends', icon: '/assets/images/lol_logo.png' },
-  rl:   { label: 'Rocket League',     icon: '/assets/images/rl_logo.png'  },
-  eva:  { label: 'EVA',               icon: '/assets/images/games/eva.svg' },
+  lol:      { label: 'League of Legends', icon: '/assets/images/lol_logo.png'  },
+  rl:       { label: 'Rocket League',     icon: '/assets/images/rl_logo.png'   },
+  eva:      { label: 'EVA',               icon: '/assets/images/games/eva.svg' },
+  valorant: { label: 'Valorant',          icon: '' },
+  cs2:      { label: 'CS2',              icon: '' },
+  eafc:     { label: 'EA FC',            icon: '' },
 };
 
 let allResults = [];
@@ -42,8 +45,8 @@ async function loadResults() {
   try {
     const { data, error } = await supabase
       .from('results')
-      .select('*')
-      .order('match_date', { ascending: false });
+      .select('*, teams(id, name, game)')
+      .order('played_at', { ascending: false });
 
     if (error) throw error;
     allResults = data || [];
@@ -60,7 +63,7 @@ function renderTimeline() {
 
   const filtered = currentFilter === 'all'
     ? allResults
-    : allResults.filter(r => r.team_slug === currentFilter);
+    : allResults.filter(r => r.teams?.game === currentFilter);
 
   if (filtered.length === 0) {
     container.innerHTML = `
@@ -79,7 +82,7 @@ function renderTimeline() {
   const items = [];
 
   filtered.forEach((r, idx) => {
-    const date = new Date(r.match_date);
+    const date = new Date(r.played_at);
     const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
     const monthLabel = date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
 
@@ -88,23 +91,25 @@ function renderTimeline() {
       lastMonth = monthKey;
     }
 
-    const teamInfo = TEAM_LABELS[r.team_slug] || { label: r.team_slug, icon: '' };
-    const outcome  = r.outcome || 'draw';
-    const dateStr  = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+    const gameKey  = r.teams?.game ?? '';
+    const teamInfo = TEAM_LABELS[gameKey] || { label: r.teams?.name ?? gameKey, icon: '' };
+    // Derive outcome from generated is_win + scores
+    const oc      = r.is_win ? 'win' : (r.score_us === r.score_them ? 'draw' : 'loss');
+    const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 
     const scoreHtml = (r.score_us !== null && r.score_them !== null)
       ? `<span class="timeline-card__score">${r.score_us} <span>–</span> ${r.score_them}</span>`
       : '';
 
     items.push(`
-      <div class="timeline-item timeline-item--${outcome}" data-team="${escHtml(r.team_slug || '')}">
+      <div class="timeline-item timeline-item--${oc}" data-team="${escHtml(gameKey)}">
         <div class="timeline-item__left">
-          <time class="timeline-date" datetime="${escHtml(r.match_date || '')}">${escHtml(dateStr)}</time>
+          <time class="timeline-date" datetime="${escHtml(r.played_at || '')}">${escHtml(dateStr)}</time>
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-card">
           <div class="timeline-card__top">
-            <span class="timeline-card__outcome timeline-card__outcome--${outcome}">${outcomeLabel(outcome)}</span>
+            <span class="timeline-card__outcome timeline-card__outcome--${oc}">${outcomeLabel(oc)}</span>
             ${teamInfo.icon ? `<img src="${teamInfo.icon}" alt="${escHtml(teamInfo.label)}" width="16" height="16" class="timeline-card__game-icon" />` : ''}
             <span class="timeline-card__game">${escHtml(teamInfo.label)}</span>
           </div>
@@ -113,7 +118,7 @@ function renderTimeline() {
             ${scoreHtml}
           </div>
           ${r.tournament ? `<div class="timeline-card__tournament">${escHtml(r.tournament)}</div>` : ''}
-          ${r.notes ? `<div class="timeline-card__notes">${escHtml(r.notes)}</div>` : ''}
+          ${r.stage ? `<div class="timeline-card__notes">${escHtml(r.stage)}</div>` : ''}
         </div>
       </div>
     `);

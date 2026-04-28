@@ -7,11 +7,15 @@ initNavbar();
 
 document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-const gameSlug = document.body.dataset.game; // 'lol' or 'rl'
+const gameSlug = document.body.dataset.game; // 'lol', 'rl', 'eva', etc.
 
 const GAME_LABELS = {
-  lol: 'League of Legends',
-  rl:  'Rocket League',
+  lol:      'League of Legends',
+  rl:       'Rocket League',
+  eva:      'EVA',
+  valorant: 'Valorant',
+  cs2:      'CS2',
+  eafc:     'EA FC',
 };
 
 async function loadTeam() {
@@ -48,14 +52,14 @@ async function loadTeam() {
   grid.innerHTML = players.map(p => `
     <div class="player-card">
       <div class="player-card__avatar">
-        ${p.avatar_url
-          ? `<img src="${p.avatar_url}" alt="${p.pseudo}" loading="lazy" />`
-          : `<span>${p.pseudo.charAt(0).toUpperCase()}</span>`}
+        ${p.photo_url
+          ? `<img src="${p.photo_url}" alt="${p.nickname}" loading="lazy" />`
+          : `<span>${(p.nickname ?? '?').charAt(0).toUpperCase()}</span>`}
       </div>
       <div class="player-card__info">
-        <p class="player-card__pseudo">${p.pseudo}</p>
-        ${p.role   ? `<p class="player-card__role">${p.role}</p>` : ''}
-        ${p.full_name ? `<p class="player-card__name">${p.full_name}</p>` : ''}
+        <p class="player-card__pseudo">${p.nickname ?? ''}</p>
+        ${p.role      ? `<p class="player-card__role">${p.role}</p>` : ''}
+        ${p.real_name ? `<p class="player-card__name">${p.real_name}</p>` : ''}
       </div>
     </div>
   `).join('');
