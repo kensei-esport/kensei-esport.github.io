@@ -409,5 +409,24 @@
   </footer>  <script type="module" src="js/loader.js"></script>
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/home.js"></script>
+
+  <!-- ── Article Modal ── -->
+  <div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-label="Article">
+    <div class="article-modal__backdrop" onclick="closeArticleModal()"></div>
+    <div class="am__panel">
+      <div class="am__cover">
+        <button class="am__close" onclick="closeArticleModal()" aria-label="Fermer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="am__body">
+        <span class="am__tag"></span>
+        <h2 class="am__title"></h2>
+        <p class="am__meta"></p>
+        <p class="am__excerpt"></p>
+        <div class="am__content"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
