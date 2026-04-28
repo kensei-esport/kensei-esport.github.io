@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /pages/dashboard.html
+Disallow: /pages/fan.html
+Disallow: /pages/login.html
+Disallow: /pages/setup.html
+
+Sitemap: https://kensei-esport.github.io/sitemap.xml
