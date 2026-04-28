@@ -345,7 +345,8 @@ function setLang(lang) {
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    el.textContent = t(key);
+    const val = t(key);
+    if (val !== key) el.textContent = val;  // Ne pas écraser si la clé est introuvable
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     el.placeholder = t(el.dataset.i18nPlaceholder);

@@ -7,8 +7,8 @@ import { applyTranslations } from './i18n.js';
 import { initStream } from './stream.js';
 
 const TEAM_LABELS = {
-  lol:  { label: 'League of Legends', icon: '/assets/images/games/lol.svg' },
-  rl:   { label: 'Rocket League',     icon: '/assets/images/games/rl.svg'  },
+  lol:  { label: 'League of Legends', icon: '/assets/images/lol_logo.png' },
+  rl:   { label: 'Rocket League',     icon: '/assets/images/rl_logo.png'  },
   eva:  { label: 'EVA',               icon: '/assets/images/games/eva.svg' },
 };
 
