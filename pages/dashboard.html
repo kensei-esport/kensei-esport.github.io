@@ -2,8 +2,6 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
-  <meta http-equiv="X-Frame-Options" content="DENY" /><meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Dashboard — Kensei Esport</title>
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
@@ -44,38 +42,53 @@
 
   <main class="section">
     <div class="container">
+      <div style="margin-bottom:2rem">
+        <p class="section__label" data-i18n="dash_title">Mon espace</p>
+        <h1 id="dashGreeting">Bienvenue</h1>
+      </div>
+
       <div class="dash-grid">
 
-        <!-- Profile card -->
-        <div class="dash-card dash-card--profile">
-          <div class="dash-profile__avatar">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <!-- Fan Card -->
+        <div class="dash-card" style="grid-column:span 2">
+          <p class="dash-card__label" style="margin-bottom:1.25rem">♦ Ta carte de fan</p>
+          <div class="fan-card" id="fanCard">
+            <div class="fan-card__header">
+              <img class="fan-card__logo" src="/assets/images/orange_logo.png" alt="Kensei" />
+              <span class="fan-card__org">KENSEI ESPORT</span>
+              <span class="fan-card__badge" id="fanIdBadge">KS-????-??????</span>
+            </div>
+            <div class="fan-card__body">
+              <div class="fan-card__avatar" id="fanCardAvatar">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+              </div>
+              <div class="fan-card__info">
+                <div class="fan-card__username" id="fanCardUsername">@…</div>
+                <div class="fan-card__displayname" id="fanCardDisplayName">…</div>
+                <div class="fan-card__meta">
+                  <span class="fan-card__since" id="fanCardSince">Fan depuis —</span>
+                  <span class="fan-card__game" id="fanCardGame">—</span>
+                </div>
+              </div>
+              <div class="fan-card__qr">
+                <img id="fanQrImg" src="" alt="QR Code profil" width="100" height="100" loading="lazy" />
+                <p class="fan-card__scan">Scanner</p>
+              </div>
+            </div>
           </div>
-          <div id="dashAccountUsername" class="dash-profile__username">@…</div>
-          <div id="dashEmail" class="dash-profile__email"></div>
-        </div>
-
-        <!-- Fan since -->
-        <div class="dash-card">
-          <p class="dash-card__label" data-i18n="dash_member_since">Fan depuis</p>
-          <p class="dash-card__value" id="dashFanSince">—</p>
-        </div>
-
-        <!-- Fav game -->
-        <div class="dash-card">
-          <p class="dash-card__label" data-i18n="dash_fav_game">Jeu favori</p>
-          <p class="dash-card__value" id="dashFavGame">—</p>
-        </div>
-
-        <!-- Bio (hidden until loaded) -->
-        <div class="dash-card" hidden>
-          <p class="dash-card__label">Bio</p>
-          <p class="dash-card__value" id="dashBio" style="font-family:var(--font-body);font-weight:400;font-size:.92rem;color:var(--text-secondary)"></p>
         </div>
 
         <!-- Actions -->
         <div class="dash-card dash-card--actions">
+          <p class="dash-card__label" data-i18n="dash_actions">Actions</p>
+          <a href="/pages/setup.html" class="btn btn--ghost btn--sm" style="margin-bottom:.5rem" data-i18n="dash_edit_profile">Modifier le profil</a>
           <button class="btn btn--ghost btn--sm" id="logoutBtn" data-i18n="nav_logout">Se déconnecter</button>
+        </div>
+
+        <!-- Public link -->
+        <div class="dash-card">
+          <p class="dash-card__label">Lien public</p>
+          <a id="fanPublicLink" href="#" target="_blank" rel="noopener" class="dash-card__value" style="font-size:.82rem;word-break:break-all">kensei-esport.github.io/pages/fan.html?u=…</a>
         </div>
 
       </div>

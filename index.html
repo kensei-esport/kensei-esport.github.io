@@ -54,31 +54,17 @@
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
           </button>
           <div class="nav-dropdown nav-dropdown--mega" role="menu">
-            <span class="nav-dropdown__section" data-i18n="nav_teams">Nos équipes</span>
-            <div class="nav-dropdown__divider"></div>
             <a href="/pages/teams.html" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+              <span class="nav-dropdown__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
               <span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes les équipes</strong></span>
             </a>
-            <a href="/pages/teams.html#valorant" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><img src="/assets/images/games/valorant.svg" alt="Valorant" width="20" height="20" onerror="this.style.opacity='0'" /></span>
-              <span class="nav-dropdown__text"><strong data-i18n="teams_valorant">Valorant</strong></span>
+            <a href="/pages/team-lol.html" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon"><img src="/assets/images/games/lol.svg" alt="League of Legends" width="20" height="20" /></span>
+              <span class="nav-dropdown__text"><strong>League of Legends</strong></span>
             </a>
-            <a href="/pages/teams.html#lol" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><img src="/assets/images/games/lol.svg" alt="League of Legends" width="20" height="20" onerror="this.style.opacity='0'" /></span>
-              <span class="nav-dropdown__text"><strong data-i18n="teams_lol">League of Legends</strong></span>
-            </a>
-            <a href="/pages/teams.html#rl" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><img src="/assets/images/games/rl.svg" alt="Rocket League" width="20" height="20" onerror="this.style.opacity='0'" /></span>
-              <span class="nav-dropdown__text"><strong data-i18n="teams_rl">Rocket League</strong></span>
-            </a>
-            <a href="/pages/teams.html#cs2" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><img src="/assets/images/games/cs2.svg" alt="CS2" width="20" height="20" onerror="this.style.opacity='0'" /></span>
-              <span class="nav-dropdown__text"><strong data-i18n="teams_cs2">CS2</strong></span>
-            </a>
-            <a href="/pages/teams.html#fifa" class="nav-dropdown__link" role="menuitem">
-              <span class="nav-dropdown__icon"><img src="/assets/images/games/eafc.svg" alt="EA FC" width="20" height="20" onerror="this.style.opacity='0'" /></span>
-              <span class="nav-dropdown__text"><strong data-i18n="teams_fifa">EA FC</strong></span>
+            <a href="/pages/team-rl.html" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon"><img src="/assets/images/games/rl.svg" alt="Rocket League" width="20" height="20" /></span>
+              <span class="nav-dropdown__text"><strong>Rocket League</strong></span>
             </a>
           </div>
         </li>
@@ -190,12 +176,9 @@
           <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
         </button>
         <div class="mobile-nav-sub">
-          <a href="/pages/teams.html" data-i18n="teams_all">Toutes les équipes</a>
-          <a href="/pages/teams.html#valorant" data-i18n="teams_valorant">Valorant</a>
-          <a href="/pages/teams.html#lol" data-i18n="teams_lol">League of Legends</a>
-          <a href="/pages/teams.html#rl" data-i18n="teams_rl">Rocket League</a>
-          <a href="/pages/teams.html#cs2" data-i18n="teams_cs2">CS2</a>
-          <a href="/pages/teams.html#fifa" data-i18n="teams_fifa">EA FC</a>
+          <a href="/pages/teams.html">Toutes les équipes</a>
+          <a href="/pages/team-lol.html">League of Legends</a>
+          <a href="/pages/team-rl.html">Rocket League</a>
         </div>
       </li>
       <li class="mobile-nav-item">
@@ -294,24 +277,22 @@
   ══════════════════════════════════════════════ -->
   <div class="teams-strip" aria-label="Nos équipes">
     <div class="teams-strip__row">
-      <a href="/pages/teams.html#valorant" class="team-pill">
-        <span class="team-pill__ico"><img src="/assets/images/games/valorant.svg" alt="" width="18" height="18" onerror="this.style.opacity='0'" /></span>
-        <span class="team-pill__info">
-          <span class="team-pill__name">Kensei Valorant</span>
-          <span class="team-pill__game">Valorant</span>
-        </span>
-      </a>
-      <a href="/pages/teams.html#lol" class="team-pill">
-        <span class="team-pill__ico"><img src="/assets/images/games/lol.svg" alt="" width="18" height="18" onerror="this.style.opacity='0'" /></span>
+      <a href="/pages/team-lol.html" class="team-pill">
+        <span class="team-pill__ico"><img src="/assets/images/games/lol.svg" alt="" width="18" height="18" /></span>
         <span class="team-pill__info">
           <span class="team-pill__name">Kensei LoL</span>
           <span class="team-pill__game">League of Legends</span>
         </span>
       </a>
-      <a href="/pages/teams.html#rl" class="team-pill">
-        <span class="team-pill__ico"><img src="/assets/images/games/rl.svg" alt="" width="18" height="18" onerror="this.style.opacity='0'" /></span>
+      <a href="/pages/team-rl.html" class="team-pill">
+        <span class="team-pill__ico"><img src="/assets/images/games/rl.svg" alt="" width="18" height="18" /></span>
         <span class="team-pill__info">
           <span class="team-pill__name">Kensei Rocket</span>
+          <span class="team-pill__game">Rocket League</span>
+        </span>
+      </a>
+    </div>
+  </div>
           <span class="team-pill__game">Rocket League</span>
         </span>
       </a>
@@ -407,11 +388,8 @@
         <div>
           <p class="footer__col-title" data-i18n="footer_games">Jeux</p>
           <ul class="footer__links">
-            <li><a href="/pages/teams.html#valorant" data-i18n="teams_valorant">Valorant</a></li>
-            <li><a href="/pages/teams.html#lol" data-i18n="teams_lol">League of Legends</a></li>
-            <li><a href="/pages/teams.html#rl" data-i18n="teams_rl">Rocket League</a></li>
-            <li><a href="/pages/teams.html#cs2" data-i18n="teams_cs2">CS2</a></li>
-            <li><a href="/pages/teams.html#fifa" data-i18n="teams_fifa">EA FC</a></li>
+            <li><a href="/pages/team-lol.html">League of Legends</a></li>
+            <li><a href="/pages/team-rl.html">Rocket League</a></li>
           </ul>
         </div>
         <!-- Legal -->

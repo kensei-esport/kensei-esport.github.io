@@ -7,54 +7,65 @@ initNavbar();
 
 document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-const form = document.getElementById('contactForm');
+const form       = document.getElementById('contactForm');
+const successEl  = document.getElementById('formSuccess');
+const errorEl    = document.getElementById('formError');
+const errorMsgEl = document.getElementById('formErrorMsg');
+const submitBtn  = document.getElementById('submitBtn');
+
 if (!form) throw new Error('contactForm not found');
+
+function showSuccess() {
+  successEl.hidden = false;
+  errorEl.hidden   = true;
+}
+function showError(msg) {
+  if (errorMsgEl) errorMsgEl.textContent = msg;
+  errorEl.hidden   = false;
+  successEl.hidden = true;
+}
+function clearMsgs() {
+  successEl.hidden = true;
+  errorEl.hidden   = true;
+}
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  clearMsgs();
+  submitBtn.disabled = true;
 
-  const btn = document.getElementById('contactBtn');
-  const errEl = document.getElementById('contactError');
-  const successEl = document.getElementById('contactSuccess');
+  const name    = document.getElementById('name').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value;
+  const message = document.getElementById('message').value.trim();
 
-  errEl.textContent = '';
-  successEl.textContent = '';
-  btn.disabled = true;
-
-  const name = document.getElementById('cName').value.trim();
-  const email = document.getElementById('cEmail').value.trim();
-  const subject = document.getElementById('cSubject').value;
-  const message = document.getElementById('cMsg').value.trim();
-
-  // Basic validation at boundary
   if (!name || !email || !subject || !message) {
-    errEl.textContent = t('contact_error_required') || 'Veuillez remplir tous les champs.';
-    btn.disabled = false;
+    showError(t('auth_fill'));
+    submitBtn.disabled = false;
     return;
   }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
-    errEl.textContent = t('contact_error_email') || 'Adresse e-mail invalide.';
-    btn.disabled = false;
+    showError('Adresse e-mail invalide.');
+    submitBtn.disabled = false;
     return;
   }
 
   const { error } = await supabase
     .from('contact_messages')
     .insert([{
-      name: escapeHtml(name),
-      email: escapeHtml(email),
+      name:    escapeHtml(name),
+      email:   escapeHtml(email),
       subject: escapeHtml(subject),
-      message: escapeHtml(message)
+      message: escapeHtml(message),
     }]);
 
   if (error) {
-    errEl.textContent = t('contact_error_send') || 'Une erreur est survenue. Veuillez réessayer.';
-    btn.disabled = false;
+    showError(t('contact_error'));
   } else {
     form.reset();
-    successEl.textContent = t('contact_success') || 'Message envoyé avec succès. Nous vous répondrons rapidement.';
-    btn.disabled = false;
+    showSuccess();
   }
+  submitBtn.disabled = false;
 });

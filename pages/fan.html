@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil fan — Kensei Esport</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
+</head>
+<body>
+  <div id="siteLoader" class="site-loader" aria-hidden="true">
+    <div class="loader__inner">
+      <img class="loader__logo" src="/assets/images/orange_logo.png" alt="" />
+      <span class="loader__wordmark">KENSEI</span>
+      <div class="loader__bar-wrap"><div class="loader__bar"></div></div>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('k_loaded')){var _l=document.getElementById('siteLoader');if(_l)_l.style.display='none';}</script>
+
+  <nav class="navbar" role="navigation">
+    <div class="navbar__inner">
+      <a href="/index.html" class="navbar__logo"><img src="../assets/images/orange_logo.png" alt="Kensei" /><span class="navbar__logo-name">KENSEI</span></a>
+      <ul class="navbar__links">
+        <li class="nav-item nav-item--link"><a href="/index.html" class="nav-item__trigger" data-i18n="nav_home">Accueil</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/teams.html" class="nav-item__trigger" data-i18n="nav_teams">Teams</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/shop.html" class="nav-item__trigger" data-i18n="nav_shop">Shop</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/about.html" class="nav-item__trigger" data-i18n="nav_about">À propos</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="navbar__right">
+        <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
+        <button class="profile-btn" id="profileBtn"><span class="profile-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></span><span class="profile-name" data-i18n="nav_login">Connexion</span></button>
+      </div>
+      <button class="navbar__burger" id="navBurger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li class="mobile-nav-item"><a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a></li>
+      <li class="mobile-nav-item"><a href="/pages/teams.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_teams">Teams</a></li>
+      <li class="mobile-nav-item"><a href="/pages/shop.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_shop">Shop</a></li>
+      <li class="mobile-nav-item"><a href="/pages/about.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_about">À propos</a></li>
+      <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__bottom">
+      <a href="/pages/login.html" class="btn btn--primary btn--full" data-i18n="nav_login">Connexion</a>
+      <div class="mobile-menu__lang"><div class="mobile-lang-opt" data-lang="fr">FR — Français</div><div class="mobile-lang-opt" data-lang="en">EN — English</div></div>
+    </div>
+  </div>
+
+  <main class="fan-page">
+    <div id="fanProfileWrap">
+      <!-- Fan card rendered by fan.js -->
+      <p class="placeholder">Chargement du profil…</p>
+    </div>
+  </main>
+
+  <script type="module" src="../js/loader.js"></script>
+  <script type="module" src="../js/fan.js"></script>
+</body>
+</html>

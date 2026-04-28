@@ -1,13 +1,22 @@
 import { supabase, requireAuth, logout, escapeHtml } from './auth.js';
 import { applyTranslations, t } from './i18n.js';
+import { initNavbar } from './navbar.js';
 
 applyTranslations();
 
 const session = await requireAuth('/pages/login.html');
 const user    = session.user;
 
-// Year
+initNavbar();
 document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+const GAME_LABELS = {
+  valorant: 'Valorant',
+  lol:      'League of Legends',
+  rl:       'Rocket League',
+  cs2:      'CS2',
+  eafc:     'EA Sports FC',
+};
 
 // Load fan profile
 const { data: profile } = await supabase
@@ -16,43 +25,69 @@ const { data: profile } = await supabase
   .eq('user_id', user.id)
   .maybeSingle();
 
-// If no profile → setup
 if (!profile) { window.location.href = '/pages/setup.html'; }
 
-const displayName = profile?.display_name || profile?.username || user.email.split('@')[0];
-
-// Navbar username
-document.querySelectorAll('#dashUsername').forEach(el => { el.textContent = escapeHtml(displayName); });
+const displayName = escapeHtml(profile.display_name || profile.username || user.email.split('@')[0]);
+const username    = escapeHtml(profile.username);
 
 // Greeting
 const greetEl = document.getElementById('dashGreeting');
-if (greetEl) greetEl.textContent = 'Bienvenue, ' + escapeHtml(displayName);
+if (greetEl) greetEl.textContent = 'Bienvenue, ' + displayName;
 
-// Card: username
-const usernameEl = document.getElementById('dashAccountUsername');
-if (usernameEl) usernameEl.textContent = '@' + escapeHtml(profile.username);
+// Navbar username
+const dashUsernameEl = document.getElementById('dashUsername');
+if (dashUsernameEl) dashUsernameEl.textContent = displayName;
 
-// Card: email
-const emailEl = document.getElementById('dashEmail');
-if (emailEl) emailEl.textContent = escapeHtml(user.email);
+// Fan ID: KS-YYYY-XXXXXX
+const fanYear  = new Date(profile.fan_since || profile.created_at).getFullYear();
+const fanHex   = user.id.replace(/-/g, '').substring(0, 6).toUpperCase();
+const fanId    = `KS-${fanYear}-${fanHex}`;
 
-// Card: fan since
-const sinceEl = document.getElementById('dashFanSince');
+const fanIdEl = document.getElementById('fanIdBadge');
+if (fanIdEl) fanIdEl.textContent = fanId;
+
+// Avatar initials
+const avatarEl = document.getElementById('fanCardAvatar');
+if (avatarEl) {
+  if (profile.avatar_url) {
+    avatarEl.innerHTML = `<img src="${profile.avatar_url}" alt="${username}" />`;
+  } else {
+    const initial = (profile.display_name || profile.username || '?').charAt(0).toUpperCase();
+    avatarEl.innerHTML = `<span>${escapeHtml(initial)}</span>`;
+  }
+}
+
+// Username & display name
+const usernameEl    = document.getElementById('fanCardUsername');
+const displayNameEl = document.getElementById('fanCardDisplayName');
+if (usernameEl)    usernameEl.textContent    = '@' + username;
+if (displayNameEl) displayNameEl.textContent = displayName;
+
+// Fan since
+const sinceEl = document.getElementById('fanCardSince');
 if (sinceEl) {
   const d = new Date(profile.fan_since || profile.created_at);
-  sinceEl.textContent = d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+  sinceEl.textContent = 'Fan depuis ' + d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-// Card: favorite game
-const gameEl = document.getElementById('dashFavGame');
+// Fav game
+const gameEl = document.getElementById('fanCardGame');
 if (gameEl) {
-  const GAME_LABELS = { valorant: 'Valorant', lol: 'League of Legends', cs2: 'CS2', rl: 'Rocket League', eafc: 'EA Sports FC' };
-  gameEl.textContent = GAME_LABELS[profile.favorite_game] ?? t('dash_no_game');
+  gameEl.textContent = GAME_LABELS[profile.favorite_game] ?? '—';
 }
 
-// Card: bio
-const bioEl = document.getElementById('dashBio');
-if (bioEl && profile.bio) { bioEl.textContent = escapeHtml(profile.bio); bioEl.parentElement.hidden = false; }
+// QR code via api.qrserver.com
+const profileUrl = `https://kensei-esport.github.io/pages/fan.html?u=${encodeURIComponent(profile.username)}`;
+const qrUrl      = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&margin=6&data=${encodeURIComponent(profileUrl)}`;
+const qrImg = document.getElementById('fanQrImg');
+if (qrImg) qrImg.src = qrUrl;
+
+// Public link
+const pubLink = document.getElementById('fanPublicLink');
+if (pubLink) {
+  pubLink.href        = profileUrl;
+  pubLink.textContent = profileUrl.replace('https://', '');
+}
 
 // Logout
 const logoutBtn = document.getElementById('logoutBtn');

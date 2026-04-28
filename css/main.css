@@ -2,16 +2,7 @@
    KENSEI ESPORT — Design System v2
    ============================================================ */
 
-/* Alyssum — police principale (fichier local requis : assets/fonts/) */
-@font-face {
-  font-family: 'Alyssum';
-  src: local('Alyssum'),
-       url('/assets/fonts/Alyssum.woff2') format('woff2'),
-       url('/assets/fonts/Alyssum.woff')  format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
+/* Alyssum — fichier non disponible, fallback Rajdhani */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 /* --- Variables --- */
@@ -1239,7 +1230,132 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   color: var(--text-muted);
   margin-top: 0.2rem;
 }
-.dash-card--actions { display: flex; align-items: flex-end; justify-content: flex-end; }
+.dash-card--actions { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+
+
+/* ── Fan Card ──────────────────────────────────────────────── */
+.fan-card {
+  position: relative;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 60%, #0d0d0d 100%);
+  border: 1px solid rgba(255,107,26,.3);
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 1.5rem;
+  max-width: 600px;
+  color: #fff;
+}
+.fan-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 5rem; height: 5rem;
+  background: var(--orange);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  opacity: .9;
+}
+.fan-card__header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.fan-card__logo { width: 28px; height: 28px; object-fit: contain; }
+.fan-card__org {
+  font-family: var(--font-heading);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+.fan-card__badge {
+  margin-left: auto;
+  font-family: monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--orange);
+  background: rgba(255,107,26,.12);
+  border: 1px solid rgba(255,107,26,.35);
+  border-radius: .375rem;
+  padding: .2rem .65rem;
+  letter-spacing: .06em;
+}
+.fan-card__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+.fan-card__avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #222;
+  border: 2px solid var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--orange);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.fan-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.fan-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.fan-card__username {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+}
+.fan-card__displayname {
+  font-size: .78rem;
+  color: rgba(255,255,255,.5);
+}
+.fan-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: .18rem;
+  margin-top: .4rem;
+}
+.fan-card__since,
+.fan-card__game {
+  font-size: .75rem;
+  color: rgba(255,255,255,.45);
+}
+.fan-card__qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  flex-shrink: 0;
+}
+.fan-card__qr img {
+  border-radius: .5rem;
+  background: #fff;
+  padding: 3px;
+  display: block;
+}
+.fan-card__scan {
+  font-size: .62rem;
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+/* Public fan profile page */
+.fan-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+.fan-page .fan-card { margin: auto; }
 
 
 /* ============================================================
