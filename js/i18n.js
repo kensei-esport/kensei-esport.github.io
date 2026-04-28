@@ -38,6 +38,7 @@ const translations = {
     about_values:  'Nos valeurs',
     about_partners:'Partenaires',
     about_join:    'Nous rejoindre',
+    about_stream:  'Live Stream',
     // Hero
     hero_tag:      'Équipe Esport Française',
     hero_title_1:  'FORGÉS POUR',
@@ -184,6 +185,7 @@ const translations = {
     about_values:  'Our values',
     about_partners:'Partners',
     about_join:    'Join us',
+    about_stream:  'Live Stream',
     hero_tag:      'French Esport Organisation',
     hero_title_1:  'FORGED FOR',
     hero_title_2:  'VICTORY',

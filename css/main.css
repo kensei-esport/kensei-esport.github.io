@@ -1381,6 +1381,138 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 .fan-page .fan-card { margin: auto; }
 
 
+/* ── Live dot ──────────────────────────────────────────────── */
+.live-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  flex-shrink: 0;
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+.live-dot--lg { width: 10px; height: 10px; }
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(239,68,68,0); }
+}
+
+/* nav stream button */
+button.nav-dropdown__link {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  color: inherit;
+  font: inherit;
+  transition: background .15s;
+}
+button.nav-dropdown__link:hover { background: var(--clr-surface); }
+button.nav-dropdown__link .nav-dropdown__text { flex: 1; }
+
+/* ── Stream Modal ────────────────────────────────────────────── */
+.stream-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.stream-modal[hidden] { display: none; }
+.stream-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(6px);
+}
+.stream-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 960px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,107,26,.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2rem);
+}
+.stream-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .875rem 1.25rem;
+  background: rgba(255,107,26,.06);
+  border-bottom: 1px solid rgba(255,107,26,.12);
+  gap: 1rem;
+}
+.stream-modal__title {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .14em;
+  color: var(--orange);
+}
+.stream-modal__header-actions {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.stream-modal__close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: .2rem .45rem;
+  border-radius: .25rem;
+  transition: color .15s, background .15s;
+}
+.stream-modal__close:hover { color: #fff; background: rgba(255,255,255,.08); }
+.stream-modal__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.stream-modal__player {
+  flex: 1;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.stream-modal__player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.stream-modal__chat {
+  width: 300px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(255,255,255,.06);
+  background: #0e0e10;
+}
+.stream-modal__chat[hidden] { display: none; }
+/* panel with chat: player doesn't use aspect-ratio, fills remaining space */
+.stream-modal__panel--chat .stream-modal__player {
+  aspect-ratio: unset;
+  height: calc(min(100vh - 8rem, 540px));
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
