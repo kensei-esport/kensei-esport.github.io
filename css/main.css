@@ -913,8 +913,8 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 .product-card__img { aspect-ratio:1; background: var(--surface-2); }
 
 /* Nav dropdown game icon img */
-.nav-dropdown__icon img { width: 20px; height: 20px; object-fit: contain; filter: none; }
-.team-pill__ico img { width: 18px; height: 18px; object-fit: contain; filter: none; }
+.nav-dropdown__icon img { width: auto; max-width: 42px; height: 18px; object-fit: contain; filter: none; }
+.team-pill__ico img { width: auto; max-width: 38px; height: 16px; object-fit: contain; filter: none; }
 
 /* ============================================================
    LOADER — Première visite
