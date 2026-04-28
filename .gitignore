@@ -1,0 +1,26 @@
+# Environnement & secrets
+.env
+.env.*
+!.env.example
+
+# Dépendances
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Éditeurs
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Build outputs
+dist/
+build/

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' https://cdn.jsdelivr.net;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             connect-src 'self' https://*.supabase.co;
+             frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Dashboard — Kensei Esport</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="../index.html" class="navbar__logo">
+        <span>Kensei Esport</span>
+      </a>
+      <ul class="navbar__links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="roster.html">Roster</a></li>
+        <li><a href="results.html">Résultats</a></li>
+      </ul>
+      <div class="navbar__auth">
+        <span id="userEmail" class="navbar__user"></span>
+        <button class="btn btn--outline" id="logoutBtn">Déconnexion</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container section">
+    <h1>Dashboard</h1>
+    <p>Bienvenue, <strong id="userName"></strong> !</p>
+
+    <div class="dashboard-grid">
+      <!-- Sections admin ajoutées ici selon les rôles -->
+      <div class="card">
+        <h2>Roster</h2>
+        <p>Gérer les membres de l'équipe.</p>
+        <a href="roster.html" class="btn btn--primary">Voir le roster</a>
+      </div>
+      <div class="card">
+        <h2>Résultats</h2>
+        <p>Ajouter / modifier les résultats de matchs.</p>
+        <a href="results.html" class="btn btn--primary">Voir les résultats</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

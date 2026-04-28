@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Sécurité : Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' https://cdn.jsdelivr.net;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             connect-src 'self' https://*.supabase.co;
+             frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Kensei Esport</title>
+  <meta name="description" content="Site officiel de l'équipe Kensei Esport" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="navbar__logo">
+        <img src="assets/images/logo.png" alt="Kensei Esport" />
+        <span>Kensei Esport</span>
+      </a>
+      <ul class="navbar__links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="pages/roster.html">Roster</a></li>
+        <li><a href="pages/results.html">Résultats</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+      <div class="navbar__auth" id="navAuth">
+        <a href="pages/login.html" class="btn btn--outline">Connexion</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__content">
+        <h1>Bienvenue chez <span class="highlight">Kensei Esport</span></h1>
+        <p class="hero__subtitle">Compétition. Passion. Excellence.</p>
+        <a href="pages/roster.html" class="btn btn--primary">Découvrir le roster</a>
+      </div>
+    </section>
+
+    <section class="section section--news">
+      <div class="container">
+        <h2>Actualités</h2>
+        <div class="news-grid" id="newsGrid">
+          <!-- Contenu chargé dynamiquement -->
+          <p class="placeholder">Chargement des actualités...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Kensei Esport — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
