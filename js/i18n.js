@@ -23,6 +23,8 @@ const translations = {
     teams_rl:      'Rocket League',
     teams_cs2:     'CS2',
     teams_fifa:    'EA FC',
+    teams_eva:     'EVA',
+    nav_results:   'Résultats',
     // Shop dropdown
     shop_all:      'Toute la boutique',
     shop_jerseys:  'Maillots',
@@ -156,6 +158,10 @@ const translations = {
     dash_edit_profile:       'Modifier le profil',
     dash_actions:            'Actions',
     dash_no_game:            'Non renseigné',
+    // Results page
+    results_title:           'Résultats',
+    results_all:             'Tous',
+    results_empty:           'Aucun résultat disponible pour le moment.',
   },
   en: {
     nav_home:      'Home',
@@ -172,6 +178,8 @@ const translations = {
     teams_rl:      'Rocket League',
     teams_cs2:     'CS2',
     teams_fifa:    'EA FC',
+    teams_eva:     'EVA',
+    nav_results:   'Results',
     shop_all:      'Full store',
     shop_jerseys:  'Jerseys',
     shop_jerseys_title: 'Official jerseys',
@@ -297,6 +305,10 @@ const translations = {
     dash_edit_profile:       'Edit profile',
     dash_actions:            'Actions',
     dash_no_game:            'Not set',
+    // Results page
+    results_title:           'Results',
+    results_all:             'All',
+    results_empty:           'No results available yet.',
   }
 };
 

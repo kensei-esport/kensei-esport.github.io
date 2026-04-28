@@ -29,9 +29,11 @@
             <a href="/pages/teams.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes les équipes</strong></span></a>
             <a href="/pages/team-lol.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><img src="/assets/images/games/lol.svg" alt="League of Legends" width="20" height="20" /></span><span class="nav-dropdown__text"><strong>League of Legends</strong></span></a>
             <a href="/pages/team-rl.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><img src="/assets/images/games/rl.svg" alt="Rocket League" width="20" height="20" /></span><span class="nav-dropdown__text"><strong>Rocket League</strong></span></a>
+            <a href="/pages/team-eva.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><img src="/assets/images/games/eva.svg" alt="EVA" width="20" height="20" /></span><span class="nav-dropdown__text"><strong data-i18n="teams_eva">EVA</strong></span></a>
             <a href="/pages/team-staff.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-dropdown__text"><strong>Staff</strong></span></a>
           </div>
         </li>
+        <li class="nav-item nav-item--link"><a href="/pages/results.html" class="nav-item__trigger" data-i18n="nav_results">Résultats</a></li>
         <li class="nav-item">
           <button class="nav-item__trigger"><span data-i18n="nav_shop">Shop</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
           <div class="nav-dropdown">
@@ -51,7 +53,7 @@
             <a href="#partners" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-dropdown__text"><strong data-i18n="about_partners">Partenaires</strong></span></a>
             <div class="nav-dropdown__divider"></div>
             <a href="/pages/contact.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span><span class="nav-dropdown__text"><strong data-i18n="about_join">Nous rejoindre</strong></span></a>
-            <button type="button" class="nav-dropdown__link" data-stream-open><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.64 5.93h1.43v4.28h-1.43m3.93-4.28H17v4.28h-1.43M7 2L3.43 5.57v12.86h4.28V22l3.58-3.57h2.85L20.57 12V2m-1.43 9.29l-2.85 2.85h-2.86l-2.5 2.5v-2.5H7.71V3.43h11.43z"/></svg></span><span class="nav-dropdown__text"><strong data-i18n="about_stream">Live Stream</strong></span><span class="live-dot" style="margin-left:auto"></span></button>
+            <a href="/pages/live.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.64 5.93h1.43v4.28h-1.43m3.93-4.28H17v4.28h-1.43M7 2L3.43 5.57v12.86h4.28V22l3.58-3.57h2.85L20.57 12V2m-1.43 9.29l-2.85 2.85h-2.86l-2.5 2.5v-2.5H7.71V3.43h11.43z"/></svg></span><span class="nav-dropdown__text"><strong data-i18n="about_stream">Live Stream</strong></span><span class="live-dot" id="navStreamDot" style="margin-left:auto;display:none"></span></a>
           </div>
         </li>
         <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
@@ -68,8 +70,9 @@
       <li class="mobile-nav-item"><a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a></li>
       <li class="mobile-nav-item">
         <button class="mobile-nav-trigger"><span data-i18n="nav_teams">Teams</span><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
-        <div class="mobile-nav-sub"><a href="/pages/teams.html">Toutes</a><a href="/pages/team-lol.html">League of Legends</a><a href="/pages/team-rl.html">Rocket League</a><a href="/pages/team-staff.html">Staff</a></div>
+        <div class="mobile-nav-sub"><a href="/pages/teams.html">Toutes</a><a href="/pages/team-lol.html">League of Legends</a><a href="/pages/team-rl.html">Rocket League</a><a href="/pages/team-eva.html">EVA</a><a href="/pages/team-staff.html">Staff</a></div>
       </li>
+      <li class="mobile-nav-item"><a href="/pages/results.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_results">Résultats</a></li>
       <li class="mobile-nav-item"><a href="/pages/shop.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_shop">Shop</a></li>
       <li class="mobile-nav-item"><a href="/pages/about.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_about">À propos</a></li>
       <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
