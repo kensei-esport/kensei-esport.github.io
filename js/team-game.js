@@ -49,20 +49,24 @@ async function loadTeam() {
     return;
   }
 
-  grid.innerHTML = players.map(p => `
+  grid.innerHTML = players.map(p => {
+    const initials = (p.nickname ?? '?').slice(0, 2).toUpperCase();
+    const imgHtml = p.photo_url
+      ? `<img class="player-card__img" src="${p.photo_url}" alt="${p.nickname}" loading="lazy" />`
+      : `<div class="player-card__placeholder"><span>${initials}</span></div>`;
+    return `
     <div class="player-card">
-      <div class="player-card__avatar">
-        ${p.photo_url
-          ? `<img src="${p.photo_url}" alt="${p.nickname}" loading="lazy" />`
-          : `<span>${(p.nickname ?? '?').charAt(0).toUpperCase()}</span>`}
+      <div class="player-card__img-wrap">
+        ${imgHtml}
+        ${p.role ? `<span class="player-card__badge">${p.role}</span>` : ''}
       </div>
-      <div class="player-card__info">
+      <div class="player-card__body">
         <p class="player-card__pseudo">${p.nickname ?? ''}</p>
         ${p.role      ? `<p class="player-card__role">${p.role}</p>` : ''}
         ${p.real_name ? `<p class="player-card__name">${p.real_name}</p>` : ''}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 loadTeam();

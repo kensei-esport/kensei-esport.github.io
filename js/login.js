@@ -88,18 +88,22 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
   btn.disabled = true;
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: { data: { username } },
-  });
+  try {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username } },
+    });
 
-  if (error) {
-    showMsg(escapeHtml(error.message));
-    btn.disabled = false;
-  } else {
-    showMsg(t('auth_confirm_email'), 'success');
-    document.getElementById('registerForm').reset();
+    if (error) {
+      showMsg(escapeHtml(error.message));
+    } else {
+      showMsg(t('auth_confirm_email'), 'success');
+      document.getElementById('registerForm').reset();
+    }
+  } catch (err) {
+    showMsg('Erreur réseau. Vérifie ta connexion et réessaie.');
+  } finally {
     btn.disabled = false;
   }
 });
