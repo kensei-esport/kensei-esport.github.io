@@ -1,64 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self';
-             script-src 'self' https://cdn.jsdelivr.net;
-             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-             font-src 'self' https://fonts.gstatic.com;
-             img-src 'self' data: https:;
-             connect-src 'self' https://*.supabase.co;
-             frame-ancestors 'none';" />
-  <meta http-equiv="X-Frame-Options" content="DENY" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" /><meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Dashboard — Kensei Esport</title>
   <link rel="stylesheet" href="../css/main.css" />
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
 </head>
 <body>
-
-  <header class="site-header">
-    <nav class="navbar">
-      <a href="../index.html" class="navbar__logo">
-        <span>Kensei Esport</span>
-      </a>
-      <ul class="navbar__links">
-        <li><a href="../index.html">Accueil</a></li>
-        <li><a href="roster.html">Roster</a></li>
-        <li><a href="results.html">Résultats</a></li>
-      </ul>
-      <div class="navbar__auth">
-        <span id="userEmail" class="navbar__user"></span>
-        <button class="btn btn--outline" id="logoutBtn">Déconnexion</button>
-      </div>
-    </nav>
-  </header>
-
-  <main class="container section">
-    <h1>Dashboard</h1>
-    <p>Bienvenue, <strong id="userName"></strong> !</p>
-
-    <div class="dashboard-grid">
-      <!-- Sections admin ajoutées ici selon les rôles -->
-      <div class="card">
-        <h2>Roster</h2>
-        <p>Gérer les membres de l'équipe.</p>
-        <a href="roster.html" class="btn btn--primary">Voir le roster</a>
-      </div>
-      <div class="card">
-        <h2>Résultats</h2>
-        <p>Ajouter / modifier les résultats de matchs.</p>
-        <a href="results.html" class="btn btn--primary">Voir les résultats</a>
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="/index.html" class="navbar__logo"><img src="../assets/images/orange_logo.png" alt="Kensei" /><span class="navbar__logo-name">KENSEI<span>.</span></span></a>
+      <div class="navbar__right" style="margin-left:auto;">
+        <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">🇫🇷</span><span class="lang-code">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
+        <button class="profile-btn" id="profileBtn"><span class="profile-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></span><span class="profile-name" id="userEmail">…</span></button>
       </div>
     </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <p class="section__label">Espace membre</p>
+      <h1 data-i18n="dash_title">Dashboard</h1>
+    </div>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div id="dashWelcome" style="margin-bottom:2rem;">
+          <h2 data-i18n="dash_welcome">Bienvenue, <span id="userGreet"></span> !</h2>
+          <p style="color:var(--text-secondary);margin-top:0.5rem;" data-i18n="dash_sub">Voici votre espace personnel Kensei Esport.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
+          <div class="value-card">
+            <div class="value-card__icon">👤</div>
+            <h3 data-i18n="dash_card_profile">Mon profil</h3>
+            <p data-i18n="dash_card_profile_sub">Gérer vos informations personnelles.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__icon">🏆</div>
+            <h3 data-i18n="dash_card_teams">Mes teams</h3>
+            <p data-i18n="dash_card_teams_sub">Voir vos affiliations et votre équipe.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__icon">🛍️</div>
+            <h3 data-i18n="dash_card_orders">Mes commandes</h3>
+            <p data-i18n="dash_card_orders_sub">Historique de vos achats en boutique.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:2.5rem;">
+          <button class="btn btn--outline" id="logoutBtn" data-i18n="dash_logout">Se déconnecter</button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src="../js/config.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/dashboard.js"></script>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <span>© <span class="js-year"></span> Kensei Esport.</span>
+        <a href="/index.html" data-i18n="nav_home">Accueil</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/config.js"></script>
+  <script type="module" src="../js/dashboard.js"></script>
 </body>
 </html>

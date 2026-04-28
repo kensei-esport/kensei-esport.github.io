@@ -4,7 +4,7 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
   <meta http-equiv="X-Frame-Options" content="DENY" /><meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <title>Contact — Kensei Esport</title>
+  <title>Shop — Kensei Esport</title>
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
 </head>
@@ -18,15 +18,13 @@
           <div class="nav-dropdown nav-dropdown--mega">
             <a href="/pages/teams.html#valorant" class="nav-dropdown__link"><span class="nav-dropdown__icon">🎯</span><span class="nav-dropdown__text"><strong>Valorant</strong></span></a>
             <a href="/pages/teams.html#lol" class="nav-dropdown__link"><span class="nav-dropdown__icon">⚔️</span><span class="nav-dropdown__text"><strong>League of Legends</strong></span></a>
-            <a href="/pages/teams.html#rl" class="nav-dropdown__link"><span class="nav-dropdown__icon">🚀</span><span class="nav-dropdown__text"><strong>Rocket League</strong></span></a>
-            <a href="/pages/teams.html#cs2" class="nav-dropdown__link"><span class="nav-dropdown__icon">💥</span><span class="nav-dropdown__text"><strong>CS2</strong></span></a>
           </div>
         </li>
-        <li class="nav-item nav-item--link"><a href="/pages/shop.html" class="nav-item__trigger" data-i18n="nav_shop">Shop</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/shop.html" class="nav-item__trigger active" data-i18n="nav_shop">Shop</a></li>
         <li class="nav-item"><button class="nav-item__trigger"><span data-i18n="nav_about">À propos</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
           <div class="nav-dropdown"><a href="/pages/about.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">📖</span><span class="nav-dropdown__text"><strong data-i18n="about_story">Notre histoire</strong></span></a></div>
         </li>
-        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger active" data-i18n="nav_contact">Contact</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
       </ul>
       <div class="navbar__right">
         <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">🇫🇷</span><span class="lang-code">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
@@ -51,75 +49,97 @@
 
   <div class="page-header">
     <div class="container">
-      <nav class="breadcrumb"><a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span><span data-i18n="nav_contact">Contact</span></nav>
-      <p class="section__label">Nous contacter</p>
-      <h1 data-i18n="nav_contact">Contact</h1>
+      <nav class="breadcrumb"><a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span><span data-i18n="nav_shop">Shop</span></nav>
+      <p class="section__label">Boutique officielle</p>
+      <h1 data-i18n="nav_shop">Shop</h1>
     </div>
   </div>
 
   <main>
-    <section class="section">
+    <!-- Maillots -->
+    <section class="section" id="jerseys" aria-labelledby="jerseys-title">
       <div class="container">
-        <div class="contact-grid">
-          <!-- Infos -->
-          <div class="contact-info">
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">✉️</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_email_lbl">Email</div>
-                <div class="contact-info-item__value"><a href="mailto:contact@kensei-esport.gg" style="color:var(--orange)">contact@kensei-esport.gg</a></div>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">📍</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_location_lbl">Localisation</div>
-                <div class="contact-info-item__value" data-i18n="contact_info_location_val">France</div>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">💬</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_social_lbl">Réseaux sociaux</div>
-                <div class="contact-info-item__value" style="display:flex;gap:0.5rem;margin-top:0.3rem;">
-                  <a href="#" style="color:var(--orange)">Twitter</a>
-                  <span style="color:var(--text-muted)">·</span>
-                  <a href="#" style="color:var(--orange)">Instagram</a>
-                  <span style="color:var(--text-muted)">·</span>
-                  <a href="#" style="color:var(--orange)">Discord</a>
-                </div>
-              </div>
+        <div class="section__header">
+          <div>
+            <p class="section__label">👕 Maillots</p>
+            <h2 id="jerseys-title" data-i18n="shop_jerseys">Maillots</h2>
+          </div>
+        </div>
+        <div class="products-grid" id="productsJerseys">
+          <div class="product-card">
+            <div class="product-card__img" style="background:var(--surface-2);"></div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Maillot Kensei 2026 — Home</h3>
+              <p class="product-card__price">49,99 €</p>
+              <button class="btn btn--primary btn--sm" disabled>Bientôt disponible</button>
             </div>
           </div>
+          <div class="product-card">
+            <div class="product-card__img" style="background:var(--surface-2);"></div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Maillot Kensei 2026 — Away</h3>
+              <p class="product-card__price">49,99 €</p>
+              <button class="btn btn--primary btn--sm" disabled>Bientôt disponible</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Formulaire -->
-          <form class="contact-form" id="contactForm" novalidate>
-            <div class="form-group">
-              <label for="cName" data-i18n="contact_name">Nom</label>
-              <input type="text" id="cName" name="name" autocomplete="name" required placeholder="Votre nom" />
+    <div class="divider container"></div>
+
+    <!-- Hoodies -->
+    <section class="section" id="hoodies" style="padding-top:0;" aria-labelledby="hoodies-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">🧥 Sweats</p>
+            <h2 id="hoodies-title" data-i18n="shop_hoodies">Sweats & Hoodies</h2>
+          </div>
+        </div>
+        <div class="products-grid" id="productsHoodies">
+          <div class="product-card">
+            <div class="product-card__img" style="background:var(--surface-2);"></div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Hoodie Kensei Dragon</h3>
+              <p class="product-card__price">59,99 €</p>
+              <button class="btn btn--primary btn--sm" disabled>Bientôt disponible</button>
             </div>
-            <div class="form-group">
-              <label for="cEmail" data-i18n="contact_email">E-mail</label>
-              <input type="email" id="cEmail" name="email" autocomplete="email" required placeholder="votre@email.com" />
-            </div>
-            <div class="form-group">
-              <label for="cSubject" data-i18n="contact_subject">Objet</label>
-              <select id="cSubject" name="subject" required>
-                <option value="" disabled selected>Choisir un objet…</option>
-                <option value="partnership" data-i18n="contact_subj_partner">Partenariat</option>
-                <option value="recruitment" data-i18n="contact_subj_recruit">Recrutement</option>
-                <option value="press" data-i18n="contact_subj_press">Presse</option>
-                <option value="other" data-i18n="contact_subj_other">Autre</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="cMsg" data-i18n="contact_msg">Message</label>
-              <textarea id="cMsg" name="message" required placeholder="Votre message…"></textarea>
-            </div>
-            <p id="contactError" class="auth-error"></p>
-            <p id="contactSuccess" style="color:var(--color-success,#2ecc71);font-size:0.85rem;min-height:1.1em;"></p>
-            <button type="submit" class="btn btn--primary" id="contactBtn" data-i18n="contact_send">Envoyer</button>
-          </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- Accessoires -->
+    <section class="section" id="accessories" style="padding-top:0;" aria-labelledby="acc-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">🎧 Accessoires</p>
+            <h2 id="acc-title" data-i18n="shop_accessories">Accessoires</h2>
+          </div>
+        </div>
+        <div class="products-grid" id="productsAcc">
+          <p class="placeholder">Collection bientôt disponible.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- Collab -->
+    <section class="section" id="collab" style="padding-top:0;" aria-labelledby="collab-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">✨ Collaborations</p>
+            <h2 id="collab-title" data-i18n="shop_collab">Collaborations</h2>
+          </div>
+        </div>
+        <div class="products-grid" id="productsCollab">
+          <p class="placeholder">Prochaines collaborations à venir.</p>
         </div>
       </div>
     </section>
@@ -136,6 +156,5 @@
 
   <script type="module" src="../js/config.js"></script>
   <script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/contact.js"></script>
 </body>
 </html>

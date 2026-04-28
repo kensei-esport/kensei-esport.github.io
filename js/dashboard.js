@@ -1,16 +1,27 @@
-/**
- * dashboard.js — Page dashboard (protégée)
- */
+import { supabase, requireAuth, logout, escapeHtml } from './auth.js';
+import { applyTranslations } from './i18n.js';
 
-import { requireAuth, logout, escapeHtml } from './auth.js';
+applyTranslations();
 
-const session = await requireAuth('../pages/login.html');
+// Protect page
+const session = await requireAuth('/pages/login.html');
 
-// Affiche l'email de l'utilisateur
-const userEmailEl = document.getElementById('userEmail');
-const userNameEl  = document.getElementById('userName');
-if (userEmailEl) userEmailEl.textContent = escapeHtml(session.user.email);
-if (userNameEl)  userNameEl.textContent  = escapeHtml(session.user.email);
+const user = session.user;
 
-// Bouton déconnexion
-document.getElementById('logoutBtn')?.addEventListener('click', logout);
+// Display user info
+const emailEl = document.getElementById('userEmail');
+const greetEl = document.getElementById('userGreet');
+if (emailEl) emailEl.textContent = escapeHtml(user.email.split('@')[0]);
+if (greetEl) greetEl.textContent = escapeHtml(user.email.split('@')[0]);
+
+// Year
+document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+// Logout
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    await logout();
+    window.location.href = '/index.html';
+  });
+}

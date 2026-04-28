@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Teams — Kensei Esport</title>
+  <meta name="description" content="Découvrez toutes les équipes Kensei Esport." />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
+</head>
+<body>
+
+  <nav class="navbar" role="navigation">
+    <div class="navbar__inner">
+      <a href="/index.html" class="navbar__logo">
+        <img src="../assets/images/orange_logo.png" alt="Kensei Esport" />
+        <span class="navbar__logo-name">KENSEI<span>.</span></span>
+      </a>
+      <ul class="navbar__links">
+        <li class="nav-item nav-item--link"><a href="/index.html" class="nav-item__trigger" data-i18n="nav_home">Accueil</a></li>
+        <li class="nav-item">
+          <button class="nav-item__trigger">
+            <span data-i18n="nav_teams">Teams</span>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="nav-dropdown nav-dropdown--mega">
+            <a href="/pages/teams.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">🏆</span><span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes</strong></span></a>
+            <a href="#valorant" class="nav-dropdown__link"><span class="nav-dropdown__icon">🎯</span><span class="nav-dropdown__text"><strong>Valorant</strong></span></a>
+            <a href="#lol" class="nav-dropdown__link"><span class="nav-dropdown__icon">⚔️</span><span class="nav-dropdown__text"><strong>League of Legends</strong></span></a>
+            <a href="#rl" class="nav-dropdown__link"><span class="nav-dropdown__icon">🚀</span><span class="nav-dropdown__text"><strong>Rocket League</strong></span></a>
+            <a href="#cs2" class="nav-dropdown__link"><span class="nav-dropdown__icon">💥</span><span class="nav-dropdown__text"><strong>CS2</strong></span></a>
+            <a href="#fifa" class="nav-dropdown__link"><span class="nav-dropdown__icon">⚽</span><span class="nav-dropdown__text"><strong>EA FC</strong></span></a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button class="nav-item__trigger"><span data-i18n="nav_shop">Shop</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="/pages/shop.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">🛍️</span><span class="nav-dropdown__text"><strong data-i18n="shop_all">Boutique</strong></span></a>
+            <div class="nav-dropdown__divider"></div>
+            <a href="/pages/shop.html#jerseys" class="nav-dropdown__link"><span class="nav-dropdown__icon">👕</span><span class="nav-dropdown__text"><strong data-i18n="shop_jerseys">Maillots</strong></span></a>
+            <a href="/pages/shop.html#hoodies" class="nav-dropdown__link"><span class="nav-dropdown__icon">🧥</span><span class="nav-dropdown__text"><strong data-i18n="shop_hoodies">Hoodies</strong></span></a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button class="nav-item__trigger"><span data-i18n="nav_about">À propos</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="/pages/about.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">📖</span><span class="nav-dropdown__text"><strong data-i18n="about_story">Notre histoire</strong></span></a>
+            <a href="/pages/about.html#values" class="nav-dropdown__link"><span class="nav-dropdown__icon">🎯</span><span class="nav-dropdown__text"><strong data-i18n="about_values">Valeurs</strong></span></a>
+            <a href="/pages/about.html#partners" class="nav-dropdown__link"><span class="nav-dropdown__icon">🤝</span><span class="nav-dropdown__text"><strong data-i18n="about_partners">Partenaires</strong></span></a>
+          </div>
+        </li>
+        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="navbar__right">
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-btn"><span class="lang-flag">🇫🇷</span><span class="lang-code">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+          <div class="lang-dropdown"></div>
+        </div>
+        <button class="profile-btn" id="profileBtn">
+          <span class="profile-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></span>
+          <span class="profile-name" data-i18n="nav_login">Connexion</span>
+        </button>
+      </div>
+      <button class="navbar__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li class="mobile-nav-item"><a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a></li>
+      <li class="mobile-nav-item">
+        <button class="mobile-nav-trigger"><span data-i18n="nav_teams">Teams</span><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="mobile-nav-sub">
+          <a href="#valorant">Valorant</a><a href="#lol">League of Legends</a>
+          <a href="#rl">Rocket League</a><a href="#cs2">CS2</a><a href="#fifa">EA FC</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item"><a href="/pages/shop.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_shop">Shop</a></li>
+      <li class="mobile-nav-item"><a href="/pages/about.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_about">À propos</a></li>
+      <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__bottom">
+      <a href="/pages/login.html" class="btn btn--primary btn--full" data-i18n="nav_login">Connexion</a>
+      <div class="mobile-menu__lang">
+        <div class="mobile-lang-opt" data-lang="fr">🇫🇷 Français</div>
+        <div class="mobile-lang-opt" data-lang="en">🇬🇧 English</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/index.html">Accueil</a>
+        <span class="breadcrumb__sep">›</span>
+        <span data-i18n="nav_teams">Teams</span>
+      </nav>
+      <p class="section__label">Roster</p>
+      <h1 data-i18n="nav_teams">Teams</h1>
+    </div>
+  </div>
+
+  <main>
+    <!-- Valorant -->
+    <section class="section" id="valorant" aria-labelledby="val-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">🎯 Valorant</p>
+            <h2 id="val-title">Kensei Valorant</h2>
+          </div>
+          <a href="/pages/results.html" class="btn btn--ghost btn--sm" data-i18n="view_all">Résultats</a>
+        </div>
+        <div class="roster-grid" id="rosterValorant">
+          <p class="placeholder">Roster en cours de construction…</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- LoL -->
+    <section class="section" id="lol" aria-labelledby="lol-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">⚔️ League of Legends</p>
+            <h2 id="lol-title">Kensei LoL</h2>
+          </div>
+        </div>
+        <div class="roster-grid" id="rosterLoL">
+          <p class="placeholder">Roster en cours de construction…</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- Rocket League -->
+    <section class="section" id="rl" aria-labelledby="rl-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">🚀 Rocket League</p>
+            <h2 id="rl-title">Kensei Rocket</h2>
+          </div>
+        </div>
+        <div class="roster-grid" id="rosterRL">
+          <p class="placeholder">Roster en cours de construction…</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- CS2 -->
+    <section class="section" id="cs2" aria-labelledby="cs2-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">💥 CS2</p>
+            <h2 id="cs2-title">Kensei CS2</h2>
+          </div>
+        </div>
+        <div class="roster-grid" id="rosterCS2">
+          <p class="placeholder">Roster en cours de construction…</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"></div>
+
+    <!-- EA FC -->
+    <section class="section" id="fifa" aria-labelledby="fifa-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">⚽ EA FC 25</p>
+            <h2 id="fifa-title">Kensei EA FC</h2>
+          </div>
+        </div>
+        <div class="roster-grid" id="rosterFIFA">
+          <p class="placeholder">Roster en cours de construction…</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <span>© <span class="js-year"></span> Kensei Esport.</span>
+        <a href="/index.html" data-i18n="nav_home">Accueil</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/config.js"></script>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>

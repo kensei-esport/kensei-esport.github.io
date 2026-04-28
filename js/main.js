@@ -1,13 +1,13 @@
 /**
- * main.js — Scripts communs à toutes les pages publiques
+ * main.js — Script commun à toutes les pages publiques
  */
+import { initNavbar } from './navbar.js';
+import { t } from './i18n.js';
 
-import { getSession, updateNavAuth } from './auth.js';
+// Navbar
+initNavbar();
 
-// Année dans le footer
-document.querySelectorAll('#year').forEach(el => {
+// Année footer
+document.querySelectorAll('.js-year').forEach(el => {
   el.textContent = new Date().getFullYear();
 });
-
-// Mise à jour de la navbar
-getSession().then(updateNavAuth);

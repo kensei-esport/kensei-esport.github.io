@@ -1,71 +1,76 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self';
-             script-src 'self' https://cdn.jsdelivr.net;
-             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-             font-src 'self' https://fonts.gstatic.com;
-             img-src 'self' data:;
-             connect-src 'self' https://*.supabase.co;
-             frame-ancestors 'none';" />
-  <meta http-equiv="X-Frame-Options" content="DENY" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" /><meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Connexion — Kensei Esport</title>
   <link rel="stylesheet" href="../css/main.css" />
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
 </head>
 <body class="page--auth">
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="/index.html" class="navbar__logo"><img src="../assets/images/orange_logo.png" alt="Kensei" /><span class="navbar__logo-name">KENSEI<span>.</span></span></a>
+      <div class="navbar__right" style="margin-left:auto;">
+        <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">🇫🇷</span><span class="lang-code">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
+      </div>
+    </div>
+  </nav>
 
-  <main class="auth-wrapper">
+  <main style="min-height:90vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;">
     <div class="auth-card">
-      <a href="../index.html" class="auth-card__back">← Retour</a>
-      <h1>Connexion</h1>
+      <div class="auth-card__logo">
+        <img src="../assets/images/orange_logo.png" alt="Kensei Esport" />
+      </div>
+      <h1 data-i18n="auth_login_title">Connexion</h1>
+      <p class="auth-card__sub" data-i18n="auth_login_sub">Accédez à votre espace Kensei Esport.</p>
 
-      <form id="loginForm" class="auth-form" novalidate>
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab auth-tab--active" id="tabLogin" data-i18n="auth_tab_login">Connexion</button>
+        <button class="auth-tab" id="tabRegister" data-i18n="auth_tab_register">Inscription</button>
+      </div>
+
+      <!-- Login form -->
+      <form id="loginForm" novalidate>
         <div class="form-group">
-          <label for="email">Adresse e-mail</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="email"
-            required
-            placeholder="ton@email.com"
-          />
+          <label for="loginEmail" data-i18n="auth_email">E-mail</label>
+          <input type="email" id="loginEmail" name="email" autocomplete="email" required placeholder="votre@email.com" />
         </div>
-
         <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="current-password"
-            required
-            placeholder="••••••••"
-          />
+          <label for="loginPassword" data-i18n="auth_password">Mot de passe</label>
+          <input type="password" id="loginPassword" name="password" autocomplete="current-password" required placeholder="••••••••" />
         </div>
-
-        <p id="authError" class="auth-error" role="alert" aria-live="polite"></p>
-
-        <button type="submit" class="btn btn--primary btn--full" id="loginBtn">
-          Se connecter
-        </button>
+        <p id="loginError" class="auth-error"></p>
+        <button type="submit" class="btn btn--primary btn--full" id="loginBtn" data-i18n="auth_login_btn">Se connecter</button>
       </form>
 
-      <p class="auth-card__footer">
-        <a href="reset-password.html">Mot de passe oublié ?</a>
-      </p>
+      <!-- Register form -->
+      <form id="registerForm" style="display:none;" novalidate>
+        <div class="form-group">
+          <label for="regEmail" data-i18n="auth_email">E-mail</label>
+          <input type="email" id="regEmail" name="email" autocomplete="email" required placeholder="votre@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="regPassword" data-i18n="auth_password">Mot de passe</label>
+          <input type="password" id="regPassword" name="password" autocomplete="new-password" required placeholder="••••••••" />
+        </div>
+        <div class="form-group">
+          <label for="regPassword2" data-i18n="auth_password_confirm">Confirmer le mot de passe</label>
+          <input type="password" id="regPassword2" name="password2" autocomplete="new-password" required placeholder="••••••••" />
+        </div>
+        <p id="registerError" class="auth-error"></p>
+        <button type="submit" class="btn btn--primary btn--full" id="registerBtn" data-i18n="auth_register_btn">S'inscrire</button>
+      </form>
+
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="/index.html" style="color:var(--text-secondary);font-size:0.85rem;" data-i18n="auth_back">← Retour au site</a>
+      </div>
     </div>
   </main>
 
-  <script src="../js/config.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/login.js"></script>
+  <script type="module" src="../js/config.js"></script>
+  <script type="module" src="../js/login.js"></script>
 </body>
 </html>

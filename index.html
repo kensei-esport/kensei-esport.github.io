@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  <!-- Sécurité : Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self';
              script-src 'self' https://cdn.jsdelivr.net;
@@ -17,60 +14,472 @@
   <meta http-equiv="X-Frame-Options" content="DENY" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-
   <title>Kensei Esport</title>
-  <meta name="description" content="Site officiel de l'équipe Kensei Esport" />
-
+  <meta name="description" content="Organisation esport française — Kensei Esport. Compétition, passion, excellence." />
   <link rel="stylesheet" href="css/main.css" />
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="assets/images/orange_logo.png" type="image/png" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar">
-      <a href="index.html" class="navbar__logo">
-        <img src="assets/images/logo.png" alt="Kensei Esport" />
-        <span>Kensei Esport</span>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Navigation principale">
+    <div class="navbar__inner">
+
+      <!-- Logo -->
+      <a href="/index.html" class="navbar__logo" aria-label="Kensei Esport — Accueil">
+        <img src="assets/images/orange_logo.png" alt="Kensei Esport logo" />
+        <span class="navbar__logo-name">KENSEI<span>.</span></span>
       </a>
-      <ul class="navbar__links">
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="pages/roster.html">Roster</a></li>
-        <li><a href="pages/results.html">Résultats</a></li>
-        <li><a href="pages/contact.html">Contact</a></li>
+
+      <!-- Desktop links -->
+      <ul class="navbar__links" role="list">
+
+        <!-- Accueil -->
+        <li class="nav-item nav-item--link">
+          <a href="/index.html" class="nav-item__trigger" data-i18n="nav_home">Accueil</a>
+        </li>
+
+        <!-- Teams -->
+        <li class="nav-item">
+          <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav_teams">Teams</span>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="nav-dropdown nav-dropdown--mega" role="menu">
+            <span class="nav-dropdown__section" data-i18n="nav_teams">Nos équipes</span>
+            <div class="nav-dropdown__divider"></div>
+            <a href="/pages/teams.html" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🏆</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes les équipes</strong></span>
+            </a>
+            <a href="/pages/teams.html#valorant" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🎯</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_valorant">Valorant</strong></span>
+            </a>
+            <a href="/pages/teams.html#lol" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">⚔️</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_lol">League of Legends</strong></span>
+            </a>
+            <a href="/pages/teams.html#rl" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🚀</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_rl">Rocket League</strong></span>
+            </a>
+            <a href="/pages/teams.html#cs2" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">💥</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_cs2">CS2</strong></span>
+            </a>
+            <a href="/pages/teams.html#fifa" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">⚽</span>
+              <span class="nav-dropdown__text"><strong data-i18n="teams_fifa">EA FC</strong></span>
+            </a>
+          </div>
+        </li>
+
+        <!-- Shop -->
+        <li class="nav-item">
+          <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav_shop">Shop</span>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="nav-dropdown" role="menu">
+            <a href="/pages/shop.html" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🛍️</span>
+              <span class="nav-dropdown__text"><strong data-i18n="shop_all">Toute la boutique</strong></span>
+            </a>
+            <div class="nav-dropdown__divider"></div>
+            <a href="/pages/shop.html#jerseys" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">👕</span>
+              <span class="nav-dropdown__text"><strong data-i18n="shop_jerseys">Maillots</strong></span>
+            </a>
+            <a href="/pages/shop.html#hoodies" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🧥</span>
+              <span class="nav-dropdown__text"><strong data-i18n="shop_hoodies">Sweats & Hoodies</strong></span>
+            </a>
+            <a href="/pages/shop.html#accessories" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🎧</span>
+              <span class="nav-dropdown__text"><strong data-i18n="shop_accessories">Accessoires</strong></span>
+            </a>
+            <a href="/pages/shop.html#collab" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">✨</span>
+              <span class="nav-dropdown__text"><strong data-i18n="shop_collab">Collaborations</strong></span>
+            </a>
+          </div>
+        </li>
+
+        <!-- À propos -->
+        <li class="nav-item">
+          <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav_about">À propos</span>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="nav-dropdown" role="menu">
+            <a href="/pages/about.html#story" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">📖</span>
+              <span class="nav-dropdown__text"><strong data-i18n="about_story">Notre histoire</strong></span>
+            </a>
+            <a href="/pages/about.html#values" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🎯</span>
+              <span class="nav-dropdown__text"><strong data-i18n="about_values">Nos valeurs</strong></span>
+            </a>
+            <a href="/pages/about.html#partners" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">🤝</span>
+              <span class="nav-dropdown__text"><strong data-i18n="about_partners">Partenaires</strong></span>
+            </a>
+            <div class="nav-dropdown__divider"></div>
+            <a href="/pages/contact.html" class="nav-dropdown__link" role="menuitem">
+              <span class="nav-dropdown__icon">✉️</span>
+              <span class="nav-dropdown__text"><strong data-i18n="about_join">Nous rejoindre</strong></span>
+            </a>
+          </div>
+        </li>
+
+        <!-- Contact -->
+        <li class="nav-item nav-item--link">
+          <a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a>
+        </li>
+
       </ul>
-      <div class="navbar__auth" id="navAuth">
-        <a href="pages/login.html" class="btn btn--outline">Connexion</a>
-      </div>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
+      <!-- Right -->
+      <div class="navbar__right">
+        <!-- Language -->
+        <div class="lang-selector" id="langSelector" aria-label="Sélecteur de langue">
+          <button class="lang-btn" aria-haspopup="listbox" aria-label="Changer de langue">
+            <span class="lang-flag">🇫🇷</span>
+            <span class="lang-code">FR</span>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="lang-dropdown" role="listbox"></div>
+        </div>
+
+        <!-- Profile -->
+        <button class="profile-btn" id="profileBtn" aria-label="Profil">
+          <span class="profile-avatar" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          </span>
+          <span class="profile-name" data-i18n="nav_login">Connexion</span>
+        </button>
+      </div>
+
+      <!-- Burger -->
+      <button class="navbar__burger" id="navBurger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE MENU
+  ══════════════════════════════════════════════ -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile">
+    <ul>
+      <li class="mobile-nav-item">
+        <a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a>
+      </li>
+      <li class="mobile-nav-item">
+        <button class="mobile-nav-trigger">
+          <span data-i18n="nav_teams">Teams</span>
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+        <div class="mobile-nav-sub">
+          <a href="/pages/teams.html" data-i18n="teams_all">Toutes les équipes</a>
+          <a href="/pages/teams.html#valorant" data-i18n="teams_valorant">Valorant</a>
+          <a href="/pages/teams.html#lol" data-i18n="teams_lol">League of Legends</a>
+          <a href="/pages/teams.html#rl" data-i18n="teams_rl">Rocket League</a>
+          <a href="/pages/teams.html#cs2" data-i18n="teams_cs2">CS2</a>
+          <a href="/pages/teams.html#fifa" data-i18n="teams_fifa">EA FC</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item">
+        <button class="mobile-nav-trigger">
+          <span data-i18n="nav_shop">Shop</span>
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+        <div class="mobile-nav-sub">
+          <a href="/pages/shop.html" data-i18n="shop_all">Toute la boutique</a>
+          <a href="/pages/shop.html#jerseys" data-i18n="shop_jerseys">Maillots</a>
+          <a href="/pages/shop.html#hoodies" data-i18n="shop_hoodies">Sweats & Hoodies</a>
+          <a href="/pages/shop.html#accessories" data-i18n="shop_accessories">Accessoires</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item">
+        <button class="mobile-nav-trigger">
+          <span data-i18n="nav_about">À propos</span>
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+        <div class="mobile-nav-sub">
+          <a href="/pages/about.html" data-i18n="about_story">Notre histoire</a>
+          <a href="/pages/about.html#values" data-i18n="about_values">Nos valeurs</a>
+          <a href="/pages/about.html#partners" data-i18n="about_partners">Partenaires</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a>
+      </li>
+    </ul>
+    <div class="mobile-menu__bottom">
+      <a href="/pages/login.html" class="btn btn--primary btn--full" data-i18n="nav_login">Connexion</a>
+      <div class="mobile-menu__lang">
+        <div class="mobile-lang-opt" data-lang="fr">🇫🇷 Français</div>
+        <div class="mobile-lang-opt" data-lang="en">🇬🇧 English</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Bannière principale">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__grid"></div>
+      <div class="hero__glow"></div>
+      <div class="hero__bg-gradient"></div>
+    </div>
+
+    <div class="hero__inner container">
       <div class="hero__content">
-        <h1>Bienvenue chez <span class="highlight">Kensei Esport</span></h1>
-        <p class="hero__subtitle">Compétition. Passion. Excellence.</p>
-        <a href="pages/roster.html" class="btn btn--primary">Découvrir le roster</a>
-      </div>
-    </section>
-
-    <section class="section section--news">
-      <div class="container">
-        <h2>Actualités</h2>
-        <div class="news-grid" id="newsGrid">
-          <!-- Contenu chargé dynamiquement -->
-          <p class="placeholder">Chargement des actualités...</p>
+        <div class="hero__tag">
+          <span class="hero__tag-dot" aria-hidden="true"></span>
+          <span data-i18n="hero_tag">Équipe Esport Française</span>
+        </div>
+        <h1>
+          <span data-i18n="hero_title_1">FORGÉS POUR</span><br>
+          <span class="accent" data-i18n="hero_title_2">LA VICTOIRE</span>
+        </h1>
+        <p class="hero__sub" data-i18n="hero_sub">
+          Kensei Esport — une organisation portée par la passion, l'ambition et l'excellence compétitive.
+        </p>
+        <div class="hero__actions">
+          <a href="/pages/teams.html" class="btn btn--primary" data-i18n="hero_cta_1">Découvrir les teams</a>
+          <a href="/pages/contact.html" class="btn btn--outline" data-i18n="hero_cta_2">Rejoindre l'équipe</a>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <footer class="site-footer">
+    <div class="hero__scroll" aria-hidden="true">
+      <span data-i18n="scroll_down">Défiler</span>
+      <span class="hero__scroll-line"></span>
+    </div>
+
+    <div class="hero__stats" aria-label="Statistiques clés">
+      <div class="hero__stat">
+        <div class="hero__stat-val" data-i18n="hero_stat_1_val">5+</div>
+        <div class="hero__stat-label" data-i18n="hero_stat_1_lbl">Équipes actives</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-val" data-i18n="hero_stat_2_val">30+</div>
+        <div class="hero__stat-label" data-i18n="hero_stat_2_lbl">Joueurs pros</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-val" data-i18n="hero_stat_3_val">12</div>
+        <div class="hero__stat-label" data-i18n="hero_stat_3_lbl">Titres remportés</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-val" data-i18n="hero_stat_4_val">2020</div>
+        <div class="hero__stat-label" data-i18n="hero_stat_4_lbl">Fondation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       TEAMS STRIP
+  ══════════════════════════════════════════════ -->
+  <div class="teams-strip" aria-label="Nos équipes">
+    <div class="teams-strip__row">
+      <a href="/pages/teams.html#valorant" class="team-pill">
+        <span class="team-pill__ico">🎯</span>
+        <span class="team-pill__info">
+          <span class="team-pill__name">Kensei Valorant</span>
+          <span class="team-pill__game">Valorant</span>
+        </span>
+      </a>
+      <a href="/pages/teams.html#lol" class="team-pill">
+        <span class="team-pill__ico">⚔️</span>
+        <span class="team-pill__info">
+          <span class="team-pill__name">Kensei LoL</span>
+          <span class="team-pill__game">League of Legends</span>
+        </span>
+      </a>
+      <a href="/pages/teams.html#rl" class="team-pill">
+        <span class="team-pill__ico">🚀</span>
+        <span class="team-pill__info">
+          <span class="team-pill__name">Kensei Rocket</span>
+          <span class="team-pill__game">Rocket League</span>
+        </span>
+      </a>
+      <a href="/pages/teams.html#cs2" class="team-pill">
+        <span class="team-pill__ico">💥</span>
+        <span class="team-pill__info">
+          <span class="team-pill__name">Kensei CS2</span>
+          <span class="team-pill__game">CS2</span>
+        </span>
+      </a>
+      <a href="/pages/teams.html#fifa" class="team-pill">
+        <span class="team-pill__ico">⚽</span>
+        <span class="team-pill__info">
+          <span class="team-pill__name">Kensei EA FC</span>
+          <span class="team-pill__game">EA FC 25</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NEWS
+  ══════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="news-title">
     <div class="container">
-      <p>&copy; <span id="year"></span> Kensei Esport — Tous droits réservés</p>
+      <div class="section__header">
+        <div>
+          <p class="section__label">Latest</p>
+          <h2 id="news-title" data-i18n="section_news">Actualités</h2>
+        </div>
+        <a href="/pages/news.html" class="btn btn--ghost btn--sm" data-i18n="view_all">Voir tout</a>
+      </div>
+      <div class="news-grid" id="newsGrid">
+        <!-- Placeholder -->
+        <a href="#" class="news-card news-card--feat">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background:var(--surface-2);aspect-ratio:4/5;"></div>
+          </div>
+          <div class="news-card__body">
+            <span class="news-card__tag">Tournoi</span>
+            <p class="news-card__title">Kensei Valorant qualifié pour la finale nationale</p>
+            <p class="news-card__meta">28 Avril 2026</p>
+          </div>
+        </a>
+        <a href="#" class="news-card">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background:var(--surface-2);"></div>
+          </div>
+          <div class="news-card__body">
+            <span class="news-card__tag">Recrutement</span>
+            <p class="news-card__title">Nouveau joueur rejoint la section LoL</p>
+            <p class="news-card__meta">25 Avril 2026</p>
+          </div>
+        </a>
+        <a href="#" class="news-card">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background:var(--surface-2);"></div>
+          </div>
+          <div class="news-card__body">
+            <span class="news-card__tag">Shop</span>
+            <p class="news-card__title">Le maillot 2026 est disponible</p>
+            <p class="news-card__meta">20 Avril 2026</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       RESULTS STRIP
+  ══════════════════════════════════════════════ -->
+  <section class="section" style="padding-top:0" aria-labelledby="results-title">
+    <div class="container">
+      <div class="section__header">
+        <div>
+          <p class="section__label">Performances</p>
+          <h2 id="results-title" data-i18n="section_results">Résultats récents</h2>
+        </div>
+        <a href="/pages/results.html" class="btn btn--ghost btn--sm" data-i18n="view_all">Voir tout</a>
+      </div>
+      <div class="results-list" id="resultsList">
+        <div class="result-item result-item--win">
+          <div class="result-item__side">
+            <div class="result-item__team-name">Kensei Valorant</div>
+            <div class="result-item__meta">VCT France — 28 Avr.</div>
+          </div>
+          <div class="result-item__score">2 — 0</div>
+          <div class="result-item__side result-item__side--right">
+            <div class="result-item__team-name">Team Vitality</div>
+            <div class="result-item__meta">Valorant</div>
+          </div>
+        </div>
+        <div class="result-item result-item--loss">
+          <div class="result-item__side">
+            <div class="result-item__team-name">Kensei CS2</div>
+            <div class="result-item__meta">ESL Open — 26 Avr.</div>
+          </div>
+          <div class="result-item__score">1 — 2</div>
+          <div class="result-item__side result-item__side--right">
+            <div class="result-item__team-name">Team Liquid</div>
+            <div class="result-item__meta">CS2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Brand -->
+        <div>
+          <a href="/index.html" class="footer__brand-logo" aria-label="Kensei Esport">
+            <img src="assets/images/orange_logo.png" alt="Kensei Esport logo" />
+            <span class="footer__brand-name">KENSEI<span>.</span></span>
+          </a>
+          <p class="footer__desc" data-i18n="footer_desc">
+            Organisation esport française fondée en 2020. Compétition, passion, excellence.
+          </p>
+          <div class="footer__socials" aria-label="Réseaux sociaux">
+            <a href="#" class="footer__social" aria-label="Twitter / X">𝕏</a>
+            <a href="#" class="footer__social" aria-label="Instagram">📸</a>
+            <a href="#" class="footer__social" aria-label="TikTok">🎵</a>
+            <a href="#" class="footer__social" aria-label="Twitch">🟣</a>
+            <a href="#" class="footer__social" aria-label="YouTube">▶</a>
+            <a href="#" class="footer__social" aria-label="Discord">💬</a>
+          </div>
+        </div>
+        <!-- Nav -->
+        <div>
+          <p class="footer__col-title" data-i18n="footer_nav">Navigation</p>
+          <ul class="footer__links">
+            <li><a href="/index.html" data-i18n="nav_home">Accueil</a></li>
+            <li><a href="/pages/teams.html" data-i18n="nav_teams">Teams</a></li>
+            <li><a href="/pages/shop.html" data-i18n="nav_shop">Shop</a></li>
+            <li><a href="/pages/about.html" data-i18n="nav_about">À propos</a></li>
+            <li><a href="/pages/contact.html" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Games -->
+        <div>
+          <p class="footer__col-title" data-i18n="footer_games">Jeux</p>
+          <ul class="footer__links">
+            <li><a href="/pages/teams.html#valorant" data-i18n="teams_valorant">Valorant</a></li>
+            <li><a href="/pages/teams.html#lol" data-i18n="teams_lol">League of Legends</a></li>
+            <li><a href="/pages/teams.html#rl" data-i18n="teams_rl">Rocket League</a></li>
+            <li><a href="/pages/teams.html#cs2" data-i18n="teams_cs2">CS2</a></li>
+            <li><a href="/pages/teams.html#fifa" data-i18n="teams_fifa">EA FC</a></li>
+          </ul>
+        </div>
+        <!-- Legal -->
+        <div>
+          <p class="footer__col-title" data-i18n="footer_legal">Légal</p>
+          <ul class="footer__links">
+            <li><a href="/pages/privacy.html" data-i18n="footer_privacy">Politique de confidentialité</a></li>
+            <li><a href="/pages/terms.html" data-i18n="footer_terms">Conditions d'utilisation</a></li>
+            <li><a href="/pages/legal.html" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span class="js-year"></span> Kensei Esport. Tous droits réservés.</span>
+        <div style="display:flex;gap:1rem;">
+          <a href="/pages/privacy.html" data-i18n="footer_privacy">Confidentialité</a>
+          <a href="/pages/terms.html" data-i18n="footer_terms">CGU</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/main.js"></script>
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

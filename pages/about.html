@@ -4,7 +4,7 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none';" />
   <meta http-equiv="X-Frame-Options" content="DENY" /><meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <title>Contact — Kensei Esport</title>
+  <title>À propos — Kensei Esport</title>
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
 </head>
@@ -22,11 +22,11 @@
             <a href="/pages/teams.html#cs2" class="nav-dropdown__link"><span class="nav-dropdown__icon">💥</span><span class="nav-dropdown__text"><strong>CS2</strong></span></a>
           </div>
         </li>
-        <li class="nav-item nav-item--link"><a href="/pages/shop.html" class="nav-item__trigger" data-i18n="nav_shop">Shop</a></li>
-        <li class="nav-item"><button class="nav-item__trigger"><span data-i18n="nav_about">À propos</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
-          <div class="nav-dropdown"><a href="/pages/about.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">📖</span><span class="nav-dropdown__text"><strong data-i18n="about_story">Notre histoire</strong></span></a></div>
+        <li class="nav-item"><button class="nav-item__trigger"><span data-i18n="nav_shop">Shop</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+          <div class="nav-dropdown"><a href="/pages/shop.html" class="nav-dropdown__link"><span class="nav-dropdown__icon">🛍️</span><span class="nav-dropdown__text"><strong data-i18n="shop_all">Boutique</strong></span></a></div>
         </li>
-        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger active" data-i18n="nav_contact">Contact</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/about.html" class="nav-item__trigger active" data-i18n="nav_about">À propos</a></li>
+        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
       </ul>
       <div class="navbar__right">
         <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">🇫🇷</span><span class="lang-code">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
@@ -44,82 +44,71 @@
       <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
     </ul>
     <div class="mobile-menu__bottom">
-      <a href="/pages/login.html" class="btn btn--primary btn--full">Connexion</a>
+      <a href="/pages/login.html" class="btn btn--primary btn--full" data-i18n="nav_login">Connexion</a>
       <div class="mobile-menu__lang"><div class="mobile-lang-opt" data-lang="fr">🇫🇷 Français</div><div class="mobile-lang-opt" data-lang="en">🇬🇧 English</div></div>
     </div>
   </div>
 
-  <div class="page-header">
+  <div class="page-header" id="story">
     <div class="container">
-      <nav class="breadcrumb"><a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span><span data-i18n="nav_contact">Contact</span></nav>
-      <p class="section__label">Nous contacter</p>
-      <h1 data-i18n="nav_contact">Contact</h1>
+      <nav class="breadcrumb"><a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span><span data-i18n="nav_about">À propos</span></nav>
+      <p class="section__label">Organisation</p>
+      <h1 data-i18n="nav_about">À propos</h1>
     </div>
   </div>
 
   <main>
+    <!-- Histoire -->
     <section class="section">
       <div class="container">
-        <div class="contact-grid">
-          <!-- Infos -->
-          <div class="contact-info">
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">✉️</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_email_lbl">Email</div>
-                <div class="contact-info-item__value"><a href="mailto:contact@kensei-esport.gg" style="color:var(--orange)">contact@kensei-esport.gg</a></div>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">📍</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_location_lbl">Localisation</div>
-                <div class="contact-info-item__value" data-i18n="contact_info_location_val">France</div>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="contact-info-item__icon">💬</div>
-              <div>
-                <div class="contact-info-item__label" data-i18n="contact_info_social_lbl">Réseaux sociaux</div>
-                <div class="contact-info-item__value" style="display:flex;gap:0.5rem;margin-top:0.3rem;">
-                  <a href="#" style="color:var(--orange)">Twitter</a>
-                  <span style="color:var(--text-muted)">·</span>
-                  <a href="#" style="color:var(--orange)">Instagram</a>
-                  <span style="color:var(--text-muted)">·</span>
-                  <a href="#" style="color:var(--orange)">Discord</a>
-                </div>
-              </div>
-            </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+          <div>
+            <p class="section__label">2020 — Aujourd'hui</p>
+            <h2 data-i18n="about_story">Notre histoire</h2>
+            <p style="color:var(--text-secondary);margin-top:1.25rem;line-height:1.8;">
+              Kensei Esport est née d'une passion commune pour la compétition et l'excellence. Fondée en 2020 par des joueurs et passionnés de l'esport français, l'organisation a rapidement bâti une réputation de sérieux et de performance.
+            </p>
+            <p style="color:var(--text-secondary);margin-top:1rem;line-height:1.8;">
+              Aujourd'hui présents sur 5 disciplines majeures, nous accompagnons des dizaines de joueurs vers le haut niveau, avec un encadrement professionnel et une vision long terme.
+            </p>
           </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+            <img src="../assets/images/orange_logo.png" alt="Kensei Esport" style="height:120px;filter:brightness(0) saturate(100%) invert(52%) sepia(90%) saturate(700%) hue-rotate(352deg) brightness(103%) contrast(101%);" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Formulaire -->
-          <form class="contact-form" id="contactForm" novalidate>
-            <div class="form-group">
-              <label for="cName" data-i18n="contact_name">Nom</label>
-              <input type="text" id="cName" name="name" autocomplete="name" required placeholder="Votre nom" />
-            </div>
-            <div class="form-group">
-              <label for="cEmail" data-i18n="contact_email">E-mail</label>
-              <input type="email" id="cEmail" name="email" autocomplete="email" required placeholder="votre@email.com" />
-            </div>
-            <div class="form-group">
-              <label for="cSubject" data-i18n="contact_subject">Objet</label>
-              <select id="cSubject" name="subject" required>
-                <option value="" disabled selected>Choisir un objet…</option>
-                <option value="partnership" data-i18n="contact_subj_partner">Partenariat</option>
-                <option value="recruitment" data-i18n="contact_subj_recruit">Recrutement</option>
-                <option value="press" data-i18n="contact_subj_press">Presse</option>
-                <option value="other" data-i18n="contact_subj_other">Autre</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="cMsg" data-i18n="contact_msg">Message</label>
-              <textarea id="cMsg" name="message" required placeholder="Votre message…"></textarea>
-            </div>
-            <p id="contactError" class="auth-error"></p>
-            <p id="contactSuccess" style="color:var(--color-success,#2ecc71);font-size:0.85rem;min-height:1.1em;"></p>
-            <button type="submit" class="btn btn--primary" id="contactBtn" data-i18n="contact_send">Envoyer</button>
-          </form>
+    <!-- Values -->
+    <section class="section" id="values" style="padding-top:0;" aria-labelledby="values-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">ADN</p>
+            <h2 id="values-title" data-i18n="about_values">Nos valeurs</h2>
+          </div>
+        </div>
+        <div class="values-grid">
+          <div class="value-card"><div class="value-card__icon">⚔️</div><h3>Excellence</h3><p>Nous visons le haut niveau dans chaque discipline. La médiocrité n'a pas sa place chez Kensei.</p></div>
+          <div class="value-card"><div class="value-card__icon">🤝</div><h3>Collectif</h3><p>L'équipe avant tout. Chaque joueur grandit grâce au collectif et contribue à sa réussite.</p></div>
+          <div class="value-card"><div class="value-card__icon">🎯</div><h3>Discipline</h3><p>La réussite se construit dans le travail quotidien, les entraînements et la rigueur mentale.</p></div>
+          <div class="value-card"><div class="value-card__icon">🔥</div><h3>Passion</h3><p>L'esport est avant tout une passion. Nous la cultivons et la mettons au service de la performance.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="section" id="partners" style="padding-top:0;" aria-labelledby="partners-title">
+      <div class="container">
+        <div class="section__header">
+          <div>
+            <p class="section__label">Ecosystem</p>
+            <h2 id="partners-title" data-i18n="about_partners">Partenaires</h2>
+          </div>
+          <a href="/pages/contact.html" class="btn btn--outline btn--sm">Devenir partenaire</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;" id="partnersList">
+          <p class="placeholder">Nos partenaires seront affichés ici.</p>
         </div>
       </div>
     </section>
@@ -136,6 +125,5 @@
 
   <script type="module" src="../js/config.js"></script>
   <script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/contact.js"></script>
 </body>
 </html>
