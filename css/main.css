@@ -634,6 +634,12 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 .news-card__meta { font-size: 0.75rem; color: var(--text-muted); }
 .news-card__img--empty { width: 100%; aspect-ratio: 16/9; background: var(--surface-2); }
 .news-card--feat .news-card__img--empty { aspect-ratio: 3/2; }
+/* Small card variant */
+.news-card--small .news-card__img { aspect-ratio: 16/6; }
+.news-card--small .news-card__img--empty { aspect-ratio: 16/6; }
+.news-card--small .news-card__body { padding: 0.75rem 1rem; }
+.news-card--small .news-card__title { font-size: 0.85rem; }
+.news-card--small .news-card__tag { font-size: 0.6rem; }
 
 /* ============================================================
    ARTICLE MODAL  (Epic Games style)

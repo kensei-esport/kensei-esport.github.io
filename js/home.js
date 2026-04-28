@@ -63,7 +63,7 @@ async function loadNews() {
 
   const { data, error } = await supabase
     .from('news_posts')
-    .select('id, title, slug, excerpt, content, cover_url, author, category, published_at')
+    .select('id, title, slug, excerpt, content, cover_url, author, category, card_size, published_at')
     .eq('is_published', true)
     .order('published_at', { ascending: false })
     .limit(3);
@@ -73,8 +73,11 @@ async function loadNews() {
     return;
   }
 
-  // Store posts for modal access
-  const posts = data;
+  // Sort: large cards first so --feat occupies the left column
+  const posts = [...data].sort((a, b) => {
+    const rank = s => s === 'large' ? 0 : s === 'small' ? 2 : 1;
+    return rank(a.card_size) - rank(b.card_size);
+  });
 
   grid.innerHTML = posts.map(function (post, i) {
     var date = '';
@@ -84,11 +87,14 @@ async function loadNews() {
       });
     } catch (_) { /* noop */ }
 
+    var sizeClass = post.card_size === 'large' ? ' news-card--feat'
+                  : post.card_size === 'small' ? ' news-card--small' : '';
+
     var imgHtml = post.cover_url
       ? '<img class="news-card__img" src="' + escapeHtml(post.cover_url) + '" alt="' + escapeHtml(post.title) + '" loading="lazy" />'
       : '<div class="news-card__img news-card__img--empty"></div>';
 
-    return '<button type="button" data-news-idx="' + i + '" class="news-card' + (i === 0 ? ' news-card--feat' : '') + '">'
+    return '<button type="button" data-news-idx="' + i + '" class="news-card' + sizeClass + '">'
       + '<div class="news-card__img-wrap">' + imgHtml + '</div>'
       + '<div class="news-card__body">'
       + '<span class="news-card__tag">' + escapeHtml(post.category || 'Actualité') + '</span>'
