@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Valorant official red background -->
+  <rect width="200" height="200" fill="#FF4655"/>
+  <!-- V shape - Valorant logo simplified -->
+  <polygon points="20,40 80,160 100,120 60,40" fill="white"/>
+  <polygon points="100,120 120,160 180,40 140,40 100,120" fill="white"/>
+  <!-- Red slash cut through the V (Valorant signature cut) -->
+  <polygon points="55,120 75,120 180,40 160,40" fill="#FF4655"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- League of Legends dark background -->
+  <rect width="200" height="200" fill="#0A1428"/>
+  <!-- Outer gold border ring -->
+  <circle cx="100" cy="100" r="88" stroke="#C89B3C" stroke-width="6" fill="none"/>
+  <circle cx="100" cy="100" r="78" stroke="#C89B3C" stroke-width="2" fill="none"/>
+  <!-- LoL crest shield shape -->
+  <path d="M100 30 L150 55 L150 115 Q150 145 100 170 Q50 145 50 115 L50 55 Z" fill="#0A1428" stroke="#C89B3C" stroke-width="3"/>
+  <!-- Inner details -->
+  <path d="M100 50 L135 68 L135 112 Q135 132 100 150 Q65 132 65 112 L65 68 Z" fill="#091222" stroke="#785A28" stroke-width="1.5"/>
+  <!-- "LoL" sword icon simplified -->
+  <line x1="100" y1="65" x2="100" y2="140" stroke="#C89B3C" stroke-width="4" stroke-linecap="round"/>
+  <line x1="82" y1="90" x2="118" y2="90" stroke="#C89B3C" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="100" cy="65" r="6" fill="#C89B3C"/>
+  <line x1="87" y1="130" x2="113" y2="130" stroke="#C89B3C" stroke-width="2"/>
+</svg>

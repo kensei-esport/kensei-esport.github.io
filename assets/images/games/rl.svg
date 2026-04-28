@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Rocket League dark blue background -->
+  <rect width="200" height="200" fill="#0D1B3E"/>
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="88" stroke="#00B4FF" stroke-width="4" fill="none"/>
+  <!-- Rocket body -->
+  <ellipse cx="100" cy="95" rx="18" ry="38" fill="#00B4FF"/>
+  <!-- Rocket nose -->
+  <polygon points="100,40 82,80 118,80" fill="#0080CC"/>
+  <!-- Rocket fins -->
+  <polygon points="82,115 60,145 85,135" fill="#FF6B1A"/>
+  <polygon points="118,115 140,145 115,135" fill="#FF6B1A"/>
+  <!-- Rocket exhaust -->
+  <ellipse cx="100" cy="132" rx="12" ry="8" fill="#FF6B1A"/>
+  <ellipse cx="100" cy="145" rx="8" ry="12" fill="#FF9A1A" opacity="0.7"/>
+  <!-- Ball - the Rocket League soccer ball -->
+  <circle cx="100" cy="155" r="0" fill="none"/>
+  <!-- Boost flame -->
+  <polygon points="92,132 100,160 108,132" fill="#FFA500" opacity="0.8"/>
+</svg>

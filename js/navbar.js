@@ -5,8 +5,8 @@ import { getLang, setLang, t, applyTranslations } from './i18n.js';
 import { getSession, logout } from './auth.js';
 
 const LANGS = [
-  { code: 'fr', flag: '🇫🇷', label: 'Français' },
-  { code: 'en', flag: '🇬🇧', label: 'English'  },
+  { code: 'fr', label: 'Français' },
+  { code: 'en', label: 'English'  },
 ];
 
 export async function initNavbar() {
@@ -74,15 +74,14 @@ function initLangSelector() {
     // Render current
     const cur = LANGS.find(l => l.code === current) || LANGS[0];
     const flagEl = btn?.querySelector('.lang-flag');
-    const codeEl = btn?.querySelector('.lang-code');
-    if (flagEl) flagEl.textContent = cur.flag;
-    if (codeEl) codeEl.textContent = cur.code.toUpperCase();
+    if (flagEl) flagEl.textContent = cur.code.toUpperCase();
 
     // Render options
     if (dropdown) {
       dropdown.innerHTML = LANGS.map(l => `
         <div class="lang-option ${l.code === current ? 'active' : ''}" data-lang="${l.code}">
-          <span>${l.flag}</span><span>${l.label}</span>
+          <span class="lang-option__code">${l.code.toUpperCase()}</span>
+          <span class="lang-option__label">${l.label}</span>
         </div>
       `).join('');
       dropdown.querySelectorAll('.lang-option').forEach(opt => {

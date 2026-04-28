@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- CS2 dark background -->
+  <rect width="200" height="200" fill="#1A1A1A"/>
+  <!-- CS2 orange/yellow color scheme -->
+  <!-- Shield/CT helmet shape -->
+  <path d="M100 25 L165 55 L165 105 Q165 150 100 178 Q35 150 35 105 L35 55 Z" fill="#2A2A2A" stroke="#E8A820" stroke-width="3"/>
+  <!-- CT helmet simplified -->
+  <!-- Visor top arc -->
+  <path d="M65 75 Q100 50 135 75" stroke="#E8A820" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Helmet body -->
+  <rect x="65" y="75" width="70" height="50" rx="5" fill="#E8A820"/>
+  <!-- Visor dark slit -->
+  <rect x="68" y="82" width="64" height="16" rx="3" fill="#1A1A1A"/>
+  <!-- Chin guard -->
+  <path d="M65 125 Q100 145 135 125 L135 130 Q100 152 65 130 Z" fill="#C8920A"/>
+  <!-- "2" text -->
+  <text x="100" y="168" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="#E8A820" text-anchor="middle">CS2</text>
+</svg>
