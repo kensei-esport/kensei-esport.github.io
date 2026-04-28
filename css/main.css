@@ -1270,6 +1270,8 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   text-transform: uppercase;
 }
 .fan-card__badge {
+  position: relative;
+  z-index: 2;
   margin-left: auto;
   font-family: monospace;
   font-size: .72rem;

@@ -26,9 +26,13 @@ const translations = {
     // Shop dropdown
     shop_all:      'Toute la boutique',
     shop_jerseys:  'Maillots',
+    shop_jerseys_title: 'Maillots officiels',
     shop_hoodies:  'Sweats & Hoodies',
+    shop_hoodies_title: 'Sweats et Hoodies',
     shop_accessories: 'Accessoires',
+    shop_acc_title: 'Accessoires',
     shop_collab:   'Collaborations',
+    shop_collab_title: 'Collaborations',
     // About dropdown
     about_story:   'Notre histoire',
     about_values:  'Nos valeurs',
@@ -134,6 +138,7 @@ const translations = {
     dash_member_since:       'Fan depuis',
     dash_fav_game:           'Jeu favori',
     dash_edit_profile:       'Modifier le profil',
+    dash_actions:            'Actions',
     dash_no_game:            'Non renseigné',
   },
   en: {
@@ -153,9 +158,13 @@ const translations = {
     teams_fifa:    'EA FC',
     shop_all:      'Full store',
     shop_jerseys:  'Jerseys',
+    shop_jerseys_title: 'Official jerseys',
     shop_hoodies:  'Sweatshirts',
+    shop_hoodies_title: 'Sweatshirts & Hoodies',
     shop_accessories: 'Accessories',
+    shop_acc_title: 'Accessories',
     shop_collab:   'Collaborations',
+    shop_collab_title: 'Collaborations',
     about_story:   'Our story',
     about_values:  'Our values',
     about_partners:'Partners',
@@ -254,6 +263,7 @@ const translations = {
     dash_member_since:       'Fan since',
     dash_fav_game:           'Favourite game',
     dash_edit_profile:       'Edit profile',
+    dash_actions:            'Actions',
     dash_no_game:            'Not set',
   }
 };
