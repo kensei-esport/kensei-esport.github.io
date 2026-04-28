@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Créer mon profil — Kensei Esport</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
+</head>
+<body>
+  <div id="siteLoader" class="site-loader" aria-hidden="true">
+    <div class="loader__inner">
+      <img class="loader__logo" src="/assets/images/orange_logo.png" alt="" />
+      <span class="loader__wordmark">KENSEI</span>
+      <div class="loader__bar-wrap"><div class="loader__bar"></div></div>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('k_loaded')){var _l=document.getElementById('siteLoader');if(_l)_l.style.display='none';}</script>
+
+  <nav class="navbar" role="navigation">
+    <div class="navbar__inner">
+      <a href="/index.html" class="navbar__logo"><img src="../assets/images/orange_logo.png" alt="Kensei" /><span class="navbar__logo-name">KENSEI</span></a>
+      <div class="navbar__right" style="margin-left:auto;">
+        <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-split">
+    <!-- Left brand panel -->
+    <div class="auth-split__brand">
+      <div class="auth-split__brand-inner">
+        <img src="../assets/images/orange_logo.png" alt="Kensei Esport" class="auth-split__logo" />
+        <p class="auth-split__tagline">REJOINS LA FAMILLE</p>
+        <h2 class="auth-split__heading">KENSEI<br/><span>ESPORT</span></h2>
+        <p class="auth-split__desc">Dernière étape — crée ton profil fan et accède à ton espace personnel.</p>
+      </div>
+      <div class="auth-split__bg-deco" aria-hidden="true"></div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-split__form-wrap">
+      <div class="auth-split__form-inner">
+        <p class="section__label" data-i18n="setup_title">Créer mon profil</p>
+        <h1 class="auth-split__form-title">MON PROFIL<br/><span style="color:var(--orange)">FAN</span></h1>
+        <p class="auth-split__form-sub" data-i18n="setup_sub">Dernière étape — personnalisez votre espace fan Kensei.</p>
+
+        <div id="setupMsg" class="form-error" hidden></div>
+
+        <form id="setupForm" novalidate>
+          <div class="form-group">
+            <label for="setupUsername" data-i18n="auth_username">Pseudo</label>
+            <input type="text" id="setupUsername" name="username" required maxlength="32" placeholder="MonPseudo" autocomplete="username" />
+          </div>
+          <div class="form-group">
+            <label for="setupDisplayName" data-i18n="auth_display_name">Nom affiché (optionnel)</label>
+            <input type="text" id="setupDisplayName" name="display_name" maxlength="64" placeholder="Prénom ou surnom" />
+          </div>
+          <div class="form-group">
+            <label for="setupFavoriteGame" data-i18n="setup_favorite_game">Jeu favori (optionnel)</label>
+            <div class="select-wrap">
+              <select id="setupFavoriteGame" name="favorite_game">
+                <option value="">— Sélectionner —</option>
+                <option value="valorant">Valorant</option>
+                <option value="lol">League of Legends</option>
+                <option value="cs2">CS2</option>
+                <option value="rl">Rocket League</option>
+                <option value="eafc">EA Sports FC</option>
+              </select>
+              <svg class="select-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="setupBio" data-i18n="setup_bio">Bio (optionnel)</label>
+            <textarea id="setupBio" name="bio" maxlength="300" rows="3" data-i18n-placeholder="setup_bio_placeholder" placeholder="Parlez-nous de vous en quelques mots…"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" id="setupBtn" data-i18n="setup_submit">Créer mon profil</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="../js/loader.js"></script>
+  <script type="module" src="../js/setup.js"></script>
+</body>
+</html>

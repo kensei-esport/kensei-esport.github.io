@@ -19,6 +19,7 @@ create extension if not exists "uuid-ossp";
 -- ================================================================
 -- SUPPRESSION DES ANCIENNES TABLES (ordre FK inverse)
 -- ================================================================
+drop table if exists public.fan_profiles     cascade;
 drop table if exists public.contact_messages cascade;
 drop table if exists public.partners         cascade;
 drop table if exists public.products         cascade;
@@ -180,6 +181,28 @@ alter table public.contact_messages enable row level security;
 create policy "contact_anon_insert" on public.contact_messages for insert with check (true);
 create policy "contact_auth_read"   on public.contact_messages for select using (auth.role() = 'authenticated');
 create policy "contact_auth_manage" on public.contact_messages for all    using (auth.role() = 'authenticated');
+
+-- ================================================================
+-- TABLE : fan_profiles
+-- Profil fan — créé par l'utilisateur après vérification email.
+-- ================================================================
+create table public.fan_profiles (
+  id            uuid        not null default uuid_generate_v4() primary key,
+  user_id       uuid        not null unique references auth.users(id) on delete cascade,
+  username      text        not null unique,
+  display_name  text,
+  bio           text,
+  avatar_url    text,
+  favorite_game text                 check (favorite_game in ('valorant','lol','rl','cs2','eafc')),
+  fan_since     timestamptz not null default now(),
+  created_at    timestamptz not null default now()
+);
+
+alter table public.fan_profiles enable row level security;
+create policy "fan_profiles_public_read" on public.fan_profiles for select using (true);
+create policy "fan_profiles_own_insert"  on public.fan_profiles for insert with check (auth.uid() = user_id);
+create policy "fan_profiles_own_update"  on public.fan_profiles for update using  (auth.uid() = user_id);
+create policy "fan_profiles_own_delete"  on public.fan_profiles for delete using  (auth.uid() = user_id);
 
 -- ================================================================
 -- EXEMPLE D'UTILISATION (décommenter pour tester)

@@ -5,74 +5,101 @@ applyTranslations();
 
 redirectIfLoggedIn('/pages/dashboard.html');
 
-const tabLogin = document.getElementById('tabLogin');
+// ── Tabs ──────────────────────────────────────────────────────────
+const tabLogin    = document.getElementById('tabLogin');
 const tabRegister = document.getElementById('tabRegister');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
+const panelLogin  = document.getElementById('panelLogin');
+const panelRegister = document.getElementById('panelRegister');
+const msgEl       = document.getElementById('formMsg');
 
-tabLogin.addEventListener('click', () => {
-  tabLogin.classList.add('auth-tab--active');
-  tabRegister.classList.remove('auth-tab--active');
-  loginForm.style.display = '';
-  registerForm.style.display = 'none';
-});
+function showMsg(text, type = 'error') {
+  msgEl.textContent = text;
+  msgEl.className   = type === 'success' ? 'form-success' : 'form-error';
+  msgEl.hidden      = false;
+}
+function clearMsg() { msgEl.hidden = true; msgEl.textContent = ''; }
 
-tabRegister.addEventListener('click', () => {
-  tabRegister.classList.add('auth-tab--active');
-  tabLogin.classList.remove('auth-tab--active');
-  registerForm.style.display = '';
-  loginForm.style.display = 'none';
-});
+function activateTab(tab) {
+  const isLogin = tab === 'login';
+  tabLogin.classList.toggle('auth-tab--active', isLogin);
+  tabRegister.classList.toggle('auth-tab--active', !isLogin);
+  panelLogin.hidden    = !isLogin;
+  panelRegister.hidden = isLogin;
+  clearMsg();
+}
 
-loginForm.addEventListener('submit', async (e) => {
+tabLogin.addEventListener('click',    () => activateTab('login'));
+tabRegister.addEventListener('click', () => activateTab('register'));
+
+// Open register tab if hash says so
+if (location.hash === '#register') activateTab('register');
+
+// ── Login ─────────────────────────────────────────────────────────
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('loginEmail').value.trim();
+  clearMsg();
+  const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  const errEl = document.getElementById('loginError');
-  const btn = document.getElementById('loginBtn');
+  const btn      = document.getElementById('loginBtn');
 
-  errEl.textContent = '';
+  if (!email || !password) { showMsg(t('auth_fill')); return; }
+
   btn.disabled = true;
+  btn.textContent = t('auth_loading');
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    errEl.textContent = escapeHtml(error.message);
+    const msg = error.message.toLowerCase().includes('email not confirmed')
+      ? t('auth_email_not_confirmed')
+      : t('auth_invalid_creds');
+    showMsg(msg);
     btn.disabled = false;
-  } else {
-    window.location.href = '/pages/dashboard.html';
+    btn.textContent = t('auth_login_btn');
+    return;
   }
+
+  // Check if profile exists → redirect accordingly
+  const { data: profile } = await supabase
+    .from('fan_profiles')
+    .select('id')
+    .eq('user_id', data.user.id)
+    .maybeSingle();
+
+  window.location.href = profile ? '/pages/dashboard.html' : '/pages/setup.html';
 });
 
-registerForm.addEventListener('submit', async (e) => {
+// ── Register ──────────────────────────────────────────────────────
+const USERNAME_RE = /^[a-zA-Z0-9_-]{3,32}$/;
+
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('regEmail').value.trim();
-  const password = document.getElementById('regPassword').value;
-  const password2 = document.getElementById('regPassword2').value;
-  const errEl = document.getElementById('registerError');
-  const btn = document.getElementById('registerBtn');
+  clearMsg();
+  const username  = document.getElementById('regUsername').value.trim();
+  const email     = document.getElementById('regEmail').value.trim();
+  const password  = document.getElementById('regPassword').value;
+  const password2 = document.getElementById('regPasswordConfirm').value;
+  const btn       = document.getElementById('registerBtn');
 
-  errEl.textContent = '';
-
-  if (password !== password2) {
-    errEl.textContent = t('auth_password_mismatch') || 'Les mots de passe ne correspondent pas.';
-    return;
-  }
-
-  if (password.length < 8) {
-    errEl.textContent = t('auth_password_short') || 'Le mot de passe doit contenir au moins 8 caractères.';
-    return;
-  }
+  if (!username || !email || !password || !password2) { showMsg(t('auth_fill')); return; }
+  if (!USERNAME_RE.test(username)) { showMsg(t('auth_username_invalid')); return; }
+  if (password !== password2)      { showMsg(t('auth_password_mismatch')); return; }
+  if (password.length < 8)         { showMsg(t('auth_password_short')); return; }
 
   btn.disabled = true;
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { username } },
+  });
 
   if (error) {
-    errEl.textContent = escapeHtml(error.message);
+    showMsg(escapeHtml(error.message));
     btn.disabled = false;
   } else {
-    errEl.style.color = 'var(--color-success,#2ecc71)';
-    errEl.textContent = t('auth_confirm_email') || 'Vérifiez votre boîte mail pour confirmer votre inscription.';
+    showMsg(t('auth_confirm_email'), 'success');
+    document.getElementById('registerForm').reset();
+    btn.disabled = false;
   }
 });

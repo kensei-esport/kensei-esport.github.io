@@ -45,13 +45,39 @@
   <main class="section">
     <div class="container">
       <div class="dash-grid">
-        <div class="dash-card">
-          <h3 data-i18n="dash_account">Mon compte</h3>
-          <p id="dashEmail" style="color:var(--text-muted);font-size:.9rem;"></p>
-          <div style="margin-top:1.5rem;">
-            <button class="btn btn--ghost btn--sm" id="logoutBtn" data-i18n="nav_logout">Se déconnecter</button>
+
+        <!-- Profile card -->
+        <div class="dash-card dash-card--profile">
+          <div class="dash-profile__avatar">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
           </div>
+          <div id="dashAccountUsername" class="dash-profile__username">@…</div>
+          <div id="dashEmail" class="dash-profile__email"></div>
         </div>
+
+        <!-- Fan since -->
+        <div class="dash-card">
+          <p class="dash-card__label" data-i18n="dash_member_since">Fan depuis</p>
+          <p class="dash-card__value" id="dashFanSince">—</p>
+        </div>
+
+        <!-- Fav game -->
+        <div class="dash-card">
+          <p class="dash-card__label" data-i18n="dash_fav_game">Jeu favori</p>
+          <p class="dash-card__value" id="dashFavGame">—</p>
+        </div>
+
+        <!-- Bio (hidden until loaded) -->
+        <div class="dash-card" hidden>
+          <p class="dash-card__label">Bio</p>
+          <p class="dash-card__value" id="dashBio" style="font-family:var(--font-body);font-weight:400;font-size:.92rem;color:var(--text-secondary)"></p>
+        </div>
+
+        <!-- Actions -->
+        <div class="dash-card dash-card--actions">
+          <button class="btn btn--ghost btn--sm" id="logoutBtn" data-i18n="nav_logout">Se déconnecter</button>
+        </div>
+
       </div>
     </div>
   </main>
