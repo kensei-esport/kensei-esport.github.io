@@ -1237,22 +1237,24 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 /* ── Fan Card ──────────────────────────────────────────────── */
 .fan-card {
   position: relative;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 60%, #0d0d0d 100%);
-  border: 1px solid rgba(255,107,26,.3);
-  border-radius: 1rem;
+  background: linear-gradient(145deg, #141414 0%, #1c1c1c 55%, #111 100%);
+  border: 1px solid rgba(255,107,26,.22);
+  border-radius: 1.125rem;
   overflow: hidden;
   padding: 1.5rem;
-  max-width: 600px;
+  max-width: 580px;
   color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset, 0 8px 32px rgba(0,0,0,.55);
 }
 .fan-card::before {
   content: '';
   position: absolute;
   top: 0; right: 0;
-  width: 5rem; height: 5rem;
+  width: 4.5rem; height: 4.5rem;
   background: var(--orange);
   clip-path: polygon(100% 0, 0 0, 100% 100%);
-  opacity: .9;
+  opacity: .85;
+  z-index: 0;
 }
 .fan-card__header {
   display: flex;
@@ -1260,34 +1262,24 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   gap: .75rem;
   margin-bottom: 1.5rem;
   position: relative;
+  z-index: 1;
+  padding-right: 3.25rem;
 }
-.fan-card__logo { width: 28px; height: 28px; object-fit: contain; }
+.fan-card__logo { width: 26px; height: 26px; object-fit: contain; }
 .fan-card__org {
   font-family: var(--font-heading);
-  font-size: .78rem;
+  font-size: .76rem;
   font-weight: 700;
   letter-spacing: .14em;
   color: var(--orange);
   text-transform: uppercase;
 }
-.fan-card__badge {
-  position: relative;
-  z-index: 2;
-  margin-left: auto;
-  font-family: monospace;
-  font-size: .72rem;
-  font-weight: 700;
-  color: var(--orange);
-  background: rgba(255,107,26,.12);
-  border: 1px solid rgba(255,107,26,.35);
-  border-radius: .375rem;
-  padding: .2rem .65rem;
-  letter-spacing: .06em;
-}
 .fan-card__body {
   display: flex;
   align-items: flex-start;
   gap: 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 .fan-card__avatar {
   width: 56px; height: 56px;
@@ -1321,8 +1313,8 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 .fan-card__meta {
   display: flex;
   flex-direction: column;
-  gap: .18rem;
-  margin-top: .4rem;
+  gap: .2rem;
+  margin-top: .45rem;
 }
 .fan-card__since,
 .fan-card__game {
@@ -1333,22 +1325,50 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .4rem;
+  gap: .45rem;
   flex-shrink: 0;
 }
 .fan-card__qr img {
   border-radius: .5rem;
   background: #fff;
-  padding: 3px;
+  padding: 4px;
   display: block;
 }
 .fan-card__scan {
-  font-size: .62rem;
-  color: rgba(255,255,255,.4);
+  font-size: .6rem;
+  color: rgba(255,255,255,.35);
   text-align: center;
   margin: 0;
   text-transform: uppercase;
+  letter-spacing: .12em;
+}
+/* ID strip footer */
+.fan-card__footer {
+  display: flex;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: .875rem;
+  border-top: 1px solid rgba(255,107,26,.15);
+  position: relative;
+  z-index: 1;
+}
+.fan-card__badge {
+  font-family: 'Courier New', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  color: rgba(255,107,26,.8);
   letter-spacing: .1em;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.fan-card__badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--orange);
+  transform: rotate(45deg);
+  flex-shrink: 0;
 }
 /* Public fan profile page */
 .fan-page {

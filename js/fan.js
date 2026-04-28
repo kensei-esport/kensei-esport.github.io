@@ -60,7 +60,6 @@ if (!username) {
         <div class="fan-card__header">
           <img class="fan-card__logo" src="/assets/images/orange_logo.png" alt="Kensei" />
           <span class="fan-card__org">KENSEI ESPORT</span>
-          <span class="fan-card__badge">${escapeHtml(fanId)}</span>
         </div>
         <div class="fan-card__body">
           <div class="fan-card__avatar">${avatarHtml}</div>
@@ -72,6 +71,9 @@ if (!username) {
               <span class="fan-card__game">${escapeHtml(gameLabel)}</span>
             </div>
           </div>
+        </div>
+        <div class="fan-card__footer">
+          <span class="fan-card__badge">${escapeHtml(fanId)}</span>
         </div>
       </div>
     `;
