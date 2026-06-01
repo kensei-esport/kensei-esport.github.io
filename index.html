@@ -345,29 +345,6 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       X / TWITTER LIVE FEED
-  ══════════════════════════════════════════════ -->
-  <hr class="section-sep" />
-  <section class="section s-glow-left" style="background:var(--surface)" aria-label="Derniers tweets Kensei Esport">
-    <div class="container">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2rem">
-        <div>
-          <p class="section__label">Réseau social</p>
-          <h2 style="margin:0">Derniers tweets</h2>
-        </div>
-        <a href="https://x.com/KenseiEsport" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" style="display:inline-flex;align-items:center;gap:.45rem">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          @KenseiEsport
-        </a>
-      </div>
-      <div class="tweet-grid" id="tweetGrid">
-        <p class="placeholder" style="grid-column:1/-1">Chargement des tweets…</p>
-      </div>
-    </div>
-  </section>
-  <hr class="section-sep" />
-
-  <!-- ═══════════════════════════════════════════
        RESULTS STRIP
   ══════════════════════════════════════════════ -->
   <section class="section s-glow" style="padding-top:0;background:var(--surface)" aria-labelledby="results-title">
@@ -442,10 +419,6 @@
   </footer>  <script type="module" src="js/loader.js"></script>
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/home.js"></script>
-  <script type="module">
-    import { loadTweets } from './js/tweets.js';
-    loadTweets('tweetGrid');
-  </script>
 
   <!-- ── Article Modal ── -->
   <div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-label="Article">
