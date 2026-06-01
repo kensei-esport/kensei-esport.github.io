@@ -1,34 +1,302 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — Kensei Esport</title>
-  <meta name="description" content="Contactez Kensei Esport pour un partenariat, un recrutement ou toute autre demande." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendrier — Kensei Esport</title>
+  <meta name="description" content="Consultez le calendrier des prochains matchs de Kensei Esport : EVA et toutes nos équipes." />
+  <link rel="icon" type="image/png" href="../assets/images/orange_logo.png" />
   <link rel="stylesheet" href="../css/main.css" />
-  <link rel="icon" href="../assets/images/orange_logo.png" type="image/png" />
   <!-- SEO -->
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://kensei-esport.github.io/pages/contact.html" />
+  <link rel="canonical" href="https://kensei-esport.github.io/pages/calendar.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kensei Esport" />
-  <meta property="og:title" content="Contact — Kensei Esport" />
-  <meta property="og:description" content="Contactez Kensei Esport pour un partenariat, un recrutement ou toute autre demande." />
-  <meta property="og:url" content="https://kensei-esport.github.io/pages/contact.html" />
+  <meta property="og:title" content="Calendrier — Kensei Esport" />
+  <meta property="og:description" content="Consultez le calendrier des prochains matchs de Kensei Esport." />
+  <meta property="og:url" content="https://kensei-esport.github.io/pages/calendar.html" />
   <meta property="og:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Contact — Kensei Esport" />
-  <meta name="twitter:description" content="Contactez Kensei Esport pour un partenariat, un recrutement ou toute autre demande." />
+  <meta name="twitter:title" content="Calendrier — Kensei Esport" />
+  <meta name="twitter:description" content="Consultez le calendrier des prochains matchs de Kensei Esport." />
   <meta name="twitter:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
+  <style>
+    /* ── Calendar page styles ── */
+    .cal-wrap { padding-block: clamp(2rem, 5vw, 4rem); }
+
+    /* Filter */
+    .cal-filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .cal-filter-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-light);
+      background: var(--surface);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+      letter-spacing: 0.05em;
+    }
+    .cal-filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .cal-filter-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+    /* Month nav */
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+    .cal-nav__title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .cal-nav__btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      background: var(--surface);
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+      flex-shrink: 0;
+    }
+    .cal-nav__btn:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* Calendar grid */
+    .cal-grid {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .cal-grid__header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .cal-grid__dow {
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .cal-grid__body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .cal-day {
+      min-height: 160px;
+      padding: 0.75rem 0.7rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      transition: background var(--t) var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+    .cal-day:nth-child(7n) { border-right: none; }
+    .cal-day.other-month { opacity: 0.3; }
+    .cal-day.today .cal-day__num {
+      background: var(--orange);
+      color: #fff;
+      border-radius: 50%;
+    }
+    .cal-day.has-match { background: rgba(255,107,26,0.04); }
+    .cal-day__header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 0.35rem;
+    }
+    .cal-day__dow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .cal-day__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .cal-event {
+      display: block;
+      margin-bottom: 2px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: var(--orange-glow);
+      color: var(--orange);
+      border-left: 2px solid var(--orange);
+      cursor: pointer;
+      transition: background var(--t) var(--ease);
+    }
+    .cal-event:hover { background: rgba(255,107,26,0.2); }
+    .cal-event--more {
+      background: var(--surface-2);
+      color: var(--text-secondary);
+      border-left-color: var(--border-light);
+      cursor: default;
+    }
+
+    /* Upcoming matches list */
+    .cal-upcoming { margin-top: 3rem; }
+    .cal-upcoming__title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+    .match-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .match-card {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+    }
+    .match-card:hover { border-color: var(--orange); box-shadow: var(--shadow-orange); }
+    .match-card__date {
+      text-align: center;
+      line-height: 1.2;
+    }
+    .match-card__day {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--orange);
+      display: block;
+    }
+    .match-card__month {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    .match-card__info { min-width: 0; }
+    .match-card__teams {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .match-card__meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .match-card__badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--surface-2);
+      color: var(--text-secondary);
+    }
+    .match-card__badge--game {
+      background: var(--orange-glow-s);
+      color: var(--orange);
+    }
+    .match-card__time {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .match-card__stream {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #6441a5;
+      color: #fff;
+      text-decoration: none;
+      transition: opacity var(--t);
+      white-space: nowrap;
+    }
+    .match-card__stream:hover { opacity: 0.85; }
+
+    /* Empty state */
+    .cal-empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+    .cal-empty svg { margin: 0 auto 1rem; opacity: 0.3; }
+
+    /* Detail popover */
+    .cal-popover {
+      position: fixed;
+      z-index: 999;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+      min-width: 220px;
+      max-width: 280px;
+      display: none;
+    }
+    .cal-popover.open { display: block; }
+    .cal-popover__title { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .cal-popover__row { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.2rem; }
+    .cal-popover__row strong { color: var(--text); }
+    .cal-popover__close { position: absolute; top: 0.5rem; right: 0.75rem; cursor: pointer; color: var(--text-muted); font-size: 1.1rem; }
+
+    @media (max-width: 640px) {
+      .cal-grid { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .cal-grid__body { min-width: 560px; }
+      .cal-day { min-height: 110px; }
+      .match-card { grid-template-columns: 44px 1fr; }
+      .match-card__stream { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <div id="siteLoader" class="site-loader" aria-hidden="true">
-    <div class="loader__inner">
-      <img class="loader__logo" src="/assets/images/orange_logo.png" alt="" />
-      <span class="loader__wordmark">KENSEI</span>
-      <div class="loader__bar-wrap"><div class="loader__bar"></div></div>
-    </div>
-  </div>
-  <script>if(sessionStorage.getItem('k_loaded')){var _l=document.getElementById('siteLoader');if(_l)_l.style.display='none';}</script>
 
   <nav class="navbar" role="navigation">
     <div class="navbar__inner">
@@ -44,7 +312,7 @@
             <a href="/pages/team-staff.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-dropdown__text"><strong>Staff</strong></span></a>
           </div>
         </li>
-        <li class="nav-item nav-item--link"><a href="/pages/calendar.html" class="nav-item__trigger">Calendrier</a></li>
+        <li class="nav-item nav-item--link nav-item--active"><a href="/pages/calendar.html" class="nav-item__trigger">Calendrier</a></li>
         <li class="nav-item nav-item--link"><a href="/pages/results.html" class="nav-item__trigger" data-i18n="nav_results">Résultats</a></li>
         
         <li class="nav-item">
@@ -77,7 +345,8 @@
             <a href="/pages/ultras.html#defis" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><span class="nav-dropdown__text"><strong>Défis</strong></span></a>
             <a href="/pages/ultras.html#soutenir" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="nav-dropdown__text"><strong>Soutenir l'équipe</strong></span></a>
           </div>
-        </li>        <li class="nav-item nav-item--active nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
+        </li>
+        <li class="nav-item nav-item--link"><a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a></li>
       </ul>
       <div class="navbar__right">
         <div class="lang-selector" id="langSelector"><button class="lang-btn"><span class="lang-flag">FR</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button><div class="lang-dropdown"></div></div>
@@ -91,16 +360,17 @@
       <li class="mobile-nav-item"><a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a></li>
       <li class="mobile-nav-item">
         <button class="mobile-nav-trigger"><span data-i18n="nav_teams">Teams</span><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
-        <div class="mobile-nav-sub"><a href="/pages/teams.html">Toutes</a><a href="/pages/team-eva.html">EVA</a><a href="/pages/team-valorant.html">Valorant</a><a href="/pages/team-staff.html">Staff</a></div>
+        <div class="mobile-nav-sub"><a href="/pages/teams.html">Toutes les équipes</a><a href="/pages/team-eva.html">EVA</a><a href="/pages/team-staff.html">Staff</a></div>
       </li>
-      <li class="mobile-nav-item"><a href="/pages/calendar.html" class="mobile-nav-trigger" style="cursor:pointer">Calendrier</a></li>
+      <li class="mobile-nav-item"><a href="/pages/calendar.html" class="mobile-nav-trigger" style="cursor:pointer;color:var(--orange)">Calendrier</a></li>
       <li class="mobile-nav-item"><a href="/pages/results.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_results">Résultats</a></li>
       <li class="mobile-nav-item"><a href="/pages/shop.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_shop">Shop</a></li>
       <li class="mobile-nav-item"><a href="/pages/about.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_about">À propos</a></li>
       <li class="mobile-nav-item">
         <button class="mobile-nav-trigger"><span>ULTRAS</span><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
         <div class="mobile-nav-sub"><a href="/pages/ultras.html">Programme Ultras</a><a href="/pages/ultras.html#classement">Classement</a><a href="/pages/ultras.html#defis">Défis</a><a href="/pages/ultras.html#soutenir">Soutenir</a></div>
-      </li>      <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
+      </li>
+      <li class="mobile-nav-item"><a href="/pages/contact.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_contact">Contact</a></li>
     </ul>
     <div class="mobile-menu__bottom">
       <a href="/pages/login.html" class="btn btn--primary btn--full" data-i18n="nav_login">Connexion</a>
@@ -110,94 +380,73 @@
 
   <div class="page-header page-header--vivid">
     <div class="container">
-      <nav class="breadcrumb"><a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span><span data-i18n="nav_contact">Contact</span></nav>
-      <p class="section__label">Contact</p>
-      <h1 data-i18n="contact_title">Nous contacter</h1>
+      <nav class="breadcrumb">
+        <a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span>
+        <span>Calendrier</span>
+      </nav>
+      <div class="page-header__content">
+        <div class="page-header__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+          </svg>
+        </div>
+        <div>
+          <p class="section__label">Kensei Esport</p>
+          <h1 style="margin:0">Calendrier</h1>
+        </div>
+      </div>
     </div>
   </div>
 
   <main>
-    <section class="section">
-      <div class="container">
-        <div class="contact-layout">
-          <div class="contact-info">
-            <h2 data-i18n="contact_info_title">Informations</h2>
-            <ul class="contact-info__list">
-              <li class="contact-info__item">
-                <span class="contact-info__icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </span>
-                <div>
-                  <p class="contact-info__label" data-i18n="contact_email_label">Email</p>
-                  <a href="mailto:kensei.contacts@gmail.com" class="contact-info__value">kensei.contacts@gmail.com</a>
-                </div>
-              </li>
-              <li class="contact-info__item">
-                <span class="contact-info__icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                </span>
-                <div>
-                  <p class="contact-info__label">Discord</p>
-                  <a href="https://discord.gg/8VYhABMa" target="_blank" rel="noopener" class="contact-info__value">discord.gg/8VYhABMa</a>
-                </div>
-              </li>
-              <li class="contact-info__item">
-                <span class="contact-info__icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </span>
-                <div>
-                  <p class="contact-info__label" data-i18n="contact_social_label">Réseaux sociaux</p>
-                  <span class="contact-info__value">@kensei_esport</span>
-                </div>
-              </li>
-            </ul>
-          </div>
+    <div class="container cal-wrap">
 
-          <div class="contact-form-wrap">
-            <h2 data-i18n="contact_form_title">Envoyer un message</h2>
-            <div id="formSuccess" class="form-success" hidden>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="contact_success">Message envoyé ! Nous vous répondrons dans les plus brefs délais.</span>
-            </div>
-            <div id="formError" class="form-error" hidden>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span id="formErrorMsg" data-i18n="contact_error">Une erreur est survenue. Veuillez réessayer.</span>
-            </div>
-            <form id="contactForm" novalidate>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name" data-i18n="contact_name">Nom</label>
-                  <input type="text" id="name" name="name" required autocomplete="name" maxlength="120" data-i18n-placeholder="contact_name_placeholder" placeholder="Votre nom" />
-                </div>
-                <div class="form-group">
-                  <label for="email" data-i18n="contact_email">Email</label>
-                  <input type="email" id="email" name="email" required autocomplete="email" maxlength="255" data-i18n-placeholder="contact_email_placeholder" placeholder="votre@email.fr" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="subject" data-i18n="contact_subject">Sujet</label>
-                <select id="subject" name="subject" required>
-                  <option value="" disabled selected data-i18n="contact_subject_placeholder">Sélectionner un sujet</option>
-                  <option value="recrutement" data-i18n="contact_subject_recruit">Recrutement</option>
-                  <option value="partenariat" data-i18n="contact_subject_partner">Partenariat</option>
-                  <option value="presse" data-i18n="contact_subject_press">Presse</option>
-                  <option value="autre" data-i18n="contact_subject_other">Autre</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="message" data-i18n="contact_message">Message</label>
-                <textarea id="message" name="message" rows="6" required maxlength="2000" data-i18n-placeholder="contact_message_placeholder" placeholder="Votre message…"></textarea>
-              </div>
-              <button type="submit" class="btn btn--primary btn--lg" id="submitBtn">
-                <span data-i18n="contact_submit">Envoyer</span>
-                <span class="btn-spinner" hidden></span>
-              </button>
-            </form>
-          </div>
+      <!-- Filters — populated dynamically by calendar.js from the teams table -->
+      <div class="cal-filters" id="calFilters">
+        <button class="cal-filter-btn active" data-game="all">Tous</button>
+      </div>
+
+      <!-- Month navigation -->
+      <div class="cal-nav">
+        <button class="cal-nav__btn" id="calPrev" aria-label="Semaine précédente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h2 class="cal-nav__title" id="calMonthTitle"></h2>
+        <button class="cal-nav__btn" id="calNext" aria-label="Semaine suivante">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <!-- Calendar grid (7-day weekly view, built by JS) -->
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-grid__body" id="calBody">
+          <!-- Built by JS -->
         </div>
       </div>
-    </section>
+
+      <!-- Upcoming matches -->
+      <div class="cal-upcoming">
+        <h2 class="cal-upcoming__title">Prochains matchs</h2>
+        <div class="match-list" id="matchList">
+          <!-- Built by JS -->
+        </div>
+      </div>
+
+    </div>
   </main>
+
+  <!-- Match detail popover -->
+  <div class="cal-popover" id="calPopover" role="tooltip">
+    <span class="cal-popover__close" id="calPopoverClose" aria-label="Fermer">×</span>
+    <div class="cal-popover__title" id="calPopTitle"></div>
+    <div class="cal-popover__row" id="calPopGame"></div>
+    <div class="cal-popover__row" id="calPopTournament"></div>
+    <div class="cal-popover__row" id="calPopTime"></div>
+    <div class="cal-popover__row" id="calPopVenue"></div>
+    <div class="cal-popover__row" id="calPopNotes"></div>
+    <div style="margin-top:0.6rem" id="calPopStream"></div>
+  </div>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container">
@@ -208,7 +457,6 @@
           <div class="footer__socials">
             <a href="https://x.com/KenseiEsport" class="footer__social" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
             <a href="https://instagram.com/kenseiesport" class="footer__social" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-            <a href="#" class="footer__social js-soon" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.14 8.14 0 004.77 1.52V6.73a4.85 4.85 0 01-1-.04z"/></svg></a>
             <a href="https://twitch.tv/KenseiEsport" class="footer__social" aria-label="Twitch" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></a>
             <a href="#" class="footer__social js-soon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
             <a href="https://discord.gg/Pte2qEuTuT" class="footer__social" aria-label="Discord" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
@@ -219,9 +467,18 @@
           <ul class="footer__links">
             <li><a href="/index.html" data-i18n="nav_home">Accueil</a></li>
             <li><a href="/pages/teams.html" data-i18n="nav_teams">Teams</a></li>
+            <li><a href="/pages/results.html" data-i18n="nav_results">Résultats</a></li>
+            <li><a href="/pages/calendar.html">Calendrier</a></li>
             <li><a href="/pages/shop.html" data-i18n="nav_shop">Shop</a></li>
             <li><a href="/pages/about.html" data-i18n="nav_about">À propos</a></li>
             <li><a href="/pages/contact.html" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title" data-i18n="footer_games">Jeux</p>
+          <ul class="footer__links">
+            <li><a href="/pages/team-eva.html" data-i18n="teams_eva">EVA</a></li>
+            <li><a href="/pages/team-valorant.html">Valorant</a></li>
           </ul>
         </div>
         <div>
@@ -240,7 +497,7 @@
     </div>
   </footer>
 
-  <script type="module" src="../js/loader.js"></script>
-  <script type="module" src="../js/contact.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/calendar.js"></script>
 </body>
 </html>

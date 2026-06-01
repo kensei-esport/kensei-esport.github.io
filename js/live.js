@@ -14,22 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     playerFrame.src = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&autoplay=true`;
   }
 
-  // Inject chat iframe
-  const chatFrame = document.getElementById('twitchChat');
-  if (chatFrame) {
-    chatFrame.src = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent=${hostname}&darkpopout`;
-  }
-
-  // Chat toggle
-  const chatToggle = document.getElementById('chatToggle');
-  const chatPanel  = document.getElementById('liveChat');
-  if (chatToggle && chatPanel) {
-    chatToggle.addEventListener('click', () => {
-      const hidden = chatPanel.classList.toggle('live-page__chat--hidden');
-      chatToggle.classList.toggle('active', !hidden);
-    });
-  }
-
   // Live status check
   checkLiveStatus();
 });

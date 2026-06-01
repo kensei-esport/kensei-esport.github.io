@@ -14,6 +14,7 @@
 
   --bg:            #0A0A0A;
   --surface:       #141414;
+  --surface-1:     #161616;
   --surface-2:     #1A1A1A;
   --border:        #1E1E1E;
   --border-light:  #2A2A2A;
@@ -1943,8 +1944,9 @@ body:has(.live-page) { overflow: hidden; }
 }
 
 /* ═══════════════════════════════════════════ ULTRAS PAGE ═ */
-.ultras-hero { position: relative; padding: 5rem 0 4rem; text-align: center; overflow: hidden; }
+.ultras-hero { position: relative; padding: 5rem 0 4rem; text-align: center; overflow: hidden; background: linear-gradient(to bottom, var(--surface) 0%, var(--bg) 100%); }
 .ultras-hero::before { content: 'ULTRAS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: clamp(6rem,22vw,16rem); font-family: var(--font-heading); font-weight: 900; color: var(--orange); opacity: .05; white-space: nowrap; pointer-events: none; user-select: none; }
+.ultras-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,26,0.12) 0%, transparent 65%), radial-gradient(ellipse 50% 40% at 80% 90%, rgba(255,107,26,0.07) 0%, transparent 60%); pointer-events: none; }
 .ultras-hero__title { font-size: clamp(3rem,8vw,6rem); font-family: var(--font-heading); font-weight: 900; line-height: 1; margin-bottom: 1.5rem; }
 .ultras-hero__sub { font-size: 1.1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; }
 .ultras-hero__stats { display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
@@ -2001,3 +2003,246 @@ body:has(.live-page) { overflow: hidden; }
 .ultras-support-card p { font-size: .85rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.6; }
 
 .ultras-nav-badge { display: inline-block; background: var(--orange); color: #fff; font-size: .6rem; font-weight: 800; padding: .1rem .35rem; border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; vertical-align: middle; margin-left: .35rem; line-height: 1.5; }
+
+/* ============================================================
+   AMBIENT GLOW — section decorators
+   ============================================================ */
+.s-glow { position: relative; overflow: hidden; }
+.s-glow::before {
+  content: '';
+  position: absolute;
+  width: min(65vw, 720px); height: min(65vw, 720px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,26,0.085) 0%, transparent 62%);
+  top: -25%; right: -12%;
+  pointer-events: none;
+  z-index: 0;
+}
+.s-glow > .container { position: relative; z-index: 1; }
+
+.s-glow-left::before { left: -12%; right: auto; top: -25%; }
+
+/* Second orb — deeper atmosphere */
+.s-glow2::after {
+  content: '';
+  position: absolute;
+  width: min(40vw, 440px); height: min(40vw, 440px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,26,0.05) 0%, transparent 65%);
+  bottom: -15%; left: 10%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Grid texture overlay ─── */
+.s-grid::before {
+  background-image:
+    linear-gradient(rgba(255,107,26,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,26,0.035) 1px, transparent 1px) !important;
+  background-size: 56px 56px !important;
+  width: 100% !important; height: 100% !important;
+  border-radius: 0 !important;
+  top: 0 !important; right: 0 !important;
+  left: 0 !important; bottom: 0 !important;
+}
+
+/* ── Gradient section separator ─── */
+.section-sep {
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(255,107,26,0.35) 35%, rgba(255,107,26,0.6) 50%, rgba(255,107,26,0.35) 65%, transparent 100%);
+  border: none;
+  margin: 0;
+}
+
+/* ── Page header enhanced ─── */
+.page-header--vivid {
+  background: linear-gradient(135deg, #0e0e0e 0%, var(--surface) 50%, rgba(255,107,26,0.06) 100%);
+  border-bottom-color: rgba(255,107,26,0.2);
+}
+.page-header--vivid::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,26,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,26,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+}
+.page-header--vivid > .container { position: relative; z-index: 1; }
+
+/* ── X / Twitter feed section ─── */
+.x-feed-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2.5rem;
+}
+@media (max-width: 860px) { .x-feed-layout { grid-template-columns: 1fr; } }
+
+.x-feed-intro { display: flex; flex-direction: column; gap: 0; }
+.x-feed-intro h2 { margin-bottom: 0.75rem; }
+.x-feed-intro p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.75; margin-bottom: 1.5rem; }
+
+.x-feed-embed {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--surface-2);
+  min-height: 320px;
+  display: flex; align-items: flex-start;
+}
+.x-feed-embed .twitter-timeline { width: 100% !important; }
+
+/* Full-width tweet row (no sidebar) */
+.x-tweets-row {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--surface-2);
+  min-height: 280px;
+}
+.x-tweets-row .twitter-timeline { width: 100% !important; display: block; }
+
+/* ── Tweet cards grid ─── */
+.tweet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.tweet-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  transition: border-color .2s, transform .2s;
+}
+.tweet-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+}
+
+.tweet-card__header {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+}
+.tweet-card__avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .95rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tweet-card__meta { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.tweet-card__name { font-weight: 700; font-size: .85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tweet-card__handle { font-size: .75rem; color: var(--text-muted); }
+.tweet-card__x-icon { color: var(--text-muted); flex-shrink: 0; transition: color .2s; }
+.tweet-card__x-icon:hover { color: var(--text-primary); }
+
+.tweet-card__text {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tweet-card__link { color: var(--orange); text-decoration: none; }
+.tweet-card__link:hover { text-decoration: underline; }
+
+.tweet-card__media { border-radius: var(--radius); overflow: hidden; }
+.tweet-card__media img { width: 100%; height: 160px; object-fit: cover; display: block; }
+
+.tweet-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .65rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.tweet-card__time { font-size: .75rem; color: var(--text-muted); text-decoration: none; }
+.tweet-card__time:hover { color: var(--text-secondary); }
+.tweet-card__metrics { display: flex; gap: 1rem; }
+.tweet-card__metric {
+  display: flex; align-items: center; gap: .3rem;
+  font-size: .75rem; color: var(--text-muted);
+}
+
+/* ── Decorative orange corner accent ─── */
+.corner-accent {
+  position: relative;
+}
+.corner-accent::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 40px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  border-radius: 0 0 2px 0;
+}
+
+/* ── Stat highlight bar ─── */
+.stat-bar {
+  display: flex;
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.stat-bar__item {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-bar__item:last-child { border-right: none; }
+.stat-bar__val {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+}
+.stat-bar__label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+@media (max-width: 600px) { .stat-bar { flex-wrap: wrap; } .stat-bar__item { flex: 1 1 50%; border-right: 1px solid var(--border); } .stat-bar__item:nth-child(2n) { border-right: none; } .stat-bar__item:nth-child(n+3) { border-top: 1px solid var(--border); } }
+
+/* ── Diagonal gradient hero overlay for team pages ─── */
+.team-page-glow {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 90% 50%, rgba(255,107,26,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(255,107,26,0.06) 0%, transparent 55%);
+}
+
+/* ── Separator line with label ─── */
+.label-sep {
+  display: flex; align-items: center; gap: 1rem;
+  color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.label-sep::before, .label-sep::after {
+  content: ''; flex: 1;
+  height: 1px; background: var(--border);
+}

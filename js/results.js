@@ -1,21 +1,16 @@
 /**
  * results.js — Page Résultats (timeline + filtre par équipe)
  */
-import { supabase } from './auth.js';
+import { supabase, isDev } from './auth.js';
 import { initNavbar } from './navbar.js';
 import { applyTranslations } from './i18n.js';
 import { initStream } from './stream.js';
 
-const TEAM_LABELS = {
-  lol:      { label: 'League of Legends', icon: '/assets/images/lol_logo.png'  },
-  rl:       { label: 'Rocket League',     icon: '/assets/images/rl_logo.png'   },
-  eva:      { label: 'EVA',               icon: '/assets/images/games/eva.svg' },
-  valorant: { label: 'Valorant',          icon: '' },
-  cs2:      { label: 'CS2',              icon: '' },
-  eafc:     { label: 'EA FC',            icon: '' },
-};
+// Team info — populated dynamically from the teams table
+const TEAM_LABELS = {};
 
 let allResults = [];
+let activeTeams = [];
 let currentFilter = 'all';
 
 async function init() {
@@ -23,14 +18,61 @@ async function init() {
   initNavbar();
   initStream();
 
-  setupFilters();
+  await loadTeams();
   await loadResults();
 }
 
-function setupFilters() {
-  document.querySelectorAll('.results-filter__btn').forEach(btn => {
+async function loadTeams() {
+  if (!isDev) {
+    try {
+      const { data, error } = await supabase
+        .from('teams')
+        .select('id, name, game, logo_url')
+        .eq('is_active', true)
+        .order('name');
+      if (error) throw error;
+      activeTeams = data || [];
+    } catch {
+      activeTeams = [];
+    }
+  }
+  if (isDev || activeTeams.length === 0) {
+    activeTeams = [
+      { id: 'eva',      name: 'Kensei EVA',      game: 'eva',      logo_url: '/assets/images/games/eva.svg' },
+      { id: 'valorant', name: 'Kensei Valorant', game: 'valorant', logo_url: '/assets/images/valo_logo.png' },
+    ];
+  }
+  activeTeams.forEach(t => {
+    TEAM_LABELS[t.game] = { label: t.name, icon: t.logo_url || '' };
+  });
+  renderFilters();
+}
+
+function renderFilters() {
+  const container = document.getElementById('resultsFilterBar');
+  if (!container) return;
+
+  const seen = new Set();
+  const unique = activeTeams.filter(t => {
+    if (seen.has(t.game)) return false;
+    seen.add(t.game);
+    return true;
+  });
+
+  const btns = unique.map(t => {
+    const info = TEAM_LABELS[t.game] || {};
+    const logo = info.icon
+      ? `<img src="${info.icon}" alt="" width="16" height="16" style="border-radius:2px;vertical-align:middle;margin-right:4px" />`
+      : '';
+    return `<button class="results-filter__btn" data-team="${t.game}">${logo}${info.label || t.game}</button>`;
+  }).join('');
+
+  container.innerHTML =
+    `<button class="results-filter__btn active" data-team="all">Tous</button>${btns}`;
+
+  container.querySelectorAll('.results-filter__btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.results-filter__btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.results-filter__btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.dataset.team;
       renderTimeline();
@@ -42,16 +84,17 @@ async function loadResults() {
   const grid = document.getElementById('resultsTimeline');
   if (!grid) return;
 
-  try {
-    const { data, error } = await supabase
-      .from('results')
-      .select('*, teams(id, name, game)')
-      .order('played_at', { ascending: false });
-
-    if (error) throw error;
-    allResults = data || [];
-  } catch {
-    allResults = [];
+  if (!isDev) {
+    try {
+      const { data, error } = await supabase
+        .from('results')
+        .select('*, teams(id, name, game)')
+        .order('played_at', { ascending: false });
+      if (error) throw error;
+      allResults = data || [];
+    } catch {
+      allResults = [];
+    }
   }
 
   renderTimeline();

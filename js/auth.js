@@ -4,7 +4,11 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Use valid placeholder values during local dev (GH Actions replaces the real ones at deploy time)
+const isDev = SUPABASE_URL.startsWith('__');
+const _url = isDev ? 'https://placeholder.supabase.co' : SUPABASE_URL;
+const _key = isDev ? 'placeholder-key' : SUPABASE_ANON_KEY;
+const supabase = createClient(_url, _key);
 
 async function getSession() {
   const { data } = await supabase.auth.getSession();
@@ -33,4 +37,4 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
 }
 
-export { supabase, getSession, requireAuth, redirectIfLoggedIn, logout, escapeHtml };
+export { supabase, isDev, getSession, requireAuth, redirectIfLoggedIn, logout, escapeHtml };
