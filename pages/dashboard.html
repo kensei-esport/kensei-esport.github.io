@@ -139,6 +139,33 @@
           <a id="fanPublicLink" href="#" target="_blank" rel="noopener" class="dash-card__value" style="font-size:.82rem;word-break:break-all">kensei-esport.github.io/pages/fan.html?u=…</a>
         </div>
 
+        <!-- ══ GESTION TWEETS ══════════════════════════════════════════════ -->
+        <div class="dash-card" style="grid-column:1/-1" id="tweetManagerCard">
+          <p class="dash-card__label">📢 Tweets affichés sur la homepage</p>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:1.25rem">Ajoute ici tes tweets après les avoir postés sur X. Ils apparaîtront automatiquement sur la page d'accueil.</p>
+
+          <!-- Formulaire d'ajout -->
+          <form id="tweetForm" style="display:grid;gap:.75rem;margin-bottom:1.5rem">
+            <textarea id="tweetText" placeholder="Texte du tweet…" maxlength="280" rows="3"
+              style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem;color:var(--text-primary);font-family:var(--font-body);font-size:.9rem;resize:vertical;width:100%;box-sizing:border-box"></textarea>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+              <input id="tweetPhotoUrl" type="url" placeholder="URL image (optionnel)"
+                style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem .75rem;color:var(--text-primary);font-size:.85rem;width:100%;box-sizing:border-box" />
+              <input id="tweetXId" type="text" placeholder="ID du tweet X (optionnel, pour lien direct)"
+                style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem .75rem;color:var(--text-primary);font-size:.85rem;width:100%;box-sizing:border-box" />
+            </div>
+            <div style="display:flex;gap:.75rem;align-items:center">
+              <button type="submit" class="btn btn--primary btn--sm">Publier sur le site</button>
+              <span id="tweetFormMsg" style="font-size:.82rem;color:var(--text-muted)"></span>
+            </div>
+          </form>
+
+          <!-- Liste des tweets existants -->
+          <div id="tweetList" style="display:flex;flex-direction:column;gap:.5rem">
+            <p style="font-size:.82rem;color:var(--text-muted)">Chargement…</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
