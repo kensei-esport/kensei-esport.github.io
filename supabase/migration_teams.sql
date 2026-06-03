@@ -35,7 +35,7 @@ select
   'eva',
   'KS-EVA',
   'Équipe Kensei sur EVA — le FPS tactique nouvelle génération.',
-  '/assets/images/games/eva.svg',
+  '/assets/images/games/eva.png',
   true
 where not exists (
   select 1 from public.teams where game = 'eva' and is_active = true

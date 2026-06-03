@@ -61,7 +61,7 @@ async function loadTeams() {
   }
   if (isDev || activeTeams.length === 0) {
     activeTeams = [
-      { id: 'eva',      name: 'Kensei EVA',      game: 'eva',      logo_url: '/assets/images/games/eva.svg' },
+      { id: 'eva',      name: 'Kensei EVA',      game: 'eva',      logo_url: '/assets/images/games/eva.png' },
       { id: 'valorant', name: 'Kensei Valorant', game: 'valorant', logo_url: '/assets/images/valo_logo.png' },
     ];
   }
