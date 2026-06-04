@@ -25,6 +25,7 @@ const translations = {
     teams_fifa:    'EA FC',
     teams_eva:     'EVA',
     nav_results:   'Résultats',
+    nav_calendar:  'Calendrier',
     // Shop dropdown
     shop_all:      'Toute la boutique',
     shop_jerseys:  'Maillots',
@@ -180,6 +181,7 @@ const translations = {
     teams_fifa:    'EA FC',
     teams_eva:     'EVA',
     nav_results:   'Results',
+    nav_calendar:  'Calendar',
     shop_all:      'Full store',
     shop_jerseys:  'Jerseys',
     shop_jerseys_title: 'Official jerseys',
