@@ -26,7 +26,7 @@ if (!username) {
   const safeUsername = username.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 32);
 
   const { data: profile, error } = await supabase
-    .from('fan_profiles')
+    .from('public_fan_profiles')
     .select('user_id, username, display_name, avatar_url, favorite_game, fan_since, created_at')
     .eq('username', safeUsername)
     .maybeSingle();
