@@ -279,6 +279,19 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   flex-shrink: 0;
 }
 
+/* Platform / Espace Joueur button */
+.platform-btn {
+  display: flex; align-items: center; gap: 0.35rem;
+  padding: 0.38rem 0.85rem;
+  background: var(--orange); color: #fff;
+  border-radius: var(--radius);
+  font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+  transition: opacity var(--t), box-shadow var(--t);
+  white-space: nowrap;
+}
+.platform-btn:hover { opacity: 0.85; box-shadow: 0 0 16px var(--orange-glow); }
+
 /* Language */
 .lang-selector { position: relative; }
 .lang-btn {

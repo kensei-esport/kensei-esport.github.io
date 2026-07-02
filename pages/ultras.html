@@ -605,7 +605,8 @@
     </div>
   </footer>
 
-  <script type="module" src="../js/auth.js"></script>
+  <script type="module" src="../js/loader.js"></script>
+  <script type="module" src="../js/main.js"></script>
   <script type="module">
     import { supabase } from '../js/auth.js';
 
@@ -637,7 +638,7 @@
       if (!wrap) return;
 
       const { data, error } = await supabase
-        .from('fan_profiles')
+        .from('ultras_leaderboard')
         .select('display_name, points, avatar_url')
         .order('points', { ascending: false })
         .limit(15);

@@ -1,6 +1,8 @@
 /**
- * teams.js — Chargement dynamique du roster depuis Supabase
- * Schéma v2 : table teams (is_active) + players (team_id FK → teams.id)
+ * teams.js — Page listant toutes les équipes actives
+ * Charge les équipes depuis Supabase et génère les cartes dynamiquement.
+ * Chaque carte redirige vers team.html?id=<UUID>
+ * Schéma v3+ : table teams avec colonne logo_url
  */
 import { supabase, escapeHtml } from './auth.js';
 import { initNavbar } from './navbar.js';
@@ -12,91 +14,64 @@ document.querySelectorAll('.js-year').forEach(function (el) {
   el.textContent = new Date().getFullYear();
 });
 
-// Correspond game → ID de la section HTML dans teams.html
-var GAME_SECTION = {
-  valorant: 'rosterValorant',
-  lol:      'rosterLoL',
-  rl:       'rosterRL',
-  cs2:      'rosterCS2',
-  eafc:     'rosterFIFA'
+var GAME_LABELS = {
+  lol:      'League of Legends',
+  rl:       'Rocket League',
+  eva:      'EVA',
+  valorant: 'Valorant',
+  cs2:      'CS2',
+  eafc:     'EA FC',
+  staff:    'Organisation',
+};
+
+var GAME_IMAGES = {
+  valorant: '/assets/images/valo_logo.png',
+  eva:      '/assets/images/games/eva.png',
+  lol:      '/assets/images/games/lol.png',
+  rl:       '/assets/images/games/rl.png',
+  cs2:      '/assets/images/games/cs2.png',
+  eafc:     '/assets/images/games/eafc.png',
 };
 
 (async function () {
-  // 1. Charger toutes les équipes actives
-  var teamsRes = await supabase
-    .from('teams')
-    .select('id, name, game, tag, description')
-    .eq('is_active', true)
-    .order('created_at');
+  var grid = document.getElementById('teamsGrid');
+  if (!grid) return;
 
-  if (teamsRes.error) {
-    console.error('[teams] Erreur chargement équipes', teamsRes.error);
+  var res = await supabase
+    .from('teams')
+    .select('id, name, game, tag, description, logo_url')
+    .eq('is_active', true)
+    .order('game')
+    .order('name');
+
+  if (res.error || !res.data || !res.data.length) {
+    grid.innerHTML = '<p class="placeholder">Aucune équipe trouvée.</p>';
     return;
   }
 
-  var teams = teamsRes.data || [];
+  grid.innerHTML = res.data.map(function (team) {
+    var gameLabel = GAME_LABELS[team.game] || team.game;
+    var logoSrc   = team.logo_url || GAME_IMAGES[team.game] || '';
 
-  // 2. Charger tous les joueurs actifs en une seule requête
-  var playersRes = await supabase
-    .from('players')
-    .select('id, team_id, nickname, real_name, role, photo_url, country, social_url, sort_order')
-    .eq('is_active', true)
-    .order('sort_order');
+    var logoHtml = logoSrc
+      ? '<img src="' + escapeHtml(logoSrc) + '" alt="' + escapeHtml(team.name) + '" width="88" height="88" style="object-fit:contain" />'
+      : '<span style="display:flex;align-items:center;justify-content:center;width:64px;height:64px;background:var(--clr-surface);border-radius:50%;border:2px solid var(--clr-primary)">'
+        + '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--clr-primary)" stroke-width="2">'
+        + '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>';
 
-  var allPlayers = playersRes.data || [];
+    var tagHtml = team.tag
+      ? '<p style="color:var(--text-muted);font-size:.85rem;margin:.25rem 0 0">' + escapeHtml(team.tag) + '</p>'
+      : '';
 
-  // Grouper les joueurs par team_id
-  var playersByTeam = {};
-  allPlayers.forEach(function (p) {
-    if (!playersByTeam[p.team_id]) playersByTeam[p.team_id] = [];
-    playersByTeam[p.team_id].push(p);
-  });
-
-  // 3. Remplir chaque section du roster
-  teams.forEach(function (team) {
-    var sectionId = GAME_SECTION[team.game];
-    if (!sectionId) return;
-
-    var container = document.getElementById(sectionId);
-    if (!container) return;
-
-    var players = playersByTeam[team.id] || [];
-
-    if (!players.length) {
-      container.innerHTML = '<p class="placeholder">Roster en cours de construction.</p>';
-      return;
-    }
-
-    container.innerHTML = players.map(function (p) {
-      var imgHtml = p.photo_url
-        ? '<img class="player-card__img" src="' + escapeHtml(p.photo_url) + '" alt="' + escapeHtml(p.nickname) + '" loading="lazy" />'
-        : '<div class="player-card__img player-card__img--placeholder"></div>';
-
-      var badgeHtml = p.role
-        ? '<span class="player-card__badge">' + escapeHtml(p.role) + '</span>'
-        : '';
-
-      var nameHtml = p.real_name
-        ? '<div class="player-card__name">' + escapeHtml(p.real_name) + '</div>'
-        : '';
-
-      var countryHtml = p.country
-        ? '<div class="player-card__role">' + escapeHtml(p.country) + '</div>'
-        : '';
-
-      var socialHtml = p.social_url
-        ? '<a class="player-card__social" href="' + escapeHtml(p.social_url) + '" target="_blank" rel="noopener noreferrer" aria-label="Profil social">&#x1F517;</a>'
-        : '';
-
-      return '<div class="player-card">'
-        + '<div class="player-card__img-wrap">' + imgHtml + badgeHtml + '</div>'
-        + '<div class="player-card__body">'
-        + '<div class="player-card__pseudo">' + escapeHtml(p.nickname) + '</div>'
-        + nameHtml
-        + countryHtml
-        + socialHtml
-        + '</div>'
-        + '</div>';
-    }).join('');
-  });
+    return '<a href="/pages/team.html?id=' + escapeHtml(team.id) + '" '
+      + 'class="dash-card" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2.5rem;">'
+      + logoHtml
+      + '<div style="text-align:center">'
+      + '<p class="section__label">' + escapeHtml(gameLabel) + '</p>'
+      + '<h3 style="margin:0">' + escapeHtml(team.name) + '</h3>'
+      + tagHtml
+      + '</div>'
+      + '<span class="btn btn--ghost" style="margin-top:auto">Voir l\'équipe</span>'
+      + '</a>';
+  }).join('');
 }());

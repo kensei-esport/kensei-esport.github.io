@@ -95,19 +95,11 @@ function renderFilters() {
   const container = document.getElementById('calFilters');
   if (!container) return;
 
-  // Deduplicate by game
-  const seen = new Set();
-  const unique = activeTeams.filter(t => {
-    if (seen.has(t.game)) return false;
-    seen.add(t.game);
-    return true;
-  });
-
-  const btns = unique.map(t => {
+  const btns = activeTeams.map(t => {
     const logo = t.logo_url
       ? `<img src="${escHtml(t.logo_url)}" alt="" width="16" height="16" style="border-radius:2px;vertical-align:middle;margin-right:4px" />`
       : '';
-    return `<button class="cal-filter-btn" data-game="${escHtml(t.game)}">${logo}${escHtml(GAME_LABELS[t.game] || t.game)}</button>`;
+    return `<button class="cal-filter-btn" data-game="${escHtml(t.id)}">${logo}${escHtml(t.name)}</button>`;
   }).join('');
 
   container.innerHTML =
@@ -126,7 +118,7 @@ function renderFilters() {
 
 function filteredMatches() {
   if (currentGame === 'all') return allMatches;
-  return allMatches.filter(m => m.game === currentGame || m.teams?.game === currentGame);
+  return allMatches.filter(m => m.teams?.id === currentGame || m.team_id === currentGame);
 }
 
 /* ──────────────────────────────────────────── */
@@ -201,7 +193,7 @@ function renderCalendar() {
     dayMatches.forEach(m => {
       const label = m.opponent
         ? `KS vs ${escHtml(m.opponent)}`
-        : escHtml(GAME_LABELS[m.game] || m.game || '');
+        : escHtml(m.teams?.name || GAME_LABELS[m.teams?.game] || '');
       html += `<span class="cal-event" data-id="${m.id}" role="button" tabindex="0">${label}</span>`;
     });
 

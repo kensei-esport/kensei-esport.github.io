@@ -6,8 +6,8 @@ import { initNavbar } from './navbar.js';
 import { applyTranslations } from './i18n.js';
 import { initStream } from './stream.js';
 
-// Team info — populated dynamically from the teams table
-const TEAM_LABELS = {};
+// Team info — populated dynamically from the teams table (indexed by team ID)
+const TEAM_MAP = {};
 
 let allResults = [];
 let activeTeams = [];
@@ -43,7 +43,7 @@ async function loadTeams() {
     ];
   }
   activeTeams.forEach(t => {
-    TEAM_LABELS[t.game] = { label: t.name, icon: t.logo_url || '' };
+    TEAM_MAP[t.id] = { label: t.name, icon: t.logo_url || '' };
   });
   renderFilters();
 }
@@ -52,19 +52,12 @@ function renderFilters() {
   const container = document.getElementById('resultsFilterBar');
   if (!container) return;
 
-  const seen = new Set();
-  const unique = activeTeams.filter(t => {
-    if (seen.has(t.game)) return false;
-    seen.add(t.game);
-    return true;
-  });
-
-  const btns = unique.map(t => {
-    const info = TEAM_LABELS[t.game] || {};
+  const btns = activeTeams.map(t => {
+    const info = TEAM_MAP[t.id] || {};
     const logo = info.icon
       ? `<img src="${info.icon}" alt="" width="16" height="16" style="border-radius:2px;vertical-align:middle;margin-right:4px" />`
       : '';
-    return `<button class="results-filter__btn" data-team="${t.game}">${logo}${info.label || t.game}</button>`;
+    return `<button class="results-filter__btn" data-team="${t.id}">${logo}${info.label || t.name}</button>`;
   }).join('');
 
   container.innerHTML =
@@ -106,7 +99,7 @@ function renderTimeline() {
 
   const filtered = currentFilter === 'all'
     ? allResults
-    : allResults.filter(r => r.teams?.game === currentFilter);
+    : allResults.filter(r => r.teams?.id === currentFilter || r.team_id === currentFilter);
 
   if (filtered.length === 0) {
     container.innerHTML = `
@@ -134,8 +127,7 @@ function renderTimeline() {
       lastMonth = monthKey;
     }
 
-    const gameKey  = r.teams?.game ?? '';
-    const teamInfo = TEAM_LABELS[gameKey] || { label: r.teams?.name ?? gameKey, icon: '' };
+    const teamInfo = TEAM_MAP[r.teams?.id] || { label: r.teams?.name ?? '', icon: '' };
     // Derive outcome from generated is_win + scores
     const oc      = r.is_win ? 'win' : (r.score_us === r.score_them ? 'draw' : 'loss');
     const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
@@ -145,7 +137,7 @@ function renderTimeline() {
       : '';
 
     items.push(`
-      <div class="timeline-item timeline-item--${oc}" data-team="${escHtml(gameKey)}">
+      <div class="timeline-item timeline-item--${oc}" data-team="${escHtml(r.teams?.id ?? r.teams?.game ?? '')}">
         <div class="timeline-item__left">
           <time class="timeline-date" datetime="${escHtml(r.played_at || '')}">${escHtml(dateStr)}</time>
           <div class="timeline-dot"></div>
