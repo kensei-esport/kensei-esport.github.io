@@ -51,7 +51,10 @@ var GAME_IMAGES = {
 
   grid.innerHTML = res.data.map(function (team) {
     var gameLabel = GAME_LABELS[team.game] || team.game;
-    var logoSrc   = team.logo_url || GAME_IMAGES[team.game] || '';
+    var rawLogo   = team.logo_url || '';
+    var logoSrc   = (rawLogo.startsWith('http') || rawLogo.startsWith('/assets'))
+      ? rawLogo
+      : (GAME_IMAGES[team.game] || '');
 
     var logoHtml = logoSrc
       ? '<img src="' + escapeHtml(logoSrc) + '" alt="' + escapeHtml(team.name) + '" width="88" height="88" style="object-fit:contain" />'

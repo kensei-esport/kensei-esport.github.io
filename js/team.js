@@ -63,7 +63,10 @@ async function loadTeam() {
   setText('breadcrumbTeam',  team.name);
 
   const iconEl  = document.getElementById('teamIcon');
-  const logoSrc = team.logo_url || GAME_IMAGES[team.game] || null;
+  const rawLogo = team.logo_url || '';
+  const logoSrc = (rawLogo.startsWith('http') || rawLogo.startsWith('/assets'))
+    ? rawLogo
+    : (GAME_IMAGES[team.game] || null);
   if (iconEl && logoSrc) {
     iconEl.innerHTML =
       `<img src="${escapeHtml(logoSrc)}" alt="${escapeHtml(team.name)}" `

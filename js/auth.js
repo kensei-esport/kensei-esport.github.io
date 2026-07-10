@@ -1,7 +1,7 @@
 /**
  * auth.js — Client Supabase + helpers d'authentification
  */
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 
 // Use valid placeholder values during local dev (GH Actions replaces the real ones at deploy time)

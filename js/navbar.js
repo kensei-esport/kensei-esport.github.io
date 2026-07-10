@@ -49,7 +49,11 @@ async function populateTeamsDropdown() {
       </a>`;
 
       const teamLinks = teams.map(t => {
-        const logo = t.logo_url || TEAM_ICONS[t.game] || '';
+        // Si logo_url n'est pas une URL absolue valide, utiliser TEAM_ICONS
+        const rawLogo = t.logo_url || '';
+        const logo = (rawLogo.startsWith('http') || rawLogo.startsWith('/assets'))
+          ? rawLogo
+          : (TEAM_ICONS[t.game] || '');
         const iconHtml = logo
           ? `<img src="${logo}" alt="${t.name}" width="18" height="18" style="border-radius:2px" />`
           : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`;
