@@ -17,8 +17,9 @@ function openArticleModal(post) {
 
   modal.querySelector('.am__cover').style.backgroundImage = post.cover_url
     ? `url(${JSON.stringify(post.cover_url)})` : 'none';
-  modal.querySelector('.am__cover').style.background = post.cover_url
-    ? `url(${JSON.stringify(post.cover_url)}) center/cover no-repeat` : 'var(--surface-2)';
+  modal.querySelector('.am__cover').style.backgroundSize   = 'cover';
+  modal.querySelector('.am__cover').style.backgroundPosition = post.cover_url ? 'center 15%' : 'center';
+  modal.querySelector('.am__cover').style.backgroundRepeat = 'no-repeat';
 
   modal.querySelector('.am__tag').textContent   = post.category || 'Actualité';
   modal.querySelector('.am__title').textContent = post.title || '';

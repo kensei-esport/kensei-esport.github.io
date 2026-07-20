@@ -229,16 +229,16 @@ function initResultModal() {
   }
   #resultModalOverlay.open #resultModal{transform:translateY(0) scale(1);}
   #resultModalOverlay .rm-close {
-    position:absolute;top:.85rem;right:.85rem;z-index:20;
-    width:32px;height:32px;border-radius:50%;
-    background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.18);
-    color:rgba(255,255,255,.8);font-size:1.1rem;line-height:1;
+    position:absolute;top:.7rem;right:.7rem;z-index:30;
+    width:28px;height:28px;border-radius:50%;
+    background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);
+    color:rgba(255,255,255,.85);font-size:.95rem;line-height:1;
     display:flex;align-items:center;justify-content:center;cursor:pointer;
     transition:background .15s,transform .2s;
   }
   #resultModalOverlay .rm-close:hover{background:rgba(255,255,255,.2);color:#fff;transform:rotate(90deg);}
   #resultModalOverlay .rm-hero {
-    position:relative;flex-shrink:0;min-height:360px;background:#060606;
+    position:relative;flex-shrink:0;min-height:220px;max-height:280px;background:#060606;
     overflow:hidden;display:flex;flex-direction:column;
   }
   #resultModalOverlay .rm-hero__img {
@@ -250,7 +250,7 @@ function initResultModal() {
   #resultModalOverlay.open .rm-hero__img{transform:scale(1);}
   #resultModalOverlay .rm-hero__gradient {
     position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;
-    background:linear-gradient(to bottom,rgba(0,0,0,.05) 0%,rgba(6,6,6,.05) 30%,rgba(6,6,6,.78) 65%,rgba(6,6,6,1) 100%);
+    background:linear-gradient(to bottom,rgba(0,0,0,.1) 0%,rgba(6,6,6,.2) 40%,rgba(6,6,6,.9) 75%,rgba(6,6,6,1) 100%);
   }
   #resultModalOverlay .rm-hero::after {
     content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:5;
@@ -271,23 +271,23 @@ function initResultModal() {
   #resultModalOverlay .rm-matchup {
     position:relative;z-index:2;margin-top:auto;
     display:grid;grid-template-columns:1fr auto 1fr;
-    align-items:flex-end;gap:1.25rem;padding:0 2.5rem 2.5rem;
+    align-items:flex-end;gap:1rem;padding:0 1.75rem 1.5rem;
   }
   #resultModalOverlay .rm-team{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;}
   #resultModalOverlay .rm-team--opp{align-items:flex-end;text-align:right;}
   #resultModalOverlay .rm-team__logo {
-    width:68px;height:68px;display:flex;align-items:center;justify-content:center;
+    width:52px;height:52px;display:flex;align-items:center;justify-content:center;
     background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:6px;
   }
-  #resultModalOverlay .rm-team__logo img{width:52px;height:52px;object-fit:contain;}
+  #resultModalOverlay .rm-team__logo img{width:40px;height:40px;object-fit:contain;}
   #resultModalOverlay .rm-team__label{font-size:.56rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);}
   #resultModalOverlay .rm-team__name{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:800;color:#fff;line-height:1.15;}
   #resultModalOverlay .rm-team--opp .rm-team__name{color:rgba(255,255,255,.48);}
   #resultModalOverlay .rm-score{display:flex;flex-direction:column;align-items:center;gap:.45rem;flex-shrink:0;padding-bottom:.2rem;}
   #resultModalOverlay .rm-score__nums{display:flex;align-items:baseline;gap:.2rem;font-family:'Rajdhani',sans-serif;font-weight:900;line-height:1;}
-  #resultModalOverlay .rm-score__us{font-size:5.5rem;color:#fff;}
-  #resultModalOverlay .rm-score__sep{font-size:2.4rem;color:rgba(255,255,255,.2);padding:0 .15rem;}
-  #resultModalOverlay .rm-score__them{font-size:5.5rem;color:rgba(255,255,255,.28);}
+  #resultModalOverlay .rm-score__us{font-size:4rem;color:#fff;}
+  #resultModalOverlay .rm-score__sep{font-size:1.8rem;color:rgba(255,255,255,.2);padding:0 .15rem;}
+  #resultModalOverlay .rm-score__them{font-size:4rem;color:rgba(255,255,255,.28);}
   #resultModalOverlay .rm-outcome{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .9rem;border-radius:2px;white-space:nowrap;}
   #resultModalOverlay .rm-outcome--win{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.3);}
   #resultModalOverlay .rm-outcome--loss{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.3);}
