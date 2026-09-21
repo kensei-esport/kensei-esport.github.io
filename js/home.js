@@ -3,6 +3,7 @@
  * Auto-exécuté à l'import (index.html seulement)
  */
 import { supabase, escapeHtml } from './auth.js';
+import { initMatchModal, openMatchModal } from './match-modal.js';
 
 // ── News modal ────────────────────────────────────────────────────
 let _newsModalOpen = false;
@@ -53,7 +54,8 @@ window.closeArticleModal = closeArticleModal;
 
 // ── Boot ──────────────────────────────────────────────────────────
 (async function () {
-  await Promise.all([loadNews(), loadResults()]);
+  initMatchModal();
+  await Promise.all([loadNews(), loadUpcoming(), loadResults()]);
 }());
 
 async function loadNews() {
@@ -105,6 +107,59 @@ async function loadNews() {
 }
 
 const GAME_LABELS = { lol: 'League of Legends', rl: 'Rocket League', eva: 'EVA', valorant: 'Valorant', cs2: 'CS2', eafc: 'EA FC' };
+
+async function loadUpcoming() {
+  const list = document.getElementById('upcomingList');
+  if (!list) return;
+
+  list.innerHTML = '<p class="placeholder">Chargement…</p>';
+
+  const t = new Date();
+  const todayStr = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+
+  const { data, error } = await supabase
+    .from('matches')
+    .select('*, teams(id, name, game, logo_url)')
+    .eq('is_published', true)
+    .gte('match_date', todayStr)
+    .order('match_date', { ascending: true })
+    .order('match_time', { ascending: true })
+    .limit(5);
+
+  if (error || !data?.length) {
+    list.innerHTML = '<p class="placeholder">Aucun match prévu pour le moment.</p>';
+    return;
+  }
+
+  list.innerHTML = data.map((m, i) => {
+    let date = '';
+    try {
+      date = new Date(m.match_date + 'T00:00:00').toLocaleDateString('fr-FR', {
+        weekday: 'short', day: 'numeric', month: 'short',
+      });
+    } catch (_) { /* noop */ }
+    const time = m.match_time ? String(m.match_time).slice(0, 5) : '';
+    const teamName = m.teams ? m.teams.name : 'Kensei';
+    const gameLabel = m.teams ? (GAME_LABELS[m.teams.game] || m.teams.game || '') : '';
+    const meta = [m.tournament, gameLabel].filter(Boolean).join(' — ');
+
+    return '<button type="button" class="result-item result-item--upcoming" data-match-idx="' + i + '">'
+      + '<div class="result-item__side">'
+      + '<div class="result-item__team-name">' + escapeHtml(teamName) + '</div>'
+      + '<div class="result-item__meta">' + escapeHtml(meta) + '</div>'
+      + '</div>'
+      + '<div class="result-item__score result-item__vs">VS</div>'
+      + '<div class="result-item__side result-item__side--right">'
+      + '<div class="result-item__team-name">' + escapeHtml(m.opponent || 'Adversaire') + '</div>'
+      + '<div class="result-item__meta">' + escapeHtml([date, time].filter(Boolean).join(' · ')) + '</div>'
+      + '</div>'
+      + '</button>';
+  }).join('');
+
+  list.querySelectorAll('[data-match-idx]').forEach(btn => {
+    btn.addEventListener('click', () => openMatchModal(data[+btn.dataset.matchIdx]));
+  });
+}
 
 async function loadResults() {
   var list = document.getElementById('resultsList');

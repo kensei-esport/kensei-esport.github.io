@@ -40,7 +40,7 @@ let _imgs = [], _idx = 0;
   }
 
   shopMain.innerHTML = cats.map(cat => `
-    <section class="section" id="cat-${escapeHtml(cat)}">
+    <section class="section" id="${escapeHtml(cat)}">
       <div class="container">
         <div class="section__header"><div>
           <p class="section__label">${escapeHtml(CAT_LABELS[cat]||cat)}</p>
@@ -56,6 +56,12 @@ let _imgs = [], _idx = 0;
     const p = products.find(x => x.id === card.dataset.pid);
     if (p) openModal(p);
   });
+
+  const hash = location.hash.replace('#', '');
+  if (hash) {
+    const el = document.getElementById(hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }());
 
 function renderCard(p) {

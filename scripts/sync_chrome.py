@@ -1,90 +1,103 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Team EVA — Kensei Esport</title>
-  <meta name="description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
-  <link rel="icon" type="image/png" href="../assets/images/orange_logo.png" />
-  <link rel="stylesheet" href="../css/main.css" />
-  <!-- SEO -->
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://kensei-esport.github.io/pages/team-eva.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Kensei Esport" />
-  <meta property="og:title" content="Team EVA — Kensei Esport" />
-  <meta property="og:description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
-  <meta property="og:url" content="https://kensei-esport.github.io/pages/team-eva.html" />
-  <meta property="og:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Team EVA — Kensei Esport" />
-  <meta name="twitter:description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
-  <meta name="twitter:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
-</head>
-<body data-game="eva">
+#!/usr/bin/env python3
+"""Sync navbar + mobile menu + footer on every public page to match index.html."""
+from __future__ import annotations
 
-    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+SKIP = {"login.html", "setup.html"}
+
+ACTIVE_BY_FILE = {
+    "index.html": "home",
+    "teams.html": "teams",
+    "team.html": "teams",
+    "team-eva.html": "teams",
+    "team-valorant.html": "teams",
+    "team-staff.html": "teams",
+    "calendar.html": "calendar",
+    "results.html": "results",
+    "palmares.html": "results",
+    "shop.html": "shop",
+    "about.html": "about",
+    "live.html": "about",
+    "ultras.html": "ultras",
+    "contact.html": "contact",
+}
+
+LOGO = "/assets/images/orange_logo.png"
+
+
+def cls(*parts: str) -> str:
+    return " ".join(p for p in parts if p)
+
+
+def navbar(active: str, sub: str) -> str:
+    a = lambda key: " nav-item--active" if active == key else ""
+    sub_a = lambda key: " nav-dropdown__link--active" if sub == key else ""
+    return f'''  <nav class="navbar" role="navigation" aria-label="Navigation principale">
     <div class="navbar__inner">
 
       <a href="/index.html" class="navbar__logo" aria-label="Kensei Esport — Accueil">
-        <img src="/assets/images/orange_logo.png" alt="Kensei Esport logo" />
+        <img src="{LOGO}" alt="Kensei Esport logo" />
         <span class="navbar__logo-name">KENSEI</span>
       </a>
 
       <!-- Desktop links -->
       <ul class="navbar__links" role="list">
 
-        <li class="nav-item nav-item--link">
+        <li class="nav-item nav-item--link{a("home")}">
           <a href="/index.html" class="nav-item__trigger" data-i18n="nav_home">Accueil</a>
         </li>
 
-        <li class="nav-item nav-item--active">
+        <li class="nav-item{a("teams")}">
           <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
             <span data-i18n="nav_teams">Teams</span>
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
           </button>
           <div class="nav-dropdown nav-dropdown--mega" role="menu">
-            <a href="/pages/teams.html" class="nav-dropdown__link" role="menuitem">
+            <a href="/pages/teams.html" class="nav-dropdown__link{sub_a("teams-all")}" role="menuitem">
               <span class="nav-dropdown__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
               <span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes les équipes</strong></span>
             </a>
-            <a href="/pages/team-eva.html" class="nav-dropdown__link nav-dropdown__link--active" role="menuitem">
+            <a href="/pages/team-eva.html" class="nav-dropdown__link{sub_a("eva")}" role="menuitem">
               <span class="nav-dropdown__icon"><img src="/assets/images/games/eva.png" alt="EVA" width="20" height="20" /></span>
               <span class="nav-dropdown__text"><strong data-i18n="teams_eva">EVA</strong></span>
             </a>
-            <a href="/pages/team-valorant.html" class="nav-dropdown__link" role="menuitem">
+            <a href="/pages/team-valorant.html" class="nav-dropdown__link{sub_a("valorant")}" role="menuitem">
               <span class="nav-dropdown__icon"><img src="/assets/images/valo_logo.png" alt="Valorant" width="20" height="20" /></span>
               <span class="nav-dropdown__text"><strong>Valorant</strong></span>
             </a>
-            <a href="/pages/team-staff.html" class="nav-dropdown__link" role="menuitem">
+            <a href="/pages/team-staff.html" class="nav-dropdown__link{sub_a("staff")}" role="menuitem">
               <span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
               <span class="nav-dropdown__text"><strong>Staff</strong></span>
             </a>
           </div>
         </li>
 
-        <li class="nav-item nav-item--link">
+        <li class="nav-item nav-item--link{a("calendar")}">
           <a href="/pages/calendar.html" class="nav-item__trigger" data-i18n="nav_calendar">Calendrier</a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item{a("results")}">
           <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
             <span data-i18n="nav_results">Résultats</span>
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
           </button>
           <div class="nav-dropdown" role="menu">
-            <a href="/pages/results.html" class="nav-dropdown__link" role="menuitem">
+            <a href="/pages/results.html" class="nav-dropdown__link{sub_a("results")}" role="menuitem">
               <span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span>
               <span class="nav-dropdown__text"><strong data-i18n="nav_results_all">Tous les résultats</strong></span>
             </a>
-            <a href="/pages/palmares.html" class="nav-dropdown__link" role="menuitem">
+            <a href="/pages/palmares.html" class="nav-dropdown__link{sub_a("palmares")}" role="menuitem">
               <span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 4h1.5A2.5 2.5 0 0121 6.5v0A3.5 3.5 0 0117.5 10H17M7 4H5.5A2.5 2.5 0 003 6.5v0A3.5 3.5 0 006.5 10H7"/></svg></span>
               <span class="nav-dropdown__text"><strong data-i18n="nav_palmares">Palmarès</strong></span>
             </a>
           </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item{a("shop")}">
           <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
             <span data-i18n="nav_shop">Shop</span>
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
@@ -114,7 +127,7 @@
           </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item{a("about")}">
           <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
             <span data-i18n="nav_about">À propos</span>
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
@@ -141,7 +154,7 @@
           </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item{a("ultras")}">
           <button class="nav-item__trigger"><span>ULTRAS</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
           <div class="nav-dropdown">
             <a href="/pages/ultras.html" class="nav-dropdown__link"><span class="nav-dropdown__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="nav-dropdown__text"><strong>Programme Ultras</strong></span></a>
@@ -151,7 +164,7 @@
           </div>
         </li>
 
-        <li class="nav-item nav-item--link">
+        <li class="nav-item nav-item--link{a("contact")}">
           <a href="/pages/contact.html" class="nav-item__trigger" data-i18n="nav_contact">Contact</a>
         </li>
 
@@ -179,9 +192,11 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-  </nav>
+  </nav>'''
 
-  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile">
+
+def mobile_menu() -> str:
+    return '''  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile">
     <ul>
       <li class="mobile-nav-item">
         <a href="/index.html" class="mobile-nav-trigger" style="cursor:pointer" data-i18n="nav_home">Accueil</a>
@@ -252,44 +267,16 @@
         <div class="mobile-lang-opt" data-lang="en">EN — English</div>
       </div>
     </div>
-  </div>
+  </div>'''
 
-  <div class="page-header page-header--vivid">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span>
-        <a href="/pages/teams.html" data-i18n="nav_teams">Teams</a><span class="breadcrumb__sep">›</span>
-        <span>EVA</span>
-      </nav>
-      <div class="page-header__content">
-        <div class="page-header__icon">
-          <img src="/assets/images/games/eva.png" alt="EVA" width="40" height="40" />
-        </div>
-        <div>
-          <p class="section__label" data-i18n="teams_eva">EVA</p>
-          <h1 style="margin:0">Kensei EVA</h1>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="section__header">
-          <div><p class="section__label">Roster</p><h2>Nos joueurs</h2></div>
-        </div>
-        <div class="roster-grid" id="rosterGrid"><p class="placeholder">Chargement…</p></div>
-      </div>
-    </section>
-  </main>
-
-    <footer class="site-footer" role="contentinfo">
+def footer() -> str:
+    return f'''  <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer__grid">
         <div>
           <a href="/index.html" class="footer__brand-logo" aria-label="Kensei Esport">
-            <img src="/assets/images/orange_logo.png" alt="Kensei Esport logo" />
+            <img src="{LOGO}" alt="Kensei Esport logo" />
             <span class="footer__brand-name">KENSEI</span>
           </a>
           <p class="footer__desc" data-i18n="footer_desc">
@@ -331,9 +318,107 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer>'''
 
-  <script type="module" src="../js/loader.js"></script>
-  <script type="module" src="../js/team-game.js"></script>
-</body>
-</html>
+
+def find_tag_block(html: str, open_pat: str, close_tag: str) -> tuple[int, int] | None:
+    m = re.search(open_pat, html, flags=re.I)
+    if not m:
+        return None
+    start = m.start()
+    end = html.find(close_tag, m.end())
+    if end < 0:
+        return None
+    return start, end + len(close_tag)
+
+
+def find_div_block(html: str, marker: str) -> tuple[int, int] | None:
+    idx = html.find(marker)
+    if idx < 0:
+        return None
+    start = html.rfind("<", 0, idx + 1)
+    if start < 0:
+        return None
+    depth = 0
+    i = start
+    n = len(html)
+    while i < n:
+        if html.startswith("<div", i) and (i + 4 >= n or html[i + 4] in " \t\n\r>"):
+            depth += 1
+            i += 4
+            continue
+        if html.startswith("</div>", i):
+            depth -= 1
+            i += 6
+            if depth == 0:
+                return start, i
+            continue
+        i += 1
+    return None
+
+
+def sub_key(name: str) -> str:
+    if name == "results.html":
+        return "results"
+    if name == "palmares.html":
+        return "palmares"
+    if name == "teams.html":
+        return "teams-all"
+    if name == "team-eva.html":
+        return "eva"
+    if name == "team-valorant.html":
+        return "valorant"
+    if name == "team-staff.html":
+        return "staff"
+    return ""
+
+
+def patch_file(path: Path) -> bool:
+    html = path.read_text(encoding="utf-8")
+    name = path.name
+    active = ACTIVE_BY_FILE.get(name, "")
+    sub = sub_key(name)
+    chrome = navbar(active, sub) + "\n\n" + mobile_menu()
+    foot = footer()
+
+    nav_block = find_tag_block(html, r'<nav\s+class="navbar"', "</nav>")
+    if not nav_block:
+        print(f"  skip (no navbar): {path.relative_to(ROOT)}")
+        return False
+
+    mobile_block = find_div_block(html, 'id="mobileMenu"')
+    if not mobile_block:
+        mobile_block = find_div_block(html, 'class="mobile-menu"')
+
+    start = nav_block[0]
+    end = mobile_block[1] if mobile_block else nav_block[1]
+    html = html[:start] + chrome + html[end:]
+
+    foot_block = find_tag_block(html, r'<footer\s+class="site-footer"', "</footer>")
+    if foot_block:
+        html = html[: foot_block[0]] + foot + html[foot_block[1] :]
+    else:
+        m = re.search(r"\n\s*<script", html)
+        if m:
+            html = html[: m.start()] + "\n\n" + foot + "\n" + html[m.start() :]
+        else:
+            html = html.replace("</body>", foot + "\n</body>")
+
+    path.write_text(html, encoding="utf-8")
+    print(f"  updated: {path.relative_to(ROOT)}")
+    return True
+
+
+def main() -> None:
+    files = [ROOT / "index.html"] + sorted((ROOT / "pages").glob("*.html"))
+    n = 0
+    for f in files:
+        if f.name in SKIP:
+            continue
+        if patch_file(f):
+            n += 1
+    print(f"Done. {n} files synced.")
+
+
+if __name__ == "__main__":
+    main()

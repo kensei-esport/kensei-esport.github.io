@@ -28,15 +28,14 @@ async function init() {
 function initTimelineClickDelegate() {
   const container = document.getElementById('resultsTimeline');
   if (!container) { console.error('[modal] #resultsTimeline introuvable'); return; }
-  container.addEventListener('click', e => {
+  container.addEventListener('click', async e => {
     const item = e.target.closest('.timeline-item[data-id]');
-    if (!item) { console.log('[modal] clic hors item', e.target.className); return; }
+    if (!item) return;
     const r = allResults.find(x => String(x.id) === item.dataset.id);
-    console.log('[modal] clic id:', item.dataset.id, '| found:', !!r, '| allResults.length:', allResults.length);
-    if (r) {
-      try { openResultModal(r); }
-      catch(err) { console.error('[modal error]', err); }
-    }
+    if (!r) return;
+    r.result_lineup = await fetchLineupForResult(r.id);
+    try { openResultModal(r); }
+    catch (err) { console.error('[modal error]', err); }
   });
 }
 
@@ -107,12 +106,61 @@ async function loadResults() {
         .order('played_at', { ascending: false });
       if (error) throw error;
       allResults = data || [];
+      await attachLineups(allResults);
     } catch {
       // Ne pas vider allResults sur erreur : garder les données existantes
     }
   }
 
   renderTimeline();
+}
+
+async function fetchLineupForResult(resultId) {
+  const map = await loadLineupMap([resultId]);
+  return map[resultId] || [];
+}
+
+async function attachLineups(results) {
+  if (!results?.length) return;
+  const map = await loadLineupMap(results.map(r => r.id));
+  results.forEach(r => { r.result_lineup = map[r.id] || []; });
+}
+
+async function loadLineupMap(resultIds) {
+  const byResult = {};
+  if (!resultIds?.length) return byResult;
+
+  let rows = [];
+  const nested = await supabase
+    .from('result_lineup')
+    .select('result_id, staff_role, sort_order, player_id, players (id, nickname, real_name, photo_url)')
+    .in('result_id', resultIds);
+
+  if (!nested.error && nested.data) {
+    rows = nested.data;
+  } else {
+    const plain = await supabase
+      .from('result_lineup')
+      .select('result_id, staff_role, sort_order, player_id')
+      .in('result_id', resultIds);
+    rows = plain.data || [];
+    const pids = [...new Set(rows.map(r => r.player_id).filter(Boolean))];
+    if (pids.length) {
+      const { data: players } = await supabase
+        .from('players')
+        .select('id, nickname, real_name, photo_url')
+        .in('id', pids);
+      const pmap = Object.fromEntries((players || []).map(p => [p.id, p]));
+      rows.forEach(row => { row.players = pmap[row.player_id] || null; });
+    }
+  }
+
+  rows.forEach(row => {
+    const player = row.players || row.player;
+    if (!byResult[row.result_id]) byResult[row.result_id] = [];
+    byResult[row.result_id].push({ ...row, players: player || { id: row.player_id, nickname: 'Joueur' } });
+  });
+  return byResult;
 }
 
 function renderTimeline() {
@@ -207,7 +255,16 @@ const GAME_ICONS = {
 };
 
 function initResultModal() {
-  if (document.getElementById('resultModalOverlay')) return;
+  const existing = document.getElementById('resultModalOverlay');
+  if (existing) {
+    if (!document.getElementById('resultModalLineup')) {
+      const meta = document.getElementById('resultModalMeta');
+      const div = document.createElement('div');
+      div.id = 'resultModalLineup';
+      meta?.after(div);
+    }
+    return;
+  }
 
   // ── CSS injecté directement — indépendant de main.css ───────────
   const style = document.createElement('style');
@@ -300,12 +357,27 @@ function initResultModal() {
   #resultModalOverlay .rm-meta__sep{width:1px;height:11px;background:rgba(255,255,255,.14);flex-shrink:0;}
   #resultModalBody {
     padding:1.5rem 2.5rem 2.25rem;display:flex;flex-direction:column;gap:1.25rem;
-    overflow-y:auto;flex:1;min-height:0;background:#060606;
+    overflow-y:auto;flex:0 1 auto;min-height:auto;background:#060606;
   }
   #resultModalOverlay .rm-photo{width:100%;display:block;border-radius:3px;aspect-ratio:16/9;object-fit:cover;object-position:center top;}
   #resultModalOverlay .rm-youtube{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:3px;}
   #resultModalOverlay .rm-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
   #resultModalOverlay .rm-desc{color:rgba(255,255,255,.42);font-size:.9rem;line-height:1.8;border-left:2px solid rgba(249,115,22,.3);padding-left:1.1rem;}
+  #resultModalLineup{padding:1.15rem 2.5rem 1.4rem;flex-shrink:0;}
+  #resultModalLineup:empty{display:none;}
+  #resultModalOverlay .rm-lineup{display:flex;flex-direction:column;gap:1.1rem;}
+  #resultModalOverlay .rm-lineup__group{display:flex;flex-direction:column;gap:.55rem;}
+  #resultModalOverlay .rm-lineup__title{font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.32);}
+  #resultModalOverlay .rm-lineup__row{display:flex;flex-wrap:wrap;gap:.5rem;}
+  #resultModalOverlay .rm-player{
+    display:flex;align-items:center;gap:.5rem;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:6px;padding:.3rem .65rem .3rem .3rem;
+  }
+  #resultModalOverlay .rm-player img{width:32px;height:32px;border-radius:4px;object-fit:cover;background:rgba(255,255,255,.06);}
+  #resultModalOverlay .rm-player__ph{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:rgba(249,115,22,.15);color:#FF6B1A;font-size:.65rem;font-weight:800;}
+  #resultModalOverlay .rm-player__nick{font-size:.82rem;font-weight:700;color:#fff;}
+  #resultModalOverlay .rm-player__name{font-size:.68rem;color:rgba(255,255,255,.4);}
   @media(max-width:620px){
     #resultModalOverlay .rm-hero{min-height:280px;}
     #resultModalOverlay .rm-matchup{grid-template-columns:1fr;justify-items:center;padding:0 1.25rem 2rem;gap:.75rem;}
@@ -327,6 +399,7 @@ function initResultModal() {
       <button class="rm-close" id="resultModalClose" aria-label="Fermer">×</button>
       <div id="resultModalCinematic"></div>
       <div id="resultModalMeta"></div>
+      <div id="resultModalLineup"></div>
       <div id="resultModalBody"></div>
     </div>`;
   document.body.appendChild(overlay);
@@ -401,6 +474,8 @@ function openResultModal(r) {
   if (r.description) {
     body += `<p class="rm-desc">${escHtml(r.description)}</p>`;
   }
+  const lineupEl = document.getElementById('resultModalLineup');
+  if (lineupEl) lineupEl.innerHTML = renderLineupHtml(r.result_lineup);
   const bodyEl = document.getElementById('resultModalBody');
   bodyEl.innerHTML = body;
   bodyEl.style.display = body ? '' : 'none';
@@ -426,6 +501,43 @@ function openResultModal(r) {
   document.body.style.overflow = 'hidden';
 }
 
+
+const LINEUP_LABELS = { player: 'Line-up', coach: 'Coach', manager: 'Manager' };
+const LINEUP_ORDER = ['player', 'coach', 'manager'];
+
+function renderLineupHtml(rows) {
+  if (!rows?.length) return '';
+  const groups = { player: [], coach: [], manager: [] };
+  rows
+    .slice()
+    .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+    .forEach(row => {
+      const role = LINEUP_LABELS[row.staff_role] ? row.staff_role : 'player';
+      const player = row.players || row.player || (row.nickname ? row : null);
+      if (player) groups[role].push(player);
+    });
+
+  const sections = LINEUP_ORDER
+    .filter(role => groups[role].length)
+    .map(role => {
+      const chips = groups[role].map(p => {
+        const initials = (p.nickname || '?').slice(0, 2).toUpperCase();
+        const img = p.photo_url
+          ? `<img src="${escHtml(p.photo_url)}" alt="" />`
+          : `<span class="rm-player__ph">${escHtml(initials)}</span>`;
+        return `<div class="rm-player">${img}<div>
+          <div class="rm-player__nick">${escHtml(p.nickname || '')}</div>
+          ${p.real_name ? `<div class="rm-player__name">${escHtml(p.real_name)}</div>` : ''}
+        </div></div>`;
+      }).join('');
+      return `<div class="rm-lineup__group">
+        <div class="rm-lineup__title">${LINEUP_LABELS[role]}</div>
+        <div class="rm-lineup__row">${chips}</div>
+      </div>`;
+    }).join('');
+
+  return sections ? `<div class="rm-lineup">${sections}</div>` : '';
+}
 
 function closeResultModal() {
   const overlay = document.getElementById('resultModalOverlay');

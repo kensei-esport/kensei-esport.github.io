@@ -3,25 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Team EVA — Kensei Esport</title>
-  <meta name="description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://esm.sh;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+             connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.ivr.fi;" />
+  <title>Actualités — Kensei Esport</title>
+  <meta name="description" content="Toutes les actualités de Kensei Esport : résultats, recrutements, LAN et coulisses des équipes Valorant et EVA." />
   <link rel="icon" type="image/png" href="../assets/images/orange_logo.png" />
   <link rel="stylesheet" href="../css/main.css" />
   <!-- SEO -->
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://kensei-esport.github.io/pages/team-eva.html" />
+  <link rel="canonical" href="https://kensei-esport.github.io/pages/news.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kensei Esport" />
-  <meta property="og:title" content="Team EVA — Kensei Esport" />
-  <meta property="og:description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
-  <meta property="og:url" content="https://kensei-esport.github.io/pages/team-eva.html" />
+  <meta property="og:title" content="Actualités — Kensei Esport" />
+  <meta property="og:description" content="Toutes les actualités de Kensei Esport : résultats, recrutements, LAN et coulisses." />
+  <meta property="og:url" content="https://kensei-esport.github.io/pages/news.html" />
   <meta property="og:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Team EVA — Kensei Esport" />
-  <meta name="twitter:description" content="Découvrez la team EVA de Kensei Esport, notre équipe d'esport VR compétitif." />
+  <meta name="twitter:title" content="Actualités — Kensei Esport" />
+  <meta name="twitter:description" content="Toutes les actualités de Kensei Esport." />
   <meta name="twitter:image" content="https://kensei-esport.github.io/assets/images/orange_logo.png" />
 </head>
-<body data-game="eva">
+<body>
 
     <nav class="navbar" role="navigation" aria-label="Navigation principale">
     <div class="navbar__inner">
@@ -38,7 +46,7 @@
           <a href="/index.html" class="nav-item__trigger" data-i18n="nav_home">Accueil</a>
         </li>
 
-        <li class="nav-item nav-item--active">
+        <li class="nav-item">
           <button class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">
             <span data-i18n="nav_teams">Teams</span>
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
@@ -48,7 +56,7 @@
               <span class="nav-dropdown__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
               <span class="nav-dropdown__text"><strong data-i18n="teams_all">Toutes les équipes</strong></span>
             </a>
-            <a href="/pages/team-eva.html" class="nav-dropdown__link nav-dropdown__link--active" role="menuitem">
+            <a href="/pages/team-eva.html" class="nav-dropdown__link" role="menuitem">
               <span class="nav-dropdown__icon"><img src="/assets/images/games/eva.png" alt="EVA" width="20" height="20" /></span>
               <span class="nav-dropdown__text"><strong data-i18n="teams_eva">EVA</strong></span>
             </a>
@@ -258,16 +266,15 @@
     <div class="container">
       <nav class="breadcrumb">
         <a href="/index.html">Accueil</a><span class="breadcrumb__sep">›</span>
-        <a href="/pages/teams.html" data-i18n="nav_teams">Teams</a><span class="breadcrumb__sep">›</span>
-        <span>EVA</span>
+        <span data-i18n="news_title">Actualités</span>
       </nav>
       <div class="page-header__content">
         <div class="page-header__icon">
-          <img src="/assets/images/games/eva.png" alt="EVA" width="40" height="40" />
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6Z"/></svg>
         </div>
         <div>
-          <p class="section__label" data-i18n="teams_eva">EVA</p>
-          <h1 style="margin:0">Kensei EVA</h1>
+          <p class="section__label" data-i18n="news_label">Latest</p>
+          <h1 style="margin:0" data-i18n="news_title">Actualités</h1>
         </div>
       </div>
     </div>
@@ -276,10 +283,9 @@
   <main>
     <section class="section">
       <div class="container">
-        <div class="section__header">
-          <div><p class="section__label">Roster</p><h2>Nos joueurs</h2></div>
+        <div class="news-page-grid" id="newsPageGrid">
+          <p class="placeholder" data-i18n="news_empty">Chargement des actualités…</p>
         </div>
-        <div class="roster-grid" id="rosterGrid"><p class="placeholder">Chargement…</p></div>
       </div>
     </section>
   </main>
@@ -333,7 +339,24 @@
     </div>
   </footer>
 
-  <script type="module" src="../js/loader.js"></script>
-  <script type="module" src="../js/team-game.js"></script>
+  <script type="module" src="../js/news.js"></script>
+
+  <div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-label="Article">
+    <div class="article-modal__backdrop" onclick="closeArticleModal()"></div>
+    <div class="am__panel">
+      <div class="am__cover">
+        <button class="am__close" onclick="closeArticleModal()" aria-label="Fermer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="am__body">
+        <span class="am__tag"></span>
+        <h2 class="am__title"></h2>
+        <p class="am__meta"></p>
+        <p class="am__excerpt"></p>
+        <div class="am__content"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -15,6 +15,7 @@ document.querySelectorAll('.js-year').forEach(function (el) {
 
 // "Arrive bientôt" popup for unfinished social links
 (function () {
+  if (document.getElementById('soonModalGlobal')) return;
   const modal = document.createElement('div');
   modal.id = 'soonModalGlobal';
   modal.setAttribute('aria-modal', 'true');

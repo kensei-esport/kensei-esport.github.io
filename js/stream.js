@@ -8,7 +8,11 @@ const TWITCH_CHANNEL = 'kenseiesport';
 
 // ── Init ─────────────────────────────────────────────────────
 
+let _streamInit = false;
+
 export function initStream() {
+  if (_streamInit) return;
+  _streamInit = true;
   // Any remaining data-stream-open elements → redirect to live page
   document.querySelectorAll('[data-stream-open]').forEach(el => {
     el.addEventListener('click', (e) => {

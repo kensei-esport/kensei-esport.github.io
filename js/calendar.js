@@ -7,6 +7,7 @@ import { supabase, isDev } from './auth.js';
 import { initNavbar } from './navbar.js';
 import { applyTranslations } from './i18n.js';
 import { initStream } from './stream.js';
+import { downloadMatchIcs, initMatchModal, openMatchModal } from './match-modal.js';
 
 const MONTH_NAMES = [
   'Janvier','Février','Mars','Avril','Mai','Juin',
@@ -37,7 +38,9 @@ async function init() {
   applyTranslations();
   initNavbar();
   initStream();
+  initMatchModal();
   setupWeekNav();
+  document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
   await loadTeams();
   await loadMatches();
 }
@@ -206,12 +209,12 @@ function renderCalendar() {
   body.querySelectorAll('.cal-event[data-id]').forEach(el => {
     el.addEventListener('click', e => {
       const match = allMatches.find(m => String(m.id) === el.dataset.id);
-      if (match) showPopover(e, match);
+      if (match) openMatchModal(match);
     });
     el.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         const match = allMatches.find(m => String(m.id) === el.dataset.id);
-        if (match) showPopover(e, match);
+        if (match) openMatchModal(match);
       }
     });
   });
@@ -261,7 +264,7 @@ function renderUpcomingList() {
       : '';
 
     return `
-      <div class="match-card">
+      <div class="match-card" data-id="${escHtml(String(m.id))}" role="button" tabindex="0">
         <div class="match-card__date">
           <span class="match-card__day">${day}</span>
           <span class="match-card__month">${mon}</span>
@@ -278,6 +281,20 @@ function renderUpcomingList() {
         <div>${streamBtn}</div>
       </div>`;
   }).join('');
+
+  container.querySelectorAll('.match-card[data-id]').forEach(el => {
+    const open = () => {
+      const match = allMatches.find(m => String(m.id) === el.dataset.id);
+      if (match) openMatchModal(match);
+    };
+    el.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      open();
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
 }
 
 /* ──────────────────────────────────────────── */
@@ -305,6 +322,12 @@ function showPopover(e, match) {
          Regarder le stream
        </a>`
     : '';
+  document.getElementById('calPopIcs').innerHTML =
+    `<button type="button" class="match-card__stream" id="calIcsBtn" style="font-size:0.75rem;cursor:pointer;border:0">Ajouter au calendrier</button>`;
+  document.getElementById('calIcsBtn')?.addEventListener('click', e => {
+    e.stopPropagation();
+    downloadMatchIcs(match);
+  });
 
   // Position
   const rect = e.target.getBoundingClientRect();
